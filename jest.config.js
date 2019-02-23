@@ -8,6 +8,7 @@ module.exports = {
     'js',
     'json',
     'node',
+    "json"
   ],
   testRegex: '(/__tests__/.*|\\.(test|spec))\\.tsx?$',
   testEnvironment: 'node',
@@ -16,5 +17,5 @@ module.exports = {
     'src/**/*.{ts,tsx,js,jsx}',
     '!src/**/*.d.ts',
   ],
-  setupTestFrameworkScriptFile: './test/unit/setup.ts'
+  setupTestFrameworkScriptFile: './test/unit/infra/setup.ts'
 };
