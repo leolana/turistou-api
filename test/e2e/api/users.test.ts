@@ -2,7 +2,7 @@ import * as nock from 'nock';
 import supertest from 'supertest';
 import { runSeed } from 'typeorm-seeding';
 
-import { User } from '../../../src/infra/database/models/User';
+import { User } from '../../../src/domain/entities/User';
 import { CreateBruce } from '../../../src/infra/database/seeds/CreateBruce';
 import { closeDatabase } from '../../utils/database';
 import { BootstrapSettings } from '../utils/bootstrap';

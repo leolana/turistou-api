@@ -98,6 +98,10 @@ module.exports = {
             tmp: {
                 script: rimraf('./.tmp'),
                 hiddenFromHelp: true
+            },
+            distSeeds: {
+              script: rimraf('./seeders'),
+              hiddenFromHelp: true,
             }
         },
         /**
@@ -155,9 +159,12 @@ module.exports = {
             },
             seed: {
                 script: series(
-                    'nps banner.seed',
-                    'nps config',
-                    runFast('./commands/seed.ts')
+                  'nps banner.seed',
+                  'nps config',
+                  'nps clean.distSeeds',
+                  build('src/infra/database/seeds/*.ts', 'seeders'),
+                  'npx md-seed run',
+                  'nps clean.distSeeds'
                 ),
                 description: 'Seeds generated records into the database'
             },
@@ -294,8 +301,8 @@ function copyDir(source, target) {
     return `ncp ${source} ${target}`;
 }
 
-function run(path) {
-    return `ts-node ${path}`;
+function build(pathSource, pathTarget) {
+  return `tsc -t es5 --module CommonJS --outDir ${pathTarget} ${pathSource}`;
 }
 
 function runFast(path) {

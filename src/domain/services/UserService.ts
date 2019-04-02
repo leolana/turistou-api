@@ -2,10 +2,10 @@ import { Service } from 'typedi';
 import { OrmRepository } from 'typeorm-typedi-extensions';
 import uuid from 'uuid';
 
-import { User } from '../../infra/database/models/User';
 import { EventDispatcher, EventDispatcherInterface } from '../../infra/decorators/EventDispatcher';
 import { Logger, LoggerInterface } from '../../infra/decorators/Logger';
 import { UserRepository } from '../../interfaces/repositories/UserRepository';
+import { User } from '../entities/User';
 import { events } from '../subscribers/events';
 
 @Service()

@@ -1,7 +1,9 @@
-import { Authorized, Body, Delete, Get, JsonController, OnUndefined, Param, Post, Put, Req } from 'routing-controllers';
+import {
+    Authorized, Body, Delete, Get, JsonController, OnUndefined, Param, Post, Put, Req
+} from 'routing-controllers';
 
+import { User } from '../../../domain/entities/User';
 import { UserService } from '../../../domain/services/UserService';
-import { User } from '../../../infra/database/models/User';
 import { UserNotFoundError } from '../errors/UserNotFoundError';
 
 @Authorized()

@@ -1,6 +1,8 @@
+import { DateTime } from 'luxon';
 import { Document, Model, model, Schema } from 'mongoose';
 
 import { IUser } from '../../../domain/entities/IUser';
+import { User } from '../../../domain/entities/User';
 
 export interface IUserModel extends IUser, Document {
   fullName(): string;
@@ -16,10 +18,13 @@ export const userSchema: Schema = new Schema({
   updatedAt: Date,
 });
 
-userSchema.pre('save', (next) => {
-  const now = new Date();
+userSchema.pre('save', async (next) => {
+  const now = DateTime.utc();
   if (!userSchema.obj.createdAt) {
     userSchema.obj.createdAt = now;
+  }
+  if (!userSchema.obj.password) {
+    userSchema.obj.password = await User.hashPassword(userSchema.obj.password);
   }
   next();
 });

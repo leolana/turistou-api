@@ -3,10 +3,10 @@ import { OrmRepository } from 'typeorm-typedi-extensions';
 import uuid from 'uuid';
 
 import { Pet } from '../../infra/database/models/Pet';
-import { User } from '../../infra/database/models/User';
 import { EventDispatcher, EventDispatcherInterface } from '../../infra/decorators/EventDispatcher';
 import { Logger, LoggerInterface } from '../../infra/decorators/Logger';
 import { PetRepository } from '../../interfaces/repositories/PetRepository';
+import { User } from '../entities/User';
 import { events } from '../subscribers/events';
 
 @Service()

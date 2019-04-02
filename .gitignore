@@ -19,6 +19,7 @@ typings/
 
 # Dist #
 dist/
+seeders/
 tsconfig.build.json
 
 # IDE #

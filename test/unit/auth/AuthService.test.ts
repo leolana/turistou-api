@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import mockExpressRequest from 'mock-express-request';
-import { User } from 'src/infra/database/models/User';
+import { User } from 'src/domain/entities/User';
 
 import { AuthService } from '../../../src/infra/auth/AuthService';
 import { LogMock } from '../infra/LogMock';

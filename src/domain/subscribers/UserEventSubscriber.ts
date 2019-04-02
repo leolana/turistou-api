@@ -1,7 +1,7 @@
 import { EventSubscriber, On } from 'event-dispatch';
 
-import { User } from '../../infra/database/models/User';
 import { Logger } from '../../infra/logger';
+import { User } from '../entities/User';
 import { events } from './events';
 
 const log = new Logger(__filename);

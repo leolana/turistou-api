@@ -1,6 +1,6 @@
+import { User } from '../../../src/domain/entities/User';
 import { UserService } from '../../../src/domain/services/UserService';
 import { events } from '../../../src/domain/subscribers/events';
-import { User } from '../../../src/infra/database/models/User';
 import { EventDispatcherMock } from '../infra/EventDispatcherMock';
 import { LogMock } from '../infra/LogMock';
 import { RepositoryMock } from '../infra/RepositoryMock';
