@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { Document, Model, model, Schema } from 'mongoose';
+import { Document, Schema } from 'mongoose';
 
 import { IUser } from '../../../domain/entities/IUser';
 import { User } from '../../../domain/entities/User';
@@ -8,7 +8,7 @@ export interface IUserModel extends IUser, Document {
   fullName(): string;
 }
 
-export const userSchema: Schema = new Schema({
+const userSchema: Schema = new Schema({
   email: String,
   firstName: String,
   lastName: String,
@@ -33,4 +33,9 @@ userSchema.methods.fullName = (): string => {
   return `${userSchema.obj.firstName.trim()} ${userSchema.obj.lastName.trim()}`;
 };
 
-export const user: Model<IUserModel> = model<IUserModel>('User', userSchema);
+type DbSchema = { schema: Schema, collectionName: string };
+
+export default {
+  schema: userSchema,
+  collectionName: 'User'
+} as DbSchema;

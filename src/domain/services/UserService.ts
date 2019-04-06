@@ -1,35 +1,35 @@
 import { Service } from 'typedi';
-import { OrmRepository } from 'typeorm-typedi-extensions';
 import uuid from 'uuid';
 
+import userSchema, { IUserModel } from '../../infra/database/schemas/userSchema';
+import { DbModel, ModelInterface } from '../../infra/decorators/DbModel';
 import { EventDispatcher, EventDispatcherInterface } from '../../infra/decorators/EventDispatcher';
 import { Logger, LoggerInterface } from '../../infra/decorators/Logger';
-import { UserRepository } from '../../interfaces/repositories/UserRepository';
 import { User } from '../entities/User';
 import { events } from '../subscribers/events';
 
 @Service()
 export class UserService {
   constructor(
-    @OrmRepository() private userRepository: UserRepository,
     @EventDispatcher() private eventDispatcher: EventDispatcherInterface,
+    @DbModel<IUserModel>(userSchema) private userModel: ModelInterface<IUserModel>,
     @Logger(__filename) private log: LoggerInterface
   ) {}
 
   public find(): Promise<User[]> {
     this.log.info('Find all users');
-    return this.userRepository.find({ relations: ['pets'] });
+    return this.userModel.find({ relations: ['pets'] });
   }
 
   public findOne(id: string): Promise<User | undefined> {
     this.log.info('Find one user');
-    return this.userRepository.findOne({ id });
+    return this.userModel.findOne({ id });
   }
 
   public async create(user: User): Promise<User> {
     this.log.info('Create a new user => ', user.toString());
     user.id = uuid.v1();
-    const newUser = await this.userRepository.save(user);
+    const newUser = await this.userModel.create(user);
     this.eventDispatcher.dispatch(events.user.created, newUser);
     return newUser;
   }
@@ -37,12 +37,12 @@ export class UserService {
   public update(id: string, user: User): Promise<User> {
     this.log.info('Update a user');
     user.id = id;
-    return this.userRepository.save(user);
+    return this.userModel.save(user);
   }
 
   public async delete(id: string): Promise<void> {
     this.log.info('Delete a user');
-    await this.userRepository.delete(id);
+    await this.userModel.delete(id);
     return;
   }
 }
