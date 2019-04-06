@@ -28,7 +28,7 @@ export class UserService {
 
   public async create(user: User): Promise<User> {
     this.log.info('Create a new user => ', user.toString());
-    user.id = uuid.v1();
+    user.id = uuid.v4();
     const newUser = await this.userModel.create(user);
     this.eventDispatcher.dispatch(events.user.created, newUser);
     return newUser;
