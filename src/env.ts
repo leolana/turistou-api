@@ -2,7 +2,9 @@ import * as dotenv from 'dotenv';
 import * as path from 'path';
 
 import * as pkg from '../package.json';
-import { getOsEnv, getOsEnvOptional, getOsPath, getOsPaths, normalizePort, toBool, toNumber } from './infra/env';
+import {
+    getOsEnv, getOsEnvOptional, getOsPath, getOsPaths, normalizePort, toBool, toNumber
+} from './infra/env';
 
 /**
  * Load .env file or for tests the .env.test file.
@@ -29,10 +31,6 @@ export const env = {
     port: normalizePort(process.env.PORT || getOsEnv('APP_PORT')),
     banner: toBool(getOsEnv('APP_BANNER')),
     dirs: {
-      migrations: getOsPaths('TYPEORM_MIGRATIONS'),
-      migrationsDir: getOsPath('TYPEORM_MIGRATIONS_DIR'),
-      entities: getOsPaths('TYPEORM_ENTITIES'),
-      entitiesDir: getOsPath('TYPEORM_ENTITIES_DIR'),
       controllers: getOsPaths('CONTROLLERS'),
       middlewares: getOsPaths('MIDDLEWARES'),
       interceptors: getOsPaths('INTERCEPTORS'),
@@ -46,14 +44,12 @@ export const env = {
     output: getOsEnv('LOG_OUTPUT'),
   },
   db: {
-    type: getOsEnv('TYPEORM_CONNECTION'),
-    host: getOsEnvOptional('TYPEORM_HOST'),
-    port: toNumber(getOsEnvOptional('TYPEORM_PORT')),
-    username: getOsEnvOptional('TYPEORM_USERNAME'),
-    password: getOsEnvOptional('TYPEORM_PASSWORD'),
-    database: getOsEnv('TYPEORM_DATABASE'),
-    synchronize: toBool(getOsEnvOptional('TYPEORM_SYNCHRONIZE')),
-    logging: toBool(getOsEnv('TYPEORM_LOGGING')),
+    uri: getOsEnvOptional('MONGODB_URI'),
+    username: getOsEnvOptional('MONGO_USER'),
+    password: getOsEnvOptional('MONGO_PASS'),
+    authDb: getOsEnv('MONGO_AUTHDB'),
+    debug: toBool(getOsEnvOptional('MONGO_DEBUG')),
+    logging: toBool(getOsEnv('MONGO_LOGGING')),
   },
   graphql: {
     enabled: toBool(getOsEnv('GRAPHQL_ENABLED')),

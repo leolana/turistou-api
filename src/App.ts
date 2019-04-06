@@ -8,10 +8,10 @@ import { expressLoader } from './infra/loaders/expressLoader';
 import { graphqlLoader } from './infra/loaders/graphqlLoader';
 import { homeLoader } from './infra/loaders/homeLoader';
 import { iocLoader } from './infra/loaders/iocLoader';
+import { mongooseLoader } from './infra/loaders/mongooseLoader';
 import { monitorLoader } from './infra/loaders/monitorLoader';
 import { publicLoader } from './infra/loaders/publicLoader';
 import { swaggerLoader } from './infra/loaders/swaggerLoader';
-import { typeormLoader } from './infra/loaders/typeormLoader';
 import { winstonLoader } from './infra/loaders/winstonLoader';
 import { Logger } from './infra/logger';
 
@@ -34,7 +34,7 @@ bootstrapMicroframework({
     winstonLoader,
     iocLoader,
     eventDispatchLoader,
-    typeormLoader,
+    mongooseLoader,
     expressLoader,
     swaggerLoader,
     monitorLoader,
