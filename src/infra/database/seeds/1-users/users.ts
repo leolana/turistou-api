@@ -1,8 +1,4 @@
-import { Seeder } from 'mongoose-data-seed';
-
-import { user } from '../schemas/User';
-
-const data = [
+export = [
   {
     email: 'user1@gmail.com',
     password: '123123',
@@ -34,17 +30,3 @@ const data = [
     isAdmin: false,
   },
 ];
-
-class UsersSeeder extends Seeder {
-  async shouldRun() {
-    return user.countDocuments()
-      .exec()
-      .then(count => count === 0);
-  }
-
-  async run() {
-    return user.create(data);
-  }
-}
-
-export default UsersSeeder;

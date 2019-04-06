@@ -161,10 +161,7 @@ module.exports = {
                 script: series(
                   'nps banner.seed',
                   'nps config',
-                  'nps clean.distSeeds',
-                  build('src/infra/database/seeds/*.ts', 'seeders'),
-                  'npx md-seed run',
-                  'nps clean.distSeeds'
+                  `./node_modules/mongo-seeding-cli/bin/seed.js --drop-database --replace-id --db-name turistou ./src/infra/database/seeds`
                 ),
                 description: 'Seeds generated records into the database'
             },
