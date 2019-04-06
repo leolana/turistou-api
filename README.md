@@ -133,14 +133,6 @@ All script are defined in the `package-scripts.js` file, but the most important 
 - Run `npm start build` to generated all JavaScript files from the TypeScript sources (There is also a vscode task for this called `build`).
 - To start the builded app located in `dist` use `npm start`.
 
-### Database Migration
-
-- Run `typeorm migration:create -n <migration-file-name>` to create a new migration file.
-- Try `typeorm -h` to see more useful cli commands like generating migration out of your models.
-- To migrate your database run `npm start db.migrate`.
-- To revert your latest migration run `npm start db.revert`.
-- Drops the complete database schema `npm start db.drop`.
-
 ### Database Seeding
 
 - Run `npm start db.seed` to seed your seeds into the database.
@@ -166,7 +158,6 @@ The swagger and the monitor route can be altered in the `.env` file.
 | **/swagger**   | This is the Swagger UI with our API documentation |
 | **/monitor**   | Shows a small monitor page for the server |
 | **/api/users** | Example entity endpoint |
-| **/api/pets**  | Example entity endpoint |
 
 ---
 
@@ -358,18 +349,6 @@ The last step is the easiest, just hit the following command in your terminal, b
 ```bash
 npm start db.seed
 ```
-
-#### CLI Interface
-
-| Command                                              | Description |
-| ---------------------------------------------------- | ----------- |
-| `npm start "db.seed"`                               | Run all seeds |
-| `npm start "db.seed --run CreateBruce,CreatePets"`  | Run specific seeds (file names without extension) |
-| `npm start "db.seed -L"`                            | Log database queries to the terminal |
-| `npm start "db.seed --factories <path>"`            | Add a different path to your factories (Default: `src/database/`) |
-| `npm start "db.seed --seeds <path>"`                | Add a different path to your seeds (Default: `src/database/seeds/`) |
-
----
 
 ## ❯ GraphQL
 

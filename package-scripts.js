@@ -37,7 +37,7 @@ module.exports = {
         setup: {
             script: series(
                 'npm install',
-                'nps db.setup',
+                'nps db.seed',
             ),
             description: 'Setup`s the development environment(npm & database)'
         },
@@ -141,22 +141,6 @@ module.exports = {
          * Database scripts
          */
         db: {
-            migrate: {
-                script: series(
-                    'nps banner.migrate',
-                    'nps config',
-                    runFast('./node_modules/typeorm/cli.js migration:run')
-                ),
-                description: 'Migrates the database to newest version available'
-            },
-            revert: {
-                script: series(
-                    'nps banner.revert',
-                    'nps config',
-                    runFast('./node_modules/typeorm/cli.js migration:revert')
-                ),
-                description: 'Downgrades the database'
-            },
             seed: {
                 script: series(
                   'nps banner.seed',
@@ -164,18 +148,6 @@ module.exports = {
                   `./node_modules/mongo-seeding-cli/bin/seed.js --drop-database --replace-id --db-name turistou ./src/infra/database/seeds`
                 ),
                 description: 'Seeds generated records into the database'
-            },
-            drop: {
-                script: runFast('./node_modules/typeorm/cli.js schema:drop'),
-                description: 'Drops the schema of the database'
-            },
-            setup: {
-                script: series(
-                    'nps db.drop',
-                    'nps db.migrate',
-                    'nps db.seed'
-                ),
-                description: 'Recreates the database with seeded data'
             }
         },
         /**
