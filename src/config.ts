@@ -4,7 +4,7 @@ import * as path from 'path';
 import * as pkg from '../package.json';
 import {
     getOsEnv, getOsEnvOptional, getOsPath, getOsPaths, normalizePort, toBool, toNumber
-} from './infra/env';
+} from './infra/environment';
 
 /**
  * Load .env file or for tests the .env.test file.
