@@ -18,7 +18,7 @@ export class CreateUser {
     @Logger(__filename) private logger: LoggerInterface
   ) {}
 
-  public async create(user: User): Promise<IUserModel> {
+  public async execute(user: User): Promise<IUserModel> {
     this.logger.info('Create a new user => ', user.toString());
     user.id = uuid.v4();
     const newUser = await this.userModel.create(user);
