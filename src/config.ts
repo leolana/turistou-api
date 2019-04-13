@@ -16,7 +16,7 @@ dotenv.config({
 /**
  * Environment variables
  */
-export const env = {
+export const config = {
   node: process.env.NODE_ENV || 'development',
   isProduction: process.env.NODE_ENV === 'production',
   isTest: process.env.NODE_ENV === 'test',

@@ -1,6 +1,6 @@
 import supertest from 'supertest';
 
-import { env } from '../../../src/env';
+import { config } from '../../../src/config';
 import { bootstrapApp, BootstrapSettings } from '../utils/bootstrap';
 
 describe('/api', () => {
@@ -22,7 +22,7 @@ describe('/api', () => {
             .expect('Content-Type', /json/)
             .expect(200);
 
-    expect(response.body.version).toBe(env.app.version);
+    expect(response.body.version).toBe(config.app.version);
     done();
   });
 

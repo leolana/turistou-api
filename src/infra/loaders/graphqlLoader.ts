@@ -5,15 +5,15 @@ import * as path from 'path';
 import { buildSchema } from 'type-graphql';
 import { Container } from 'typedi';
 
-import { env } from '../../env';
+import { config } from '../../config';
 import { getErrorCode, getErrorMessage, handlingErrors } from '../graphql';
 
 export const graphqlLoader: MicroframeworkLoader = async (settings: MicroframeworkSettings | undefined) => {
-  if (settings && env.graphql.enabled) {
+  if (settings && config.graphql.enabled) {
     const expressApp = settings.getData('express_app');
 
     const schema = await buildSchema({
-      resolvers: env.app.dirs.resolvers,
+      resolvers: config.app.dirs.resolvers,
       // automatically create `schema.gql` file with schema definition in current folder
       emitSchemaFile: path.resolve(__dirname, '../api', 'schema.gql'),
     });
@@ -21,7 +21,7 @@ export const graphqlLoader: MicroframeworkLoader = async (settings: Microframewo
     handlingErrors(schema);
 
     // Add graphql layer to the express app
-    expressApp.use(env.graphql.route, (request: express.Request, response: express.Response) => {
+    expressApp.use(config.graphql.route, (request: express.Request, response: express.Response) => {
       // Build GraphQLContext
       const requestId = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER); // uuid-like
       const container = Container.of(requestId); // get scoped container
@@ -32,7 +32,7 @@ export const graphqlLoader: MicroframeworkLoader = async (settings: Microframewo
       GraphQLHTTP({
         schema,
         context,
-        graphiql: env.graphql.editor,
+        graphiql: config.graphql.editor,
         formatError: error => ({
           code: getErrorCode(error.message),
           message: getErrorMessage(error.message),

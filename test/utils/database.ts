@@ -1,16 +1,16 @@
 import { Container } from 'typedi';
 import { Connection, createConnection, useContainer } from 'typeorm';
 
-import { env } from '../../src/env';
+import { config } from '../../src/config';
 
 export const createDatabaseConnection = async (): Promise<Connection> => {
   useContainer(Container);
   const connection = await createConnection({
-    type: env.db.type as any, // See createConnection options for valid types
-    database: env.db.database,
-    logging: env.db.logging,
-    entities: env.app.dirs.entities,
-    migrations: env.app.dirs.migrations,
+    type: config.db.type as any, // See createConnection options for valid types
+    database: config.db.database,
+    logging: config.db.logging,
+    entities: config.app.dirs.entities,
+    migrations: config.app.dirs.migrations,
   });
   return connection;
 };

@@ -3,32 +3,32 @@ import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3t
 import * as path from 'path';
 import * as swaggerUi from 'swagger-ui-express';
 
-import { env } from '../../env';
+import { config } from '../../config';
 
 export const swaggerLoader: MicroframeworkLoader = (settings: MicroframeworkSettings | undefined) => {
-  if (settings && env.swagger.enabled) {
+  if (settings && config.swagger.enabled) {
     const expressApp = settings.getData('express_app');
-    const swaggerFile = require(path.join(__dirname, '..', env.swagger.file));
+    const swaggerFile = require(path.join(__dirname, '..', config.swagger.file));
 
     // Add npm infos to the swagger doc
     swaggerFile.info = {
-      title: env.app.name,
-      description: env.app.description,
-      version: env.app.version,
+      title: config.app.name,
+      description: config.app.description,
+      version: config.app.version,
     };
 
     swaggerFile.servers = [
       {
-        url: `${env.app.schema}://${env.app.host}:${env.app.port}${env.app.routePrefix}`,
+        url: `${config.app.schema}://${config.app.host}:${config.app.port}${config.app.routePrefix}`,
       },
     ];
 
     expressApp.use(
-      env.swagger.route,
-      env.swagger.username
+      config.swagger.route,
+      config.swagger.username
         ? basicAuth({
           users: {
-            [`${env.swagger.username}`]: env.swagger.password,
+            [`${config.swagger.username}`]: config.swagger.password,
           },
           challenge: true,
         })
