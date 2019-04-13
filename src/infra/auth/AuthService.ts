@@ -1,16 +1,16 @@
 import * as express from 'express';
 import { Service } from 'typedi';
-import { OrmRepository } from 'typeorm-typedi-extensions';
 
 import { User } from '../../domain/entities/User';
-import { UserRepository } from '../../interfaces/repositories/UserRepository';
+import userSchema, { IUserModel } from '../database/schemas/userSchema';
+import { DbModel, ModelInterface } from '../decorators/DbModel';
 import { Logger, LoggerInterface } from '../decorators/Logger';
 
 @Service()
 export class AuthService {
   constructor(
     @Logger(__filename) private log: LoggerInterface,
-    @OrmRepository() private userRepository: UserRepository
+    @DbModel<IUserModel>(userSchema) private userModel: ModelInterface<IUserModel>
   ) {}
 
   public parseBasicAuthFromRequest(req: express.Request): { username: string; password: string } {
@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   public async validateUser(username: string, password: string): Promise<User> {
-    const user = await this.userRepository.findOne({
+    const user = await this.userModel.findOne({
       where: {
         username,
       },
