@@ -1,7 +1,7 @@
 # Turistou API &nbsp;
 
 **API** developed in **[Node.js][node]** with database
-**[Postgres][postgres]**.
+**[MongoDB][mongodb]**.
 
 ---
 
@@ -527,7 +527,6 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 - [Microsoft/TypeScript-Node-Starter](https://github.com/Microsoft/TypeScript-Node-Starter) - A starter template for TypeScript and Node with a detailed README describing how to use the two together.
 - [express-graphql-typescript-boilerplate](https://github.com/w3tecch/express-graphql-typescript-boilerplate) - A starter kit for building amazing GraphQL API's with TypeScript and express by @w3tecch
-- [aurelia-typescript-boilerplate](https://github.com/w3tecch/aurelia-typescript-boilerplate) - An Aurelia starter kit with TypeScript
 - [Auth0 Mock Server](https://github.com/hirsch88/auth0-mock-server) - Useful for e2e testing or faking an oAuth server
 
 ---
@@ -538,9 +537,9 @@ Made with ♥ by Turistou (https://www.turistou.com.br)
 [node]: https://nodejs.org
 [js]: https://developer.mozilla.org/docs/Web/JavaScript
 [babel]: http://babeljs.io/
-[postgres]: https://www.postgresql.org/
+[mongodb]: https://www.mongodb.com/
 [restify]: http://restify.com/
-[pg]: https://www.postgresql.org/
+[mongoose]: https://mongoosejs.com/
 [code]: https://code.visualstudio.com/
 [eslint]:https://eslint.org
 [docker]: https://www.docker.com/community-edition
