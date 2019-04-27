@@ -1,12 +1,9 @@
 import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
-import mongoose, { Mongoose } from 'mongoose';
+import * as mongoose from 'mongoose';
 
 import { config } from '@config';
 
 export const mongooseLoader: MicroframeworkLoader = async (settings: MicroframeworkSettings | undefined) => {
-  // set mongoose Promise to Bluebird
-  mongoose.Promise = Promise;
-
   // Exit application on error
   mongoose.connection.on('error', (err) => {
     console.log(`MongoDB connection error: ${err}`); // TODO: usar o logger
@@ -20,7 +17,7 @@ export const mongooseLoader: MicroframeworkLoader = async (settings: Microframew
   // print mongoose logs in dev env
   mongoose.set('debug', config.db.debug);
 
-  const database: Mongoose = await mongoose.connect(config.db.uri, {
+  const database: mongoose.Mongoose = await mongoose.connect(config.db.uri, {
     keepAlive: true,
     useNewUrlParser: true
   });

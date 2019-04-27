@@ -13,7 +13,6 @@ const userSchema: Schema = new Schema({
   firstName: String,
   lastName: String,
   password: String,
-  username: String,
   createdAt: Date,
   updatedAt: Date,
 });

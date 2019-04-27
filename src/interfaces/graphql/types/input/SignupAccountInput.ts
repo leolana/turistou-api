@@ -13,63 +13,63 @@ export class SignupAccountInput {
   })
   public email: string;
 
-  @Field()
-  public phone: string;
+  // @Field()
+  // public phone: string;
 
   @Field()
   public password: string;
 
-  @Field()
-  public confirmPassword: string;
+  // @Field()
+  // public confirmPassword: string;
 
-  @Field()
-  public cpf: string;
+  // @Field()
+  // public cpf: string;
 
-  @Field()
-  public gender: string;
+  // @Field()
+  // public gender: string;
 
-  @Field()
-  public zipcode: string;
+  // @Field()
+  // public zipcode: string;
 
-  @Field()
-  public addres: string;
+  // @Field()
+  // public addres: string;
 
-  @Field()
-  public number: string;
+  // @Field()
+  // public number: string;
 
-  @Field()
-  public area: string;
+  // @Field()
+  // public area: string;
 
-  @Field()
-  public complement: string;
+  // @Field()
+  // public complement: string;
 
-  @Field()
-  public state: string;
+  // @Field()
+  // public state: string;
 
-  @Field()
-  public city: string;
+  // @Field()
+  // public city: string;
 
-  @Field()
-  public identityType: string; // PJ: Company and PF: person
+  // @Field()
+  // public identityType: string; // PJ: Company and PF: person
 
-  @Field()
-  public occupationId: string; // ID
+  // @Field()
+  // public occupationId: string; // ID
 
-  @Field()
-  public companyType: string;
+  // @Field()
+  // public companyType: string;
 
-  @Field()
-  public companyName: string;
+  // @Field()
+  // public companyName: string;
 
-  @Field()
-  public tradeName: string;
+  // @Field()
+  // public tradeName: string;
 
-  @Field()
-  public cnpj: string;
+  // @Field()
+  // public cnpj: string;
 
-  @Field()
-  public cadastur: string;
+  // @Field()
+  // public cadastur: string;
 
-  @Field()
-  public cadasturExpirationDate: Date;
+  // @Field()
+  // public cadasturExpirationDate: Date;
 }

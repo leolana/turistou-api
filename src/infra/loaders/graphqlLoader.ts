@@ -21,24 +21,26 @@ export const graphqlLoader: MicroframeworkLoader = async (settings: Microframewo
     handlingErrors(schema);
 
     // Add graphql layer to the express app
-    expressApp.use(config.graphql.route, (request: express.Request, response: express.Response) => {
-      // Build GraphQLContext
-      const requestId = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER); // uuid-like
-      const container = Container.of(requestId); // get scoped container
-      const context = { requestId, container, request, response }; // create our context
-      container.set('context', context); // place context or other data in container
+    expressApp.use(
+      config.graphql.route,
+      async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+        // Build GraphQLContext
+        const requestId = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER); // uuid-like
+        const container = Container.of(requestId); // get scoped container
+        const context = { requestId, container, request, response }; // create our context
+        container.set('context', context); // place context or other data in container
 
-      // Setup GraphQL Server
-      GraphQLHTTP({
-        schema,
-        context,
-        graphiql: config.graphql.editor,
-        formatError: error => ({
-          code: getErrorCode(error.message),
-          message: getErrorMessage(error.message),
-          path: error.path,
-        }),
-      })(request, response);
-    });
+        // Setup GraphQL Server
+        GraphQLHTTP({
+          schema,
+          context,
+          graphiql: config.graphql.editor,
+          formatError: error => ({
+            code: getErrorCode(error.message),
+            message: getErrorMessage(error.message),
+            path: error.path,
+          }),
+        })(request, response, next);
+      });
   }
 };

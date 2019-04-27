@@ -26,7 +26,6 @@ export class User {
   public lastName: string;
   public email: string;
   public password: string;
-  public username: string;
   public toString(): string {
     return `${this.firstName} ${this.lastName} (${this.email})`;
   }

@@ -2,27 +2,27 @@ import * as express from 'express';
 import { Service } from 'typedi';
 
 import { User } from '@domain/entities/User';
-import userSchema, { IUserModel } from '@infra/database/schemas/userSchema';
-import { DbModel, ModelInterface } from '@infra/decorators/DbModel';
+// import userSchema, { IUserModel } from '@infra/database/schemas/userSchema';
+// import { DbModel, ModelInterface } from '@infra/decorators/DbModel';
 import { Logger, LoggerInterface } from '@infra/decorators/Logger';
 
 @Service()
 export class AuthService {
   constructor(
     @Logger(__filename) private log: LoggerInterface,
-    @DbModel<IUserModel>(userSchema) private userModel: ModelInterface<IUserModel>
+    // @DbModel<IUserModel>(userSchema) private userModel: ModelInterface<IUserModel>
   ) {}
 
-  public parseBasicAuthFromRequest(req: express.Request): { username: string; password: string } {
+  public parseBasicAuthFromRequest(req: express.Request): { email: string; password: string } {
     const authorization = req.header('authorization');
 
     if (authorization && authorization.split(' ')[0] === 'Basic') {
       this.log.info('Credentials provided by the client');
       const decodedBase64 = Buffer.from(authorization.split(' ')[1], 'base64').toString('ascii');
-      const username = decodedBase64.split(':')[0];
+      const email = decodedBase64.split(':')[0];
       const password = decodedBase64.split(':')[1];
-      if (username && password) {
-        return { username, password };
+      if (email && password) {
+        return { email, password };
       }
     }
 
@@ -30,16 +30,16 @@ export class AuthService {
     return undefined;
   }
 
-  public async validateUser(username: string, password: string): Promise<User> {
-    const user = await this.userModel.findOne({
-      where: {
-        username,
-      },
-    });
+  public async validateUser(email: string, password: string): Promise<User> {
+    // const user = await this.userModel.findOne({
+    //   where: {
+    //     email,
+    //   },
+    // });
 
-    if (await User.comparePassword(user, password)) {
-      return user;
-    }
+    // if (await User.comparePassword(user, password)) {
+    //   return user;
+    // }
 
     return undefined;
   }

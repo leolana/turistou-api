@@ -21,6 +21,7 @@
   "author": "turistou",
   "dependencies": {
     "bcrypt": "3.0.4",
+    "bluebird": "^3.5.4",
     "chalk": "^2.4.1",
     "class-validator": "^0.9.1",
     "commander": "^2.19.0",
@@ -106,6 +107,7 @@
     "sqlite3": "^4.0.0",
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.2",
+    "tsconfig-paths": "^3.8.0",
     "tslint": "^5.12.1",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.18.0",

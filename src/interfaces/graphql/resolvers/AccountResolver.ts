@@ -1,4 +1,4 @@
-import { Mutation, Resolver, Root } from 'type-graphql';
+import { Arg, Mutation, Resolver } from 'type-graphql';
 import { Service } from 'typedi';
 
 import { CreateUser } from '@domain/usecases/user/CreateUser';
@@ -12,7 +12,7 @@ export class AccountResolver {
   constructor(private createUserUseCase: CreateUser) {}
 
   @Mutation(returns => User)
-  public async signup(@Root() signUpAccount: SignupAccountInput): Promise<any> {
+  public async signup(@Arg('signUpAccount') signUpAccount: SignupAccountInput): Promise<any> {
     return this.createUserUseCase.execute(signUpAccount);
   }
 }
