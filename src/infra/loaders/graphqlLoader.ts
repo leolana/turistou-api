@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { GraphQLHTTP } from 'express-graphql';
+import * as GraphQLHTTP from 'express-graphql';
 import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
 import * as path from 'path';
 import { buildSchema } from 'type-graphql';
@@ -17,9 +17,7 @@ export const graphqlLoader: MicroframeworkLoader = async (settings: Microframewo
       // automatically create `schema.gql` file with schema definition in current folder
       emitSchemaFile: path.resolve(__dirname, '../api', 'schema.gql'),
     });
-
     handlingErrors(schema);
-
     // Add graphql layer to the express app
     expressApp.use(
       config.graphql.route,
@@ -29,7 +27,6 @@ export const graphqlLoader: MicroframeworkLoader = async (settings: Microframewo
         const container = Container.of(requestId); // get scoped container
         const context = { requestId, container, request, response }; // create our context
         container.set('context', context); // place context or other data in container
-
         // Setup GraphQL Server
         GraphQLHTTP({
           schema,

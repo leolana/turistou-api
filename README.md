@@ -17,7 +17,7 @@ Try it!! We are happy to hear your feedback or any kind of new features.
 - **Beautiful Code** thanks to the awesome annotations of the libraries from [pleerock](https://github.com/pleerock).
 - **Easy API Testing** with included e2e testing.
 - **Dependency Injection** done with the nice framework from [TypeDI](https://github.com/pleerock/typedi).
-- **Simplified Database Query** with the ORM [TypeORM](https://github.com/typeorm/typeorm).
+- **Simplified Database Query** with the ORM [Mongoose](https://github.com/mongoose/mongoose).
 - **Clear Structure** with different layers such as controllers, services, repositories, models, middlewares...
 - **Easy Exception Handling** thanks to [routing-controllers](https://github.com/pleerock/routing-controllers).
 - **Smart Validation** thanks to [class-validator](https://github.com/pleerock/class-validator) with some nice annotations.
@@ -27,7 +27,7 @@ Try it!! We are happy to hear your feedback or any kind of new features.
 - **E2E API Testing** thanks to [supertest](https://github.com/visionmedia/supertest).
 - **Basic Security Features** thanks to [Helmet](https://helmetjs.github.io/).
 - **Easy event dispatching** thanks to [event-dispatch](https://github.com/pleerock/event-dispatch).
-- **Fast Database Building** with simple migration from [TypeORM](https://github.com/typeorm/typeorm).
+- **Fast Database Building** with simple migration from [Mongoose](https://github.com/mongoose/mongoose).
 - **Easy Data Seeding** with our own factories.
 - **GraphQL** provides as a awesome query language for our api [GraphQL](http://graphql.org/).
 - **TypeGraphQL** thanks to [TypeGraphQL](https://19majkel94.github.io/type-graphql/) we have a some cool decorators to simplify the usage of GraphQL.
@@ -484,7 +484,7 @@ DB_PORT=3306
 | [Microframework](https://github.com/pleerock/microframework) | Microframework is a simple tool that allows you to execute your modules in a proper order, helping you to organize bootstrap code in your application. |
 | [TypeDI](https://github.com/pleerock/typedi) | Dependency Injection for TypeScript. |
 | [routing-controllers](https://github.com/pleerock/routing-controllers) | Create structured, declarative and beautifully organized class-based controllers with heavy decorators usage in Express / Koa using TypeScript and Routing Controllers Framework. |
-| [TypeORM](http://typeorm.io/#/) | TypeORM is highly influenced by other ORMs, such as Hibernate, Doctrine and Entity Framework. |
+| [Mongoose](http://mongoose.io/#/) | Mongoose is highly influenced by other ORMs, such as Hibernate, Doctrine and Entity Framework. |
 | [class-validator](https://github.com/pleerock/class-validator) | Validation made easy using TypeScript decorators. |
 | [class-transformer](https://github.com/pleerock/class-transformer) | Proper decorator-based transformation / serialization / deserialization of plain javascript objects to class constructors |
 | [event-dispatcher](https://github.com/pleerock/event-dispatch) | Dispatching and listening for application events in Typescript |

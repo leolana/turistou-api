@@ -1,14 +1,11 @@
 import { Action } from 'routing-controllers';
 import { Container } from 'typedi';
-import { Connection } from 'typeorm';
 
 import { Logger } from '@infra/logger';
 
 import { AuthService } from './AuthService';
 
-export function authorizationChecker(
-  connection: Connection
-): (action: Action, roles: any[]) => Promise<boolean> | boolean {
+export function authorizationChecker(): (action: Action, roles: any[]) => Promise<boolean> | boolean {
   const log = new Logger(__filename);
   const authService = Container.get<AuthService>(AuthService);
 
@@ -18,6 +15,10 @@ export function authorizationChecker(
     // you can use them to provide granular access check
     // checker must return either boolean (true or false)
     // either promise that resolves a boolean value
+
+    console.log('-------------------------------');
+    console.log('innerAuthorizationChecker');
+    console.log('-------------------------');
     const credentials = authService.parseBasicAuthFromRequest(action.request);
 
     if (credentials === undefined) {
