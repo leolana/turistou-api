@@ -2,7 +2,7 @@ import * as basicAuth from 'express-basic-auth';
 import * as monitor from 'express-status-monitor';
 import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
 
-import { config } from '../../config';
+import { config } from '@config';
 
 export const monitorLoader: MicroframeworkLoader = (settings: MicroframeworkSettings | undefined) => {
   if (settings && config.monitor.enabled) {

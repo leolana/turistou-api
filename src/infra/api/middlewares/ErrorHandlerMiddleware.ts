@@ -2,8 +2,8 @@ import * as express from 'express';
 import { INTERNAL_SERVER_ERROR } from 'http-status';
 import { ExpressErrorMiddlewareInterface, HttpError, Middleware } from 'routing-controllers';
 
-import { config } from '../../../config';
-import { Logger, LoggerInterface } from '../../decorators/Logger';
+import { config } from '@config';
+import { Logger, LoggerInterface } from '@infra/decorators/Logger';
 
 @Middleware({ type: 'after' })
 export class ErrorHandlerMiddleware implements ExpressErrorMiddlewareInterface {

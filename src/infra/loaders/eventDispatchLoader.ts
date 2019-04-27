@@ -1,7 +1,7 @@
 import * as glob from 'glob';
 import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
 
-import { config } from '../../config';
+import { config } from '@config';
 
 /**
  * eventDispatchLoader

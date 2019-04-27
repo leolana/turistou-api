@@ -1,14 +1,12 @@
 import { Service } from 'typedi';
 import uuid from 'uuid';
 
-import userSchema, { IUserModel } from '../../../infra/database/schemas/userSchema';
-import { DbModel, ModelInterface } from '../../../infra/decorators/DbModel';
-import {
-    EventDispatcher, EventDispatcherInterface
-} from '../../../infra/decorators/EventDispatcher';
-import { Logger, LoggerInterface } from '../../../infra/decorators/Logger';
 // import { User } from '../../entities/User';
-import { events } from '../../subscribers/events';
+import { events } from '@domain/subscribers/events';
+import userSchema, { IUserModel } from '@infra/database/schemas/userSchema';
+import { DbModel, ModelInterface } from '@infra/decorators/DbModel';
+import { EventDispatcher, EventDispatcherInterface } from '@infra/decorators/EventDispatcher';
+import { Logger, LoggerInterface } from '@infra/decorators/Logger';
 
 @Service()
 export class CreateUser {

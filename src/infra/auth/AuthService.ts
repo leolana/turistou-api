@@ -1,10 +1,10 @@
 import * as express from 'express';
 import { Service } from 'typedi';
 
-import { User } from '../../domain/entities/User';
-import userSchema, { IUserModel } from '../database/schemas/userSchema';
-import { DbModel, ModelInterface } from '../decorators/DbModel';
-import { Logger, LoggerInterface } from '../decorators/Logger';
+import { User } from '@domain/entities/User';
+import userSchema, { IUserModel } from '@infra/database/schemas/userSchema';
+import { DbModel, ModelInterface } from '@infra/decorators/DbModel';
+import { Logger, LoggerInterface } from '@infra/decorators/Logger';
 
 @Service()
 export class AuthService {

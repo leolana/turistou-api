@@ -5,8 +5,8 @@ import * as path from 'path';
 import { buildSchema } from 'type-graphql';
 import { Container } from 'typedi';
 
-import { config } from '../../config';
-import { getErrorCode, getErrorMessage, handlingErrors } from '../graphql';
+import { config } from '@config';
+import { getErrorCode, getErrorMessage, handlingErrors } from '@infra/graphql';
 
 export const graphqlLoader: MicroframeworkLoader = async (settings: MicroframeworkSettings | undefined) => {
   if (settings && config.graphql.enabled) {

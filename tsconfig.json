@@ -38,6 +38,14 @@
             "es2015.symbol",
             "es2015.symbol.wellknown",
             "esnext.asynciterable"
-        ]
+        ],
+        "paths": {
+          "@config": ["src/config.ts"],
+          "@App": ["src/App.ts"],
+          "@Context": ["src/Context.ts"],
+          "@infra/*": ["src/infra/*"],
+          "@domain/*": ["src/domain/*"],
+          "@interfaces/*": ["src/interfaces/*"]
+        }
     }
 }

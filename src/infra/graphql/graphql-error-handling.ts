@@ -2,8 +2,8 @@
 import { GraphQLObjectType, GraphQLSchema } from 'graphql';
 import * as uuid from 'uuid';
 
-import { config } from '../../config';
-import { Logger } from '../logger';
+import { config } from '@config';
+import { Logger } from '@infra/logger';
 
 // This feature is a copy from https://github.com/kadirahq/graphql-errors
 const logger = new Logger('app:errors');

@@ -2,9 +2,9 @@ import { Application } from 'express';
 import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
 import { createExpressServer } from 'routing-controllers';
 
-import { config } from '../../config';
-import { authorizationChecker } from '../auth/authorizationChecker';
-import { currentUserChecker } from '../auth/currentUserChecker';
+import { config } from '@config';
+import { authorizationChecker } from '@infra/auth/authorizationChecker';
+import { currentUserChecker } from '@infra/auth/currentUserChecker';
 
 export const expressLoader: MicroframeworkLoader = (settings: MicroframeworkSettings | undefined) => {
   if (settings) {

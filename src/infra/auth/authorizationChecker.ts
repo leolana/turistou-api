@@ -2,7 +2,8 @@ import { Action } from 'routing-controllers';
 import { Container } from 'typedi';
 import { Connection } from 'typeorm';
 
-import { Logger } from '../logger';
+import { Logger } from '@infra/logger';
+
 import { AuthService } from './AuthService';
 
 export function authorizationChecker(

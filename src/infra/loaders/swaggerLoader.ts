@@ -3,7 +3,7 @@ import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3t
 import * as path from 'path';
 import * as swaggerUi from 'swagger-ui-express';
 
-import { config } from '../../config';
+import { config } from '@config';
 
 export const swaggerLoader: MicroframeworkLoader = (settings: MicroframeworkSettings | undefined) => {
   if (settings && config.swagger.enabled) {

@@ -1,7 +1,7 @@
 import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
 import { configure, format, transports } from 'winston';
 
-import { config } from '../../config';
+import { config } from '@config';
 
 export const winstonLoader: MicroframeworkLoader = (settings: MicroframeworkSettings | undefined) => {
   configure({

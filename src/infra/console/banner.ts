@@ -1,5 +1,5 @@
-import { config } from '../../config';
-import { Logger } from '../logger';
+import { config } from '@config';
+import { Logger } from '@infra/logger';
 
 export function banner(log: Logger): void {
   if (config.app.banner) {

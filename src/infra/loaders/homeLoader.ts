@@ -1,7 +1,7 @@
 import * as express from 'express';
 import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
 
-import { config } from '../../config';
+import { config } from '@config';
 
 export const homeLoader: MicroframeworkLoader = (settings: MicroframeworkSettings | undefined) => {
   if (settings) {

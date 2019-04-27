@@ -3,7 +3,7 @@ import * as expressWinston from 'express-winston';
 import { ExpressMiddlewareInterface, Middleware } from 'routing-controllers';
 import { format, transports } from 'winston';
 
-import { config } from '../../../config';
+import { config } from '@config';
 
 @Middleware({ type: 'before' })
 export class LogRequestMiddleware implements ExpressMiddlewareInterface {

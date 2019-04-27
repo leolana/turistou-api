@@ -1,7 +1,7 @@
 import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
 import mongoose, { Mongoose } from 'mongoose';
 
-import { config } from '../../config';
+import { config } from '@config';
 
 export const mongooseLoader: MicroframeworkLoader = async (settings: MicroframeworkSettings | undefined) => {
   // set mongoose Promise to Bluebird

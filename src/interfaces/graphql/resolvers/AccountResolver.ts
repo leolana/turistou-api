@@ -1,7 +1,8 @@
 import { Mutation, Resolver, Root } from 'type-graphql';
 import { Service } from 'typedi';
 
-import { CreateUser } from '../../../domain/usecases/user/CreateUser';
+import { CreateUser } from '@domain/usecases/user/CreateUser';
+
 import { SignupAccountInput } from '../types/input/SignupAccountInput';
 import { User } from '../types/User';
 

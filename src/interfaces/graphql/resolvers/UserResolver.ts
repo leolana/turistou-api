@@ -1,8 +1,9 @@
-import { FieldResolver, Query, Resolver, Root } from 'type-graphql';
+import { FieldResolver, Resolver, Root } from 'type-graphql';
 import { Service } from 'typedi';
 
-import { User as UserModel } from '../../../domain/entities/User';
-import { CreateUser } from '../../../domain/usecases/user/CreateUser';
+import { User as UserModel } from '@domain/entities/User';
+import { CreateUser } from '@domain/usecases/user/CreateUser';
+
 import { User } from '../types/User';
 
 @Service()

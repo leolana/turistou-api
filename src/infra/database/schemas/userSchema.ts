@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon';
 import { Document, Schema } from 'mongoose';
 
-import { IUser } from '../../../domain/entities/IUser';
-import { User } from '../../../domain/entities/User';
+import { IUser } from '@domain/entities/IUser';
+import { User } from '@domain/entities/User';
 
 export interface IUserModel extends IUser, Document {
   fullName(): string;
