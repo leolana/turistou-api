@@ -22,7 +22,6 @@ Try it!! We are happy to hear your feedback or any kind of new features.
 - **Easy Exception Handling** thanks to [routing-controllers](https://github.com/pleerock/routing-controllers).
 - **Smart Validation** thanks to [class-validator](https://github.com/pleerock/class-validator) with some nice annotations.
 - **Custom Validators** to validate your request even better and stricter. [custom-validation-classes](https://github.com/pleerock/class-validator#custom-validation-classes).
-- **API Documentation** thanks to [swagger](http://swagger.io/).
 - **API Monitoring** thanks to [express-status-monitor](https://github.com/RafalWilinski/express-status-monitor).
 - **Integrated Testing Tool** thanks to [Jest](https://facebook.github.io/jest).
 - **E2E API Testing** thanks to [supertest](https://github.com/visionmedia/supertest).
@@ -149,13 +148,11 @@ Then, just set a breakpoint and hit <kbd>F5</kbd> in your Visual Studio Code.
 ## ❯ API Routes
 
 The route prefix is `/api` by default, but you can change this in the .env file.
-The swagger and the monitor route can be altered in the `.env` file.
 
 | Route          | Description |
 | -------------- | ----------- |
 | **/api**       | Shows us the name, description and the version of the package.json |
 | **/graphql**   | Route to the graphql editor or your query/mutations requests |
-| **/swagger**   | This is the Swagger UI with our API documentation |
 | **/monitor**   | Shows a small monitor page for the server |
 | **/api/users** | Example entity endpoint |
 
@@ -182,7 +179,6 @@ The swagger and the monitor route can be altered in the `.env` file.
 | **src/api/resolvers/**            | GraphQL resolvers (query, mutation & field-resolver) |
 | **src/api/types/**                | GraphQL types ,input-types and scalar types |
 | **src/api/** schema.gql           | Generated GraphQL schema |
-| **src/api/** swagger.json         | Swagger documentation |
 | **src/auth/**                     | Authentication checkers and services |
 | **src/core/**                     | The core features like logger and env variables |
 | **src/database/factories**        | Factory the generate fake entities |
@@ -497,7 +493,6 @@ DB_PORT=3306
 | [Jest](http://facebook.github.io/jest/) | Delightful JavaScript Testing Library for unit and e2e tests |
 | [supertest](https://github.com/visionmedia/supertest) | Super-agent driven library for testing node.js HTTP servers using a fluent API |
 | [nock](https://github.com/node-nock/nock) | HTTP mocking and expectations library |
-| [swagger Documentation](http://swagger.io/) | API Tool to describe and document your api. |
 | [SQLite Documentation](https://www.sitepoint.com/getting-started-sqlite3-basic-commands/) | Getting Started with SQLite3 – Basic Commands. |
 | [GraphQL Documentation](http://graphql.org/graphql-js/) | A query language for your API. |
 | [DataLoader Documentation](https://github.com/facebook/dataloader) | DataLoader is a generic utility to be used as part of your application's data fetching layer to provide a consistent API over various backends and reduce requests to those backends via batching and caching. |

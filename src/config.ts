@@ -56,13 +56,6 @@ export const config = {
     route: getOsEnv('GRAPHQL_ROUTE'),
     editor: toBool(getOsEnv('GRAPHQL_EDITOR')),
   },
-  swagger: {
-    enabled: toBool(getOsEnv('SWAGGER_ENABLED')),
-    route: getOsEnv('SWAGGER_ROUTE'),
-    file: getOsEnv('SWAGGER_FILE'),
-    username: getOsEnv('SWAGGER_USERNAME'),
-    password: getOsEnv('SWAGGER_PASSWORD'),
-  },
   monitor: {
     enabled: toBool(getOsEnv('MONITOR_ENABLED')),
     route: getOsEnv('MONITOR_ROUTE'),

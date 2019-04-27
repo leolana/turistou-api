@@ -11,7 +11,6 @@ import { iocLoader } from '@infra/loaders/iocLoader';
 import { mongooseLoader } from '@infra/loaders/mongooseLoader';
 import { monitorLoader } from '@infra/loaders/monitorLoader';
 import { publicLoader } from '@infra/loaders/publicLoader';
-import { swaggerLoader } from '@infra/loaders/swaggerLoader';
 import { winstonLoader } from '@infra/loaders/winstonLoader';
 import { Logger } from '@infra/logger';
 
@@ -36,7 +35,6 @@ bootstrapMicroframework({
     eventDispatchLoader,
     mongooseLoader,
     expressLoader,
-    swaggerLoader,
     monitorLoader,
     homeLoader,
     publicLoader,
