@@ -1,4 +1,4 @@
-import compression from 'compression';
+import * as compression from 'compression';
 import * as express from 'express';
 import { ExpressMiddlewareInterface, Middleware } from 'routing-controllers';
 
