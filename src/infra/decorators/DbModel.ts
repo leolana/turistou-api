@@ -1,7 +1,7 @@
 import { Document, model, Model } from 'mongoose';
 import { Container } from 'typedi';
 
-import { DbSchema } from '../database/schemas/DbSchema';
+import { DbSchema } from '@infra/database/schemas/DbSchema';
 
 // tslint:disable-next-line:function-name
 export function DbModel<T extends Document>(collection: DbSchema) {
