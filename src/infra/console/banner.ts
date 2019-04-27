@@ -16,9 +16,6 @@ export function banner(log: Logger): void {
     if (config.graphql.enabled) {
       log.info(`GraphQL      : ${route()}${config.graphql.route}`);
     }
-    if (config.swagger.enabled) {
-      log.info(`Swagger      : ${route()}${config.swagger.route}`);
-    }
     if (config.monitor.enabled) {
       log.info(`Monitor      : ${route()}${config.monitor.route}`);
     }
