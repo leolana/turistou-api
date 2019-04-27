@@ -16,9 +16,6 @@ export function authorizationChecker(): (action: Action, roles: any[]) => Promis
     // checker must return either boolean (true or false)
     // either promise that resolves a boolean value
 
-    console.log('-------------------------------');
-    console.log('innerAuthorizationChecker');
-    console.log('-------------------------');
     const credentials = authService.parseBasicAuthFromRequest(action.request);
 
     if (credentials === undefined) {
