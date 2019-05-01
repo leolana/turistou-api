@@ -23,7 +23,7 @@ export const mongooseLoader: MicroframeworkLoader = async (settings: Microframew
   });
 
   if (settings) {
-    settings.setData('connection', database.connection);
+    settings.setData('connection', database);
     settings.onShutdown(() => database.connection.close());
   }
 };

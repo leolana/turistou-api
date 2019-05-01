@@ -4,6 +4,28 @@ import * as passport from 'passport';
 import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt';
 import { Strategy as LocalStrategy } from 'passport-local';
 
+import { AuthenticationResult } from '@infra/auth/auth';
+import { userModel } from '@infra/database/schemas/userSchema';
+
+const authentication = async (
+  username: string,
+  password: string
+): Promise<AuthenticationResult> => {
+  const result: any[] = await userModel.find({});
+  console.log(result);
+
+  if (result) {
+    return {
+      user: {
+        username,
+        name: result[0].firstName,
+      }
+    };
+  }
+
+  return { error: 'Invalid username or password' };
+};
+
 export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkSettings | undefined) => {
   if (settings) {
     const expressApp: express.Application = settings.getData('express_app');
@@ -16,10 +38,17 @@ export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkS
       new LocalStrategy(
         { passReqToCallback: false },
         async (username, password, done) => {
-          const authenticationResult = { user: { email: 'teste@teste.com' } };
-          // if (authenticationResult.error) {
-          //   return done(authenticationResult.error);
-          // }
+          const result = await userModel.find({});
+          console.log(result);
+
+          const authenticationResult = await authentication(
+            username,
+            password
+          );
+
+          if (authenticationResult.error) {
+            return done(authenticationResult.error);
+          }
 
           return done(undefined, authenticationResult.user);
         },

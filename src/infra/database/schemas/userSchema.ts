@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { Document, Schema } from 'mongoose';
+import * as mongoose from 'mongoose';
 
 import { IUser } from '@domain/entities/IUser';
 import { User } from '@domain/entities/User';
@@ -8,13 +8,14 @@ export interface IUserModel extends IUser, Document {
   fullName(): string;
 }
 
-const userSchema: Schema = new Schema({
-  email: String,
-  firstName: String,
-  lastName: String,
-  password: String,
-  createdAt: Date,
-  updatedAt: Date,
+const userSchema: mongoose.Schema = new mongoose.Schema({
+  _id: mongoose.Schema.Types.ObjectId,
+  email: mongoose.Schema.Types.String,
+  firstName: mongoose.Schema.Types.String,
+  lastName: mongoose.Schema.Types.String,
+  password: mongoose.Schema.Types.String,
+  createdAt: mongoose.Schema.Types.Date,
+  updatedAt: mongoose.Schema.Types.Date,
 });
 
 userSchema.pre('save', async (next) => {
@@ -32,9 +33,11 @@ userSchema.methods.fullName = (): string => {
   return `${userSchema.obj.firstName.trim()} ${userSchema.obj.lastName.trim()}`;
 };
 
-type DbSchema = { schema: Schema, collectionName: string };
+type DbSchema = { schema: mongoose.Schema, collectionName: string };
 
 export default {
   schema: userSchema,
   collectionName: 'User'
 } as DbSchema;
+
+export const userModel = mongoose.model('User', userSchema);
