@@ -5,7 +5,7 @@ export function banner(log: Logger): void {
   if (config.app.banner) {
     const route = () => `${config.app.schema}://${config.app.host}:${config.app.port}`;
     log.info('');
-    log.info(`Aloha, your app is ready on ${route()}${config.app.routePrefix}`);
+    log.info(`🚀 Server ready on ${route()}${config.app.routePrefix}`);
     log.info('To shut it down, press <CTRL> + C at any time.');
     log.info('');
     log.info('-------------------------------------------------------');

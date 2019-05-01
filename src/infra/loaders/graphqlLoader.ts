@@ -6,21 +6,40 @@ import { buildSchema } from 'type-graphql';
 import { Container } from 'typedi';
 
 import { config } from '@config';
+import { authorizationChecker } from '@infra/auth/authorizationChecker';
 import { getErrorCode, getErrorMessage, handlingErrors } from '@infra/graphql';
 
 export const graphqlLoader: MicroframeworkLoader = async (settings: MicroframeworkSettings | undefined) => {
   if (settings && config.graphql.enabled) {
-    const expressApp = settings.getData('express_app');
+    const expressApp: express.Application = settings.getData('express_app');
+    const passport = settings.getData('passport');
 
     const schema = await buildSchema({
       resolvers: config.app.dirs.resolvers,
       // automatically create `schema.gql` file with schema definition in current folder
       emitSchemaFile: path.resolve(__dirname, '../api', 'schema.gql'),
+      container: Container,
+      authChecker: authorizationChecker,
     });
+
     handlingErrors(schema);
     // Add graphql layer to the express app
     expressApp.use(
       config.graphql.route,
+      async (request: any, response: express.Response, next: express.NextFunction) => {
+        console.log('----------------- auth auth auth auth auth --------------------');
+        passport.authenticate(
+          'jwt',
+          { session: false },
+          (err: unknown, user: string, info: unknown) => {
+            if (user) {
+              request.user = user;
+            }
+
+            next();
+          },
+        )(request, response, next);
+      },
       async (request: express.Request, response: express.Response, next: express.NextFunction) => {
         // Build GraphQLContext
         const requestId = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER); // uuid-like
@@ -32,11 +51,20 @@ export const graphqlLoader: MicroframeworkLoader = async (settings: Microframewo
           schema,
           context,
           graphiql: config.graphql.editor,
-          formatError: error => ({
-            code: getErrorCode(error.message),
-            message: getErrorMessage(error.message),
-            path: error.path,
-          }),
+          customFormatErrorFn: (error) => {
+            console.log('----------- error handling -----------');
+            console.log(error);
+            console.log(error.message);
+            const mko = {
+              code: getErrorCode(error.message),
+              message: getErrorMessage(error.message),
+              path: error.path,
+            };
+
+            console.log(mko);
+
+            return mko;
+          },
         })(request, response, next);
       });
   }

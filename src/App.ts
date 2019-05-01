@@ -3,6 +3,7 @@ import 'reflect-metadata';
 import { bootstrapMicroframework } from 'microframework-w3tec';
 
 import { banner } from '@infra/console/banner';
+import { authLoader } from '@infra/loaders/authLoader';
 import { eventDispatchLoader } from '@infra/loaders/eventDispatchLoader';
 import { expressLoader } from '@infra/loaders/expressLoader';
 import { graphqlLoader } from '@infra/loaders/graphqlLoader';
@@ -35,6 +36,7 @@ bootstrapMicroframework({
     eventDispatchLoader,
     mongooseLoader,
     expressLoader,
+    authLoader,
     monitorLoader,
     homeLoader,
     publicLoader,
