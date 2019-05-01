@@ -9,6 +9,7 @@ import { expressLoader } from '@infra/loaders/expressLoader';
 import { graphqlLoader } from '@infra/loaders/graphqlLoader';
 import { homeLoader } from '@infra/loaders/homeLoader';
 import { iocLoader } from '@infra/loaders/iocLoader';
+import { loginLoader } from '@infra/loaders/loginLoader';
 import { mongooseLoader } from '@infra/loaders/mongooseLoader';
 import { monitorLoader } from '@infra/loaders/monitorLoader';
 import { publicLoader } from '@infra/loaders/publicLoader';
@@ -40,8 +41,9 @@ bootstrapMicroframework({
     monitorLoader,
     homeLoader,
     publicLoader,
+    loginLoader,
     graphqlLoader,
   ],
 })
   .then(() => banner(log))
-  .catch(error => log.error(`Application is crashed: ${error}`));
+  .catch(console.log);

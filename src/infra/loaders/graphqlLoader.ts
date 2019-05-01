@@ -6,6 +6,7 @@ import { buildSchema } from 'type-graphql';
 import { Container } from 'typedi';
 
 import { config } from '@config';
+import { Context } from '@Context';
 import { authorizationChecker } from '@infra/auth/authorizationChecker';
 import { getErrorCode, getErrorMessage, handlingErrors } from '@infra/graphql';
 
@@ -27,7 +28,6 @@ export const graphqlLoader: MicroframeworkLoader = async (settings: Microframewo
     expressApp.use(
       config.graphql.route,
       async (request: any, response: express.Response, next: express.NextFunction) => {
-        console.log('----------------- auth auth auth auth auth --------------------');
         passport.authenticate(
           'jwt',
           { session: false },
@@ -44,27 +44,18 @@ export const graphqlLoader: MicroframeworkLoader = async (settings: Microframewo
         // Build GraphQLContext
         const requestId = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER); // uuid-like
         const container = Container.of(requestId); // get scoped container
-        const context = { requestId, container, request, response }; // create our context
+        const context = { requestId, container, request, response, next, passport } as Context; // create our context
         container.set('context', context); // place context or other data in container
         // Setup GraphQL Server
         GraphQLHTTP({
           schema,
           context,
           graphiql: config.graphql.editor,
-          customFormatErrorFn: (error) => {
-            console.log('----------- error handling -----------');
-            console.log(error);
-            console.log(error.message);
-            const mko = {
-              code: getErrorCode(error.message),
-              message: getErrorMessage(error.message),
-              path: error.path,
-            };
-
-            console.log(mko);
-
-            return mko;
-          },
+          customFormatErrorFn: error => ({
+            code: getErrorCode(error.message),
+            message: getErrorMessage(error.message),
+            path: error.path
+          }),
         })(request, response, next);
       });
   }

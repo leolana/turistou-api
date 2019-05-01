@@ -18,7 +18,7 @@ export const authorizationChecker: AuthChecker<any> = (
   // and check his permission in the db against the `roles` argument
   // that comes from the `@Authorized` decorator, eg. ["ADMIN", "MODERATOR"]
 
-  return false; // or false if access is denied
+  return true; // or false if access is denied
 };
 
 // export function authorizationChecker(): (action: Action, roles: any[]) => Promise<boolean> | boolean {

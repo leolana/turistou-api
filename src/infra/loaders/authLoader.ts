@@ -8,8 +8,6 @@ export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkS
   if (settings) {
     const expressApp: express.Application = settings.getData('express_app');
 
-    console.log('--------------- passport config -------------------');
-
     expressApp.use(passport.initialize());
     expressApp.use(passport.session());
 
@@ -18,7 +16,6 @@ export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkS
       new LocalStrategy(
         { passReqToCallback: false },
         async (username, password, done) => {
-          console.log('-------local strategy----------------');
           const authenticationResult = { user: { email: 'teste@teste.com' } };
           // if (authenticationResult.error) {
           //   return done(authenticationResult.error);
@@ -61,8 +58,7 @@ export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkS
 
     passport.use(
       new JWTStrategy({ jwtFromRequest, secretOrKey }, async (payload, done) => {
-        console.log('-------jwt strategy----------------');
-        // return done(undefined, payload);
+        return done(undefined, payload);
 
         // const userRepository = new UserRepository(getConnection());
 
