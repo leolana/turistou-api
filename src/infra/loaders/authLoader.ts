@@ -11,14 +11,13 @@ const authentication = async (
   username: string,
   password: string
 ): Promise<AuthenticationResult> => {
-  const result: any[] = await userModel.find({});
-  console.log(result);
+  const result: any = await userModel.find({ email: username });
 
   if (result) {
     return {
       user: {
         username,
-        name: result[0].firstName,
+        name: result.firstName,
       }
     };
   }
@@ -38,9 +37,6 @@ export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkS
       new LocalStrategy(
         { passReqToCallback: false },
         async (username, password, done) => {
-          const result = await userModel.find({});
-          console.log(result);
-
           const authenticationResult = await authentication(
             username,
             password
