@@ -4,6 +4,8 @@ import * as mongoose from 'mongoose';
 import { IUser } from '@domain/entities/IUser';
 import { User } from '@domain/entities/User';
 
+import { DbSchema } from './DbSchema';
+
 export interface IUserModel extends IUser, Document {
   fullName(): string;
 }
@@ -33,11 +35,11 @@ userSchema.methods.fullName = (): string => {
   return `${userSchema.obj.firstName.trim()} ${userSchema.obj.lastName.trim()}`;
 };
 
-type DbSchema = { schema: mongoose.Schema, collectionName: string };
+const collectionName = 'User';
+
+export const userModel = mongoose.model(collectionName, userSchema);
 
 export default {
+  collectionName,
   schema: userSchema,
-  collectionName: 'User'
 } as DbSchema;
-
-export const userModel = mongoose.model('User', userSchema);

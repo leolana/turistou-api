@@ -4,6 +4,8 @@ import * as passport from 'passport';
 import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt';
 import { Strategy as LocalStrategy } from 'passport-local';
 
+import { config } from '@config';
+import { IUser } from '@domain/entities/IUser';
 import { AuthenticationResult } from '@infra/auth/auth';
 import { userModel } from '@infra/database/schemas/userSchema';
 
@@ -51,54 +53,48 @@ export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkS
       ),
     );
 
-    // passport.serializeUser<User, string>((user, done) =>
-    passport.serializeUser<any, string>((user, done) =>
+    passport.serializeUser<IUser, string>((user, done) =>
       done(null, user.username),
     );
 
-    // passport.deserializeUser<User, string>(async (id, done) => {
-    passport.deserializeUser<any, string>(async (id, done) => {
-      // const userRepo = getRepository(UserEntity);
+    passport.deserializeUser<IUser, string>(async (id, done) => {
+      const result: any = await userModel.findOne({
+        username: id,
+        active: true,
+      })
+      .select('_id firstName lastName active')
+      .exec();
 
-      // const result = await userRepo.findOne({
-      //   select: ['id', 'name', 'active'],
-      //   where: { username: id, active: true },
-      // });
-
-      const result = { email: 'teste@teste.com' };
+      const user = {
+        id: result._id,
+        firstName: result.firstName,
+        lastName: result.lastName,
+        active: result.active
+      } as IUser;
 
       if (result) {
-        return done(null, result);
+        return done(null, user);
       }
 
       return done('user not found', undefined);
     });
 
     const jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-    // const secretOrKey = config.security
-    //   ? config.security.authenticationSecret
-    //   : '';
-
-    const secretOrKey = 'fsdfsdfsd';
+    const secretOrKey = config.auth.authSecret;
 
     passport.use(
       new JWTStrategy({ jwtFromRequest, secretOrKey }, async (payload, done) => {
-        return done(undefined, payload);
+        const result = await userModel
+          .findOne({
+            username: payload.username,
+            active: true,
+          });
 
-        // const userRepository = new UserRepository(getConnection());
+        if (result) {
+          return done(undefined, payload);
+        }
 
-        // const result = await userRepository
-        //   .find(['id', 'name', 'active'], {
-        //     username: jwt_payload.username,
-        //     active: true,
-        //   })
-        //   .getOne();
-
-        // if (result) {
-        //   return done(undefined, payload);
-        // }
-
-        // return done('User not found', false);
+        return done('User not found', false);
       }),
     );
 

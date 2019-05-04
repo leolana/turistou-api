@@ -36,6 +36,9 @@ export const config = {
       resolvers: getOsPaths('RESOLVERS'),
     },
   },
+  auth: {
+    authSecret: getOsEnv('AUTH_SECRET'),
+  },
   log: {
     level: getOsEnv('LOG_LEVEL'),
     json: toBool(getOsEnvOptional('LOG_JSON')),
