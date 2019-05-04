@@ -5,9 +5,8 @@ import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt';
 import { Strategy as LocalStrategy } from 'passport-local';
 
 import { config } from '@config';
-import { IUser } from '@domain/entities/IUser';
 import { AuthenticationResult } from '@infra/auth/auth';
-import { userModel } from '@infra/database/schemas/userSchema';
+import { IUserModel, userModel } from '@infra/database/schemas/userSchema';
 
 const authentication = async (
   username: string,
@@ -53,11 +52,11 @@ export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkS
       ),
     );
 
-    passport.serializeUser<IUser, string>((user, done) => {
+    passport.serializeUser<IUserModel, string>((user, done) => {
       done(null, user.username);
     });
 
-    passport.deserializeUser<IUser, string>(async (id, done) => {
+    passport.deserializeUser<IUserModel, string>(async (id, done) => {
       const result: any = await userModel.findOne({
         email: id,
         active: true,
@@ -70,7 +69,7 @@ export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkS
         firstName: result.firstName,
         lastName: result.lastName,
         active: result.active
-      } as IUser;
+      } as IUserModel;
 
       if (result) {
         return done(null, user);

@@ -1,7 +1,6 @@
 import { Service } from 'typedi';
-import uuid from 'uuid';
 
-// import { User } from '../../entities/User';
+import { IUser } from '@domain//entities/IUser';
 import { events } from '@domain/subscribers/events';
 import userSchema, { IUserModel } from '@infra/database/schemas/userSchema';
 import { DbModel, ModelInterface } from '@infra/decorators/DbModel';
@@ -16,10 +15,11 @@ export class CreateUser {
     @Logger(__filename) private logger: LoggerInterface
   ) {}
 
-  public async execute(user: any): Promise<IUserModel> {
-    this.logger.info('Create a new user => ', user.toString());
-    user.id = uuid.v4();
-    const newUser = await this.userModel.create(user);
+  public async execute(userEntity: IUser): Promise<IUserModel> {
+    this.logger.info('Create a new user => ', userEntity.toString());
+
+    const userModel = new this.userModel(userEntity);
+    const newUser = await userModel.save();
     this.eventDispatcher.dispatch(events.user.created, newUser);
     return newUser;
   }
