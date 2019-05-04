@@ -39,10 +39,14 @@ export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkS
       new LocalStrategy(
         { passReqToCallback: false },
         async (username, password, done) => {
+          console.log('------------------- local strategy -------------');
+          console.log(username, password);
           const authenticationResult = await authentication(
             username,
             password
           );
+
+          console.log(authenticationResult);
 
           if (authenticationResult.error) {
             return done(authenticationResult.error);
@@ -53,17 +57,22 @@ export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkS
       ),
     );
 
-    passport.serializeUser<IUser, string>((user, done) =>
-      done(null, user.username),
-    );
+    passport.serializeUser<IUser, string>((user, done) => {
+      console.log('--------- serializeUser ----------------');
+      console.log(user);
+      done(null, user.username);
+    });
 
     passport.deserializeUser<IUser, string>(async (id, done) => {
       const result: any = await userModel.findOne({
-        username: id,
+        email: id,
         active: true,
       })
       .select('_id firstName lastName active')
       .exec();
+
+      console.log('--------- deserializeUser ----------------');
+      console.log(result);
 
       const user = {
         id: result._id,
@@ -84,11 +93,15 @@ export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkS
 
     passport.use(
       new JWTStrategy({ jwtFromRequest, secretOrKey }, async (payload, done) => {
+        console.log('--------- use jwt ----------------');
+        console.log(payload);
         const result = await userModel
           .findOne({
-            username: payload.username,
-            active: true,
+            email: payload.username,
+            // active: true,
           });
+
+        console.log(result);
 
         if (result) {
           return done(undefined, payload);

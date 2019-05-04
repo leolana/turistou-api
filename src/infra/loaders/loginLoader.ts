@@ -1,4 +1,5 @@
 import * as express from 'express';
+import { BAD_REQUEST } from 'http-status';
 import * as jwt from 'jsonwebtoken';
 import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
 
@@ -18,8 +19,7 @@ export const loginLoader: MicroframeworkLoader = (settings: MicroframeworkSettin
           { session: false },
           async (err: any, user: string, info: { message: string }) => {
             if (err || !user) {
-              // tslint:disable-next-line:no-magic-numbers
-              return response.status(400).json({
+              return response.status(BAD_REQUEST).json({
                 user,
                 message: err || info.message,
               });
@@ -30,7 +30,7 @@ export const loginLoader: MicroframeworkLoader = (settings: MicroframeworkSettin
                 return response.send(error);
               }
 
-              const secretOrKey = 'fsdfsdfsd';
+              const secretOrKey = config.auth.authSecret;
 
               // generate a signed son web token with the contents of user object
               // and return it in the response
