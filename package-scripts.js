@@ -37,7 +37,7 @@ module.exports = {
         setup: {
             script: series(
                 'npm install',
-                'nps db.setup',
+                'nps db.seed',
             ),
             description: 'Setup`s the development environment(npm & database)'
         },
@@ -98,6 +98,10 @@ module.exports = {
             tmp: {
                 script: rimraf('./.tmp'),
                 hiddenFromHelp: true
+            },
+            distSeeds: {
+              script: rimraf('./seeders'),
+              hiddenFromHelp: true,
             }
         },
         /**
@@ -106,15 +110,7 @@ module.exports = {
         copy: {
             default: {
                 script: series(
-                    `nps copy.swagger`,
                     `nps copy.public`
-                ),
-                hiddenFromHelp: true
-            },
-            swagger: {
-                script: copy(
-                    './src/api/swagger.json',
-                    './dist'
                 ),
                 hiddenFromHelp: true
             },
@@ -137,41 +133,13 @@ module.exports = {
          * Database scripts
          */
         db: {
-            migrate: {
-                script: series(
-                    'nps banner.migrate',
-                    'nps config',
-                    runFast('./node_modules/typeorm/cli.js migration:run')
-                ),
-                description: 'Migrates the database to newest version available'
-            },
-            revert: {
-                script: series(
-                    'nps banner.revert',
-                    'nps config',
-                    runFast('./node_modules/typeorm/cli.js migration:revert')
-                ),
-                description: 'Downgrades the database'
-            },
             seed: {
                 script: series(
-                    'nps banner.seed',
-                    'nps config',
-                    runFast('./commands/seed.ts')
+                  'nps banner.seed',
+                  'nps config',
+                  `./node_modules/mongo-seeding-cli/bin/seed.js --drop-database --replace-id --db-name turistou ./src/infra/database/seeds`
                 ),
                 description: 'Seeds generated records into the database'
-            },
-            drop: {
-                script: runFast('./node_modules/typeorm/cli.js schema:drop'),
-                description: 'Drops the schema of the database'
-            },
-            setup: {
-                script: series(
-                    'nps db.drop',
-                    'nps db.migrate',
-                    'nps db.seed'
-                ),
-                description: 'Recreates the database with seeded data'
             }
         },
         /**
@@ -294,8 +262,8 @@ function copyDir(source, target) {
     return `ncp ${source} ${target}`;
 }
 
-function run(path) {
-    return `ts-node ${path}`;
+function build(pathSource, pathTarget) {
+  return `tsc -t es5 --module CommonJS --outDir ${pathTarget} ${pathSource}`;
 }
 
 function runFast(path) {

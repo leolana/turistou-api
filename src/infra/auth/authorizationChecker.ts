@@ -1,36 +1,51 @@
-import { Action } from 'routing-controllers';
-import { Container } from 'typedi';
-import { Connection } from 'typeorm';
+import { FORBIDDEN } from 'http-status';
+// import { Action } from 'routing-controllers';
+// import { Container } from 'typedi';
+// import { Logger } from '@infra/logger';
+// import { AuthService } from './AuthService';
+import { AuthChecker } from 'type-graphql';
 
-import { Logger } from '../logger';
-import { AuthService } from './AuthService';
+import { UserError } from '../graphql/graphql-error-handling';
 
-export function authorizationChecker(
-  connection: Connection
-): (action: Action, roles: any[]) => Promise<boolean> | boolean {
-  const log = new Logger(__filename);
-  const authService = Container.get<AuthService>(AuthService);
+export const authorizationChecker: AuthChecker<any> = (
+  { root, args, context, info },
+  roles,
+) => {
+  if (!context.request.user) {
+    throw new UserError(`${FORBIDDEN}: Invalid credentials`);
+  }
+  // here we can read the user from context
+  // and check his permission in the db against the `roles` argument
+  // that comes from the `@Authorized` decorator, eg. ["ADMIN", "MODERATOR"]
 
-  return async function innerAuthorizationChecker(action: Action, roles: string[]): Promise<boolean> {
-    // here you can use request/response objects from action
-    // also if decorator defines roles it needs to access the action
-    // you can use them to provide granular access check
-    // checker must return either boolean (true or false)
-    // either promise that resolves a boolean value
-    const credentials = authService.parseBasicAuthFromRequest(action.request);
+  return true; // or false if access is denied
+};
 
-    if (credentials === undefined) {
-      log.warn('No credentials given');
-      return false;
-    }
+// export function authorizationChecker(): (action: Action, roles: any[]) => Promise<boolean> | boolean {
+//   const log = new Logger(__filename);
+//   const authService = Container.get<AuthService>(AuthService);
 
-    action.request.user = await authService.validateUser(credentials.username, credentials.password);
-    if (action.request.user === undefined) {
-      log.warn('Invalid credentials given');
-      return false;
-    }
+//   return async function innerAuthorizationChecker(action: Action, roles: string[]): Promise<boolean> {
+//     // here you can use request/response objects from action
+//     // also if decorator defines roles it needs to access the action
+//     // you can use them to provide granular access check
+//     // checker must return either boolean (true or false)
+//     // either promise that resolves a boolean value
 
-    log.info('Successfully checked credentials');
-    return true;
-  };
-}
+//     const credentials = authService.parseBasicAuthFromRequest(action.request);
+
+//     if (credentials === undefined) {
+//       log.warn('No credentials given');
+//       return false;
+//     }
+
+//     action.request.user = await authService.validateUser(credentials.email, credentials.password);
+//     if (action.request.user === undefined) {
+//       log.warn('Invalid credentials given');
+//       return false;
+//     }
+
+//     log.info('Successfully checked credentials');
+//     return true;
+//   };
+// }

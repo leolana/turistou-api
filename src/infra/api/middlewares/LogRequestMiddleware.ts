@@ -3,12 +3,12 @@ import * as expressWinston from 'express-winston';
 import { ExpressMiddlewareInterface, Middleware } from 'routing-controllers';
 import { format, transports } from 'winston';
 
-import { env } from '../../../env';
+import { config } from '@config';
 
 @Middleware({ type: 'before' })
 export class LogRequestMiddleware implements ExpressMiddlewareInterface {
   public use(req: express.Request, res: express.Response, next: express.NextFunction): any {
-    if (env.isTest) {
+    if (config.isTest) {
       return next();
     }
 
@@ -18,9 +18,9 @@ export class LogRequestMiddleware implements ExpressMiddlewareInterface {
     return expressWinston.logger({
       transports: [
         new transports.Console({
-          level: env.log.level,
+          level: config.log.level,
           handleExceptions: true,
-          format: env.isDevelopment
+          format: config.isDevelopment
             ? format.combine(format.colorize(), format.simple())
             : format.combine(format.json()),
         }),

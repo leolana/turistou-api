@@ -1,44 +1,62 @@
 import * as express from 'express';
-import { GraphQLHTTP } from 'express-graphql';
+import * as GraphQLHTTP from 'express-graphql';
 import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
 import * as path from 'path';
 import { buildSchema } from 'type-graphql';
 import { Container } from 'typedi';
 
-import { env } from '../../env';
-import { getErrorCode, getErrorMessage, handlingErrors } from '../graphql';
+import { config } from '@config';
+import { Context } from '@Context';
+import { authorizationChecker } from '@infra/auth/authorizationChecker';
+import { getErrorCode, getErrorMessage, handlingErrors } from '@infra/graphql';
 
 export const graphqlLoader: MicroframeworkLoader = async (settings: MicroframeworkSettings | undefined) => {
-  if (settings && env.graphql.enabled) {
-    const expressApp = settings.getData('express_app');
+  if (settings && config.graphql.enabled) {
+    const expressApp: express.Application = settings.getData('express_app');
+    const passport = settings.getData('passport');
 
     const schema = await buildSchema({
-      resolvers: env.app.dirs.resolvers,
+      resolvers: config.app.dirs.resolvers,
       // automatically create `schema.gql` file with schema definition in current folder
       emitSchemaFile: path.resolve(__dirname, '../api', 'schema.gql'),
+      container: Container,
+      authChecker: authorizationChecker,
     });
 
     handlingErrors(schema);
-
     // Add graphql layer to the express app
-    expressApp.use(env.graphql.route, (request: express.Request, response: express.Response) => {
-      // Build GraphQLContext
-      const requestId = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER); // uuid-like
-      const container = Container.of(requestId); // get scoped container
-      const context = { requestId, container, request, response }; // create our context
-      container.set('context', context); // place context or other data in container
+    expressApp.use(
+      config.graphql.route,
+      async (request: any, response: express.Response, next: express.NextFunction) => {
+        passport.authenticate(
+          'jwt',
+          { session: false },
+          (err: unknown, user: string, info: unknown) => {
+            if (user) {
+              request.user = user;
+            }
 
-      // Setup GraphQL Server
-      GraphQLHTTP({
-        schema,
-        context,
-        graphiql: env.graphql.editor,
-        formatError: error => ({
-          code: getErrorCode(error.message),
-          message: getErrorMessage(error.message),
-          path: error.path,
-        }),
-      })(request, response);
-    });
+            next();
+          },
+        )(request, response, next);
+      },
+      async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+        // Build GraphQLContext
+        const requestId = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER); // uuid-like
+        const container = Container.of(requestId); // get scoped container
+        const context = { requestId, container, request, response, next, passport } as Context; // create our context
+        container.set('context', context); // place context or other data in container
+        // Setup GraphQL Server
+        GraphQLHTTP({
+          schema,
+          context,
+          graphiql: config.graphql.editor,
+          customFormatErrorFn: error => ({
+            code: getErrorCode(error.message),
+            message: getErrorMessage(error.message),
+            path: error.path
+          }),
+        })(request, response, next);
+      });
   }
 };

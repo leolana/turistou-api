@@ -1,6 +1,6 @@
 import { Container } from 'typedi';
 
-import { Logger as WinstonLogger } from '../logger';
+import { Logger as WinstonLogger } from '@infra/logger';
 
 // tslint:disable-next-line:function-name
 export function Logger(scope: string): ParameterDecorator {

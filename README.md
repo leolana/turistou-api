@@ -1,7 +1,7 @@
 # Turistou API &nbsp;
 
 **API** developed in **[Node.js][node]** with database
-**[Postgres][postgres]**.
+**[MongoDB][mongodb]**.
 
 ---
 
@@ -17,18 +17,17 @@ Try it!! We are happy to hear your feedback or any kind of new features.
 - **Beautiful Code** thanks to the awesome annotations of the libraries from [pleerock](https://github.com/pleerock).
 - **Easy API Testing** with included e2e testing.
 - **Dependency Injection** done with the nice framework from [TypeDI](https://github.com/pleerock/typedi).
-- **Simplified Database Query** with the ORM [TypeORM](https://github.com/typeorm/typeorm).
+- **Simplified Database Query** with the ORM [Mongoose](https://github.com/mongoose/mongoose).
 - **Clear Structure** with different layers such as controllers, services, repositories, models, middlewares...
 - **Easy Exception Handling** thanks to [routing-controllers](https://github.com/pleerock/routing-controllers).
 - **Smart Validation** thanks to [class-validator](https://github.com/pleerock/class-validator) with some nice annotations.
 - **Custom Validators** to validate your request even better and stricter. [custom-validation-classes](https://github.com/pleerock/class-validator#custom-validation-classes).
-- **API Documentation** thanks to [swagger](http://swagger.io/).
 - **API Monitoring** thanks to [express-status-monitor](https://github.com/RafalWilinski/express-status-monitor).
 - **Integrated Testing Tool** thanks to [Jest](https://facebook.github.io/jest).
 - **E2E API Testing** thanks to [supertest](https://github.com/visionmedia/supertest).
 - **Basic Security Features** thanks to [Helmet](https://helmetjs.github.io/).
 - **Easy event dispatching** thanks to [event-dispatch](https://github.com/pleerock/event-dispatch).
-- **Fast Database Building** with simple migration from [TypeORM](https://github.com/typeorm/typeorm).
+- **Fast Database Building** with simple migration from [Mongoose](https://github.com/mongoose/mongoose).
 - **Easy Data Seeding** with our own factories.
 - **GraphQL** provides as a awesome query language for our api [GraphQL](http://graphql.org/).
 - **TypeGraphQL** thanks to [TypeGraphQL](https://19majkel94.github.io/type-graphql/) we have a some cool decorators to simplify the usage of GraphQL.
@@ -133,14 +132,6 @@ All script are defined in the `package-scripts.js` file, but the most important 
 - Run `npm start build` to generated all JavaScript files from the TypeScript sources (There is also a vscode task for this called `build`).
 - To start the builded app located in `dist` use `npm start`.
 
-### Database Migration
-
-- Run `typeorm migration:create -n <migration-file-name>` to create a new migration file.
-- Try `typeorm -h` to see more useful cli commands like generating migration out of your models.
-- To migrate your database run `npm start db.migrate`.
-- To revert your latest migration run `npm start db.revert`.
-- Drops the complete database schema `npm start db.drop`.
-
 ### Database Seeding
 
 - Run `npm start db.seed` to seed your seeds into the database.
@@ -157,16 +148,13 @@ Then, just set a breakpoint and hit <kbd>F5</kbd> in your Visual Studio Code.
 ## ❯ API Routes
 
 The route prefix is `/api` by default, but you can change this in the .env file.
-The swagger and the monitor route can be altered in the `.env` file.
 
 | Route          | Description |
 | -------------- | ----------- |
 | **/api**       | Shows us the name, description and the version of the package.json |
 | **/graphql**   | Route to the graphql editor or your query/mutations requests |
-| **/swagger**   | This is the Swagger UI with our API documentation |
 | **/monitor**   | Shows a small monitor page for the server |
 | **/api/users** | Example entity endpoint |
-| **/api/pets**  | Example entity endpoint |
 
 ---
 
@@ -191,7 +179,6 @@ The swagger and the monitor route can be altered in the `.env` file.
 | **src/api/resolvers/**            | GraphQL resolvers (query, mutation & field-resolver) |
 | **src/api/types/**                | GraphQL types ,input-types and scalar types |
 | **src/api/** schema.gql           | Generated GraphQL schema |
-| **src/api/** swagger.json         | Swagger documentation |
 | **src/auth/**                     | Authentication checkers and services |
 | **src/core/**                     | The core features like logger and env variables |
 | **src/database/factories**        | Factory the generate fake entities |
@@ -359,18 +346,6 @@ The last step is the easiest, just hit the following command in your terminal, b
 npm start db.seed
 ```
 
-#### CLI Interface
-
-| Command                                              | Description |
-| ---------------------------------------------------- | ----------- |
-| `npm start "db.seed"`                               | Run all seeds |
-| `npm start "db.seed --run CreateBruce,CreatePets"`  | Run specific seeds (file names without extension) |
-| `npm start "db.seed -L"`                            | Log database queries to the terminal |
-| `npm start "db.seed --factories <path>"`            | Add a different path to your factories (Default: `src/database/`) |
-| `npm start "db.seed --seeds <path>"`                | Add a different path to your seeds (Default: `src/database/seeds/`) |
-
----
-
 ## ❯ GraphQL
 
 For the GraphQL part we used the library [TypeGraphQL](https://19majkel94.github.io/type-graphql/) to build awesome GraphQL API's.
@@ -509,7 +484,7 @@ DB_PORT=3306
 | [Microframework](https://github.com/pleerock/microframework) | Microframework is a simple tool that allows you to execute your modules in a proper order, helping you to organize bootstrap code in your application. |
 | [TypeDI](https://github.com/pleerock/typedi) | Dependency Injection for TypeScript. |
 | [routing-controllers](https://github.com/pleerock/routing-controllers) | Create structured, declarative and beautifully organized class-based controllers with heavy decorators usage in Express / Koa using TypeScript and Routing Controllers Framework. |
-| [TypeORM](http://typeorm.io/#/) | TypeORM is highly influenced by other ORMs, such as Hibernate, Doctrine and Entity Framework. |
+| [Mongoose](http://mongoose.io/#/) | Mongoose is highly influenced by other ORMs, such as Hibernate, Doctrine and Entity Framework. |
 | [class-validator](https://github.com/pleerock/class-validator) | Validation made easy using TypeScript decorators. |
 | [class-transformer](https://github.com/pleerock/class-transformer) | Proper decorator-based transformation / serialization / deserialization of plain javascript objects to class constructors |
 | [event-dispatcher](https://github.com/pleerock/event-dispatch) | Dispatching and listening for application events in Typescript |
@@ -518,7 +493,6 @@ DB_PORT=3306
 | [Jest](http://facebook.github.io/jest/) | Delightful JavaScript Testing Library for unit and e2e tests |
 | [supertest](https://github.com/visionmedia/supertest) | Super-agent driven library for testing node.js HTTP servers using a fluent API |
 | [nock](https://github.com/node-nock/nock) | HTTP mocking and expectations library |
-| [swagger Documentation](http://swagger.io/) | API Tool to describe and document your api. |
 | [SQLite Documentation](https://www.sitepoint.com/getting-started-sqlite3-basic-commands/) | Getting Started with SQLite3 – Basic Commands. |
 | [GraphQL Documentation](http://graphql.org/graphql-js/) | A query language for your API. |
 | [DataLoader Documentation](https://github.com/facebook/dataloader) | DataLoader is a generic utility to be used as part of your application's data fetching layer to provide a consistent API over various backends and reduce requests to those backends via batching and caching. |
@@ -548,7 +522,6 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 - [Microsoft/TypeScript-Node-Starter](https://github.com/Microsoft/TypeScript-Node-Starter) - A starter template for TypeScript and Node with a detailed README describing how to use the two together.
 - [express-graphql-typescript-boilerplate](https://github.com/w3tecch/express-graphql-typescript-boilerplate) - A starter kit for building amazing GraphQL API's with TypeScript and express by @w3tecch
-- [aurelia-typescript-boilerplate](https://github.com/w3tecch/aurelia-typescript-boilerplate) - An Aurelia starter kit with TypeScript
 - [Auth0 Mock Server](https://github.com/hirsch88/auth0-mock-server) - Useful for e2e testing or faking an oAuth server
 
 ---
@@ -559,9 +532,9 @@ Made with ♥ by Turistou (https://www.turistou.com.br)
 [node]: https://nodejs.org
 [js]: https://developer.mozilla.org/docs/Web/JavaScript
 [babel]: http://babeljs.io/
-[postgres]: https://www.postgresql.org/
+[mongodb]: https://www.mongodb.com/
 [restify]: http://restify.com/
-[pg]: https://www.postgresql.org/
+[mongoose]: https://mongoosejs.com/
 [code]: https://code.visualstudio.com/
 [eslint]:https://eslint.org
 [docker]: https://www.docker.com/community-edition

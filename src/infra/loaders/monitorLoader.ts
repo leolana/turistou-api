@@ -2,19 +2,19 @@ import * as basicAuth from 'express-basic-auth';
 import * as monitor from 'express-status-monitor';
 import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
 
-import { env } from '../../env';
+import { config } from '@config';
 
 export const monitorLoader: MicroframeworkLoader = (settings: MicroframeworkSettings | undefined) => {
-  if (settings && env.monitor.enabled) {
+  if (settings && config.monitor.enabled) {
     const expressApp = settings.getData('express_app');
 
     expressApp.use(monitor());
     expressApp.get(
-      env.monitor.route,
-      env.monitor.username
+      config.monitor.route,
+      config.monitor.username
         ? basicAuth({
           users: {
-            [`${env.monitor.username}`]: env.monitor.password,
+            [`${config.monitor.username}`]: config.monitor.password,
           },
           challenge: true,
         })

@@ -1,16 +1,16 @@
 import * as express from 'express';
-import morgan from 'morgan';
+import * as morgan from 'morgan';
 import { ExpressMiddlewareInterface, Middleware } from 'routing-controllers';
 
-import { env } from '../../../env';
-import { Logger } from '../../logger';
+import { config } from '@config';
+import { Logger } from '@infra/logger';
 
 @Middleware({ type: 'before' })
 export class LogMiddleware implements ExpressMiddlewareInterface {
   private log = new Logger(__dirname);
 
   public use(req: express.Request, res: express.Response, next: express.NextFunction): any {
-    return morgan(env.log.output, {
+    return morgan(config.log.output, {
       stream: {
         write: this.log.info.bind(this.log),
       },

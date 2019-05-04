@@ -1,6 +1,6 @@
 import { Container, ObjectType } from 'typedi';
 
-import { createDataLoader, CreateDataLoaderOptions } from '../graphql';
+import { createDataLoader, CreateDataLoaderOptions } from '@infra/graphql';
 
 // tslint:disable-next-line:function-name
 export function DLoader<T>(obj: ObjectType<T>, options: CreateDataLoaderOptions = {}): ParameterDecorator {

@@ -2,8 +2,8 @@
 import { GraphQLObjectType, GraphQLSchema } from 'graphql';
 import * as uuid from 'uuid';
 
-import { env } from '../../env';
-import { Logger } from '../logger';
+import { config } from '@config';
+import { Logger } from '@infra/logger';
 
 // This feature is a copy from https://github.com/kadirahq/graphql-errors
 const logger = new Logger('app:errors');
@@ -43,10 +43,10 @@ export let defaultHandler = (err?) => {
   }
   const errId = uuid.v4();
   err.message = `${err.message}: ${errId}`;
-  if (!env.isTest) {
+  if (!config.isTest) {
     console.error((err && err.stack) || err);
   }
-  if (env.isProduction) {
+  if (config.isProduction) {
     logger.error(err);
   }
   err.message = `500: Internal Error: ${errId}`;
