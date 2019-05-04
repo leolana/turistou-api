@@ -32,9 +32,6 @@ export const graphqlLoader: MicroframeworkLoader = async (settings: Microframewo
           'jwt',
           { session: false },
           (err: unknown, user: string, info: unknown) => {
-            console.log('------------ graphql authenticate -----------');
-            console.log(user);
-            console.log(info);
             if (user) {
               request.user = user;
             }
