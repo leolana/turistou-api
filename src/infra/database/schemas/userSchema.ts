@@ -6,7 +6,7 @@ import { User } from '@domain/entities/User';
 
 import { DbSchema } from './DbSchema';
 
-export interface IUserModel extends IUser, Document {
+export interface IUserModel extends IUser, mongoose.Document {
   fullName(): string;
 }
 
@@ -37,7 +37,7 @@ userSchema.methods.fullName = (): string => {
 
 const collectionName = 'User';
 
-export const userModel = mongoose.model(collectionName, userSchema);
+export const userModel = mongoose.model<IUserModel>(collectionName, userSchema);
 
 export default {
   collectionName,
