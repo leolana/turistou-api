@@ -1,10 +1,20 @@
 import * as bcrypt from 'bcrypt';
 
-export class User {
+import { IUser } from './IUser';
+
+export class User implements IUser {
+  public username: string;
+  public active: boolean;
+  public id: string;
+  public firstName: string;
+  public lastName: string;
+  public email: string;
+  public password: string;
+
   public static hashPassword(password: string): Promise<string> {
     return new Promise((resolve, reject) => {
       const base = 10;
-      bcrypt.hash(password, base, (err, hash) => {
+      return bcrypt.hash(password, base, (err, hash) => {
         if (err) {
           return reject(err);
         }
@@ -15,17 +25,12 @@ export class User {
 
   public static comparePassword(user: User, password: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      bcrypt.compare(password, user.password, (err, res) => {
+      return bcrypt.compare(password, user.password, (err, res) => {
         resolve(res);
       });
     });
   }
 
-  public id: string;
-  public firstName: string;
-  public lastName: string;
-  public email: string;
-  public password: string;
   public toString(): string {
     return `${this.firstName} ${this.lastName} (${this.email})`;
   }
