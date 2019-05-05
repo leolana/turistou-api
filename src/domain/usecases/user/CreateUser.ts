@@ -5,7 +5,7 @@ import { events } from '@domain/subscribers/events';
 import { DbModel, ModelInterface } from '@infra/database/DbModel';
 import userSchema, { IUserModel } from '@infra/database/schemas/userSchema';
 import { EventDispatcher, EventDispatcherInterface } from '@infra/eventDispatch/EventDispatcher';
-import { Logger, LoggerInterface } from '@infra/logger/LoggerDecorator';
+import { LoggerDecorator as Logger, LoggerInterface } from '@infra/logger';
 
 @Service()
 export class CreateUser {
