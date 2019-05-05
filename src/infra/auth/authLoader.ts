@@ -1,6 +1,7 @@
 import * as express from 'express';
 import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
 import * as passport from 'passport';
+import { Strategy as Auth0Strategy } from 'passport-auth0';
 import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt';
 import { Strategy as LocalStrategy } from 'passport-local';
 
@@ -48,6 +49,31 @@ export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkS
           }
 
           return done(undefined, authenticationResult.user);
+        },
+      ),
+    );
+
+    passport.use(
+      'auth0',
+      new Auth0Strategy(
+        {
+          domain: 'your-domain.auth0.com',
+          clientID: 'your-client-id',
+          clientSecret: 'your-client-secret',
+          callbackURL: '/auth/callback'
+        },
+        async (accessToken, refreshToken, extraParams, profile, done) => {
+          const result = await userModel
+            .findOne({
+              email: profile.username,
+              // active: true,
+            });
+
+          if (result) {
+            return done(undefined, profile);
+          }
+
+          return done('User not found', false);
         },
       ),
     );

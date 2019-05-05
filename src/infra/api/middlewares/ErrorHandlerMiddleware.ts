@@ -3,7 +3,7 @@ import { INTERNAL_SERVER_ERROR } from 'http-status';
 import { ExpressErrorMiddlewareInterface, HttpError, Middleware } from 'routing-controllers';
 
 import { config } from '@config';
-import { Logger, LoggerInterface } from '@infra/decorators/Logger';
+import { LoggerDecorator as Logger, LoggerInterface } from '@infra/logger';
 
 @Middleware({ type: 'after' })
 export class ErrorHandlerMiddleware implements ExpressErrorMiddlewareInterface {

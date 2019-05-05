@@ -2,10 +2,10 @@ import { Service } from 'typedi';
 
 import { IUser } from '@domain//entities/IUser';
 import { events } from '@domain/subscribers/events';
+import { DbModel, ModelInterface } from '@infra/database/DbModel';
 import userSchema, { IUserModel } from '@infra/database/schemas/userSchema';
-import { DbModel, ModelInterface } from '@infra/decorators/DbModel';
-import { EventDispatcher, EventDispatcherInterface } from '@infra/decorators/EventDispatcher';
-import { Logger, LoggerInterface } from '@infra/decorators/Logger';
+import { EventDispatcher, EventDispatcherInterface } from '@infra/eventDispatch/EventDispatcher';
+import { Logger, LoggerInterface } from '@infra/logger/LoggerDecorator';
 
 @Service()
 export class CreateUser {

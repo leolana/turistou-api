@@ -3,11 +3,11 @@ import * as http from 'http';
 import { bootstrapMicroframework } from 'microframework-w3tec';
 import { Connection } from 'typeorm/connection/Connection';
 
-import { eventDispatchLoader } from '../../../src/infra/loaders/eventDispatchLoader';
-import { expressLoader } from '../../../src/infra/loaders/expressLoader';
-import { homeLoader } from '../../../src/infra/loaders/homeLoader';
-import { iocLoader } from '../../../src/infra/loaders/iocLoader';
-import { winstonLoader } from '../../../src/infra/loaders/winstonLoader';
+import { expressLoader } from '../../../src/infra/api/expressLoader';
+import { homeLoader } from '../../../src/infra/api/homeLoader';
+import { eventDispatchLoader } from '../../../src/infra/eventDispatch/eventDispatchLoader';
+import { iocLoader } from '../../../src/infra/ioc/iocLoader';
+import { winstonLoader } from '../../../src/infra/logger/winstonLoader';
 import { typeormLoader } from '../utils/typeormLoader';
 
 export interface BootstrapSettings {

@@ -4,7 +4,7 @@ import { Service } from 'typedi';
 import { User } from '@domain/entities/User';
 // import userSchema, { IUserModel } from '@infra/database/schemas/userSchema';
 // import { DbModel, ModelInterface } from '@infra/decorators/DbModel';
-import { Logger, LoggerInterface } from '@infra/decorators/Logger';
+import { LoggerDecorator as Logger, LoggerInterface } from '@infra/logger';
 
 @Service()
 export class AuthService {

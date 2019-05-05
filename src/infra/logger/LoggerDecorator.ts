@@ -3,7 +3,7 @@ import { Container } from 'typedi';
 import { Logger as WinstonLogger } from '@infra/logger';
 
 // tslint:disable-next-line:function-name
-export function Logger(scope: string): ParameterDecorator {
+export function LoggerDecorator(scope: string): ParameterDecorator {
   return (object, propertyKey, index): any => {
     const logger = new WinstonLogger(scope);
     const propertyName = propertyKey ? propertyKey.toString() : '';
@@ -15,5 +15,3 @@ export function Logger(scope: string): ParameterDecorator {
     });
   };
 }
-
-export { LoggerInterface } from '../logger';
