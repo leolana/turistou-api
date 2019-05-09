@@ -7,16 +7,15 @@ import { PassportStatic as Passport } from 'passport';
 import { config } from '@config';
 
 export const accountLoader: MicroframeworkLoader = (settings: MicroframeworkSettings | undefined) => {
-  if (settings && config.graphql.enabled) {
+  if (settings && !config.graphql.enabled) {
     return;
   }
 
   const expressApp: express.Application = settings.getData('express_app');
   const passport: Passport = settings.getData('passport');
 
-  // Add graphql layer to the express app
   expressApp.post(
-    '/auth/local/login',
+    '/login',
     async (request: express.Request, response: express.Response, next: express.NextFunction) => {
       passport.authenticate(
         'local',
@@ -49,8 +48,14 @@ export const accountLoader: MicroframeworkLoader = (settings: MicroframeworkSett
     async (request: express.Request, response: express.Response, next: express.NextFunction) => {
       passport.authenticate(
         'auth0',
-        { session: false },
+        {
+          audience: 'urn:http://localhost:3000',
+          session: false
+        },
         async (err: any, user: string, info: { message: string }) => {
+          console.log('------------- auth0 login ------------------');
+          console.log(err);
+          console.log(user, info);
           if (err || !user) {
             return response.status(BAD_REQUEST).json({
               user,
@@ -73,12 +78,15 @@ export const accountLoader: MicroframeworkLoader = (settings: MicroframeworkSett
       )(request, response, next);
     });
 
-  expressApp.post(
+  expressApp.get(
     '/auth/callback',
     async (request: express.Request, response: express.Response, next: express.NextFunction) => {
       passport.authenticate(
         'auth0',
-        async (err: any, user: string, info: { message: string }) => {
+        async (err: any, user: string, info: any) => {
+          console.log('------------- auth0 callback ------------------');
+          console.log(user, info);
+          console.log(err);
           if (err || !user) {
             return response.status(BAD_REQUEST).json({
               user,

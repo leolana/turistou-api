@@ -6,7 +6,7 @@ import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt';
 import { Strategy as LocalStrategy } from 'passport-local';
 
 import { config } from '@config';
-import { AuthenticationResult } from '@infra/auth/auth';
+import { AuthenticationResult } from '@infra/auth';
 import { IUserModel, userModel } from '@infra/database/schemas/userSchema';
 
 const authentication = async (
@@ -57,12 +57,15 @@ export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkS
       'auth0',
       new Auth0Strategy(
         {
-          domain: 'your-domain.auth0.com',
-          clientID: 'your-client-id',
-          clientSecret: 'your-client-secret',
-          callbackURL: '/auth/callback'
+          domain: 'turistou.auth0.com',
+          clientID: 'X0HhkFN0pRpJu3D3csUA8lDjRza3pKMm',
+          clientSecret: 'vUToWW-H_gkjUD5Ti6gF6b78O69YIVft5byGQJ5I_zZsUdrmdcbZW4qkdbcakxpr',
+          callbackURL: '/auth/callback',
+          state: false
         },
         async (accessToken, refreshToken, extraParams, profile, done) => {
+          console.log('------------- auth0 strategy ------------------');
+          console.log(accessToken, refreshToken, extraParams, profile);
           const result = await userModel
             .findOne({
               email: profile.username,
