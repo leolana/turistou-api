@@ -7,7 +7,7 @@ import { Container } from 'typedi';
 
 import { config } from '@config';
 import { Context } from '@Context';
-import { authorizationChecker } from '@infra/auth/authorizationChecker';
+import { authorizationChecker } from '@infra/auth';
 import { getErrorCode, getErrorMessage, handlingErrors } from '@infra/graphql';
 
 export const graphqlLoader: MicroframeworkLoader = async (settings: MicroframeworkSettings | undefined) => {
