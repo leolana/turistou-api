@@ -14,10 +14,10 @@ const userSchema: mongoose.Schema = new mongoose.Schema(
     firstName: mongoose.Schema.Types.String,
     lastName: mongoose.Schema.Types.String,
     password: mongoose.Schema.Types.String,
-    createdAt: {
-      type: mongoose.Schema.Types.Date,
-    },
-    updatedAt: mongoose.Schema.Types.Date,
+    active: {
+      type: mongoose.Schema.Types.Boolean,
+      default: true,
+    }
   },
   { timestamps: true }
 );

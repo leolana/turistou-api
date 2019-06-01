@@ -8,6 +8,7 @@ import { ObjectType } from 'typedi';
 // -------------------------------------------------------------------------
 
 export * from './graphql-error-handling';
+export * from './graphqlLoader';
 
 // -------------------------------------------------------------------------
 // Main Functions

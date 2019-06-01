@@ -1,7 +1,7 @@
 module.exports = {
   testEnvironment: 'node',
   transform: {
-    '.(ts|tsx)': '<rootDir>/test/preprocessor.js'
+    '.(ts|tsx)': 'ts-jest'
   },
   moduleFileExtensions: [
     'ts',

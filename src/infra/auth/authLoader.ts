@@ -1,30 +1,15 @@
 import * as express from 'express';
+import * as jwksClient from 'jwks-rsa';
 import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
 import * as passport from 'passport';
-import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt';
-import { Strategy as LocalStrategy } from 'passport-local';
+import { ExtractJwt, Strategy as JWTStrategy, StrategyOptions } from 'passport-jwt';
 
 import { config } from '@config';
-import { AuthenticationResult } from '@infra/auth/auth';
 import { IUserModel, userModel } from '@infra/database/schemas/userSchema';
 
-const authentication = async (
-  username: string,
-  password: string
-): Promise<AuthenticationResult> => {
-  const result: any = await userModel.find({ email: username });
-
-  if (result) {
-    return {
-      user: {
-        username,
-        name: result.firstName,
-      }
-    };
-  }
-
-  return { error: 'Invalid username or password' };
-};
+const passportJwtSecret = jwksClient.passportJwtSecret({
+  jwksUri: `https://${config.auth.domain}/.well-known/jwks.json`
+});
 
 export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkSettings | undefined) => {
   if (settings) {
@@ -32,25 +17,6 @@ export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkS
 
     expressApp.use(passport.initialize());
     expressApp.use(passport.session());
-
-    passport.use(
-      'local',
-      new LocalStrategy(
-        { passReqToCallback: false },
-        async (username, password, done) => {
-          const authenticationResult = await authentication(
-            username,
-            password
-          );
-
-          if (authenticationResult.error) {
-            return done(authenticationResult.error);
-          }
-
-          return done(undefined, authenticationResult.user);
-        },
-      ),
-    );
 
     passport.serializeUser<IUserModel, string>((user, done) => {
       done(null, user.username);
@@ -78,14 +44,21 @@ export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkS
       return done('user not found', undefined);
     });
 
-    const jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-    const secretOrKey = config.auth.authSecret;
+    const options: StrategyOptions = {
+      audience: config.auth.clientId,
+      issuer: `https://${config.auth.domain}/`,
+      algorithms: ['RS256'],
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      secretOrKeyProvider: passportJwtSecret
+    };
 
     passport.use(
-      new JWTStrategy({ jwtFromRequest, secretOrKey }, async (payload, done) => {
+      new JWTStrategy(options, async (payload, done) => {
+        console.log('-------JWTStrategy------------');
+        console.log(payload);
         const result = await userModel
           .findOne({
-            email: payload.username,
+            email: payload.email,
             // active: true,
           });
 

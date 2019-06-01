@@ -2,19 +2,15 @@ import 'reflect-metadata';
 
 import { bootstrapMicroframework } from 'microframework-w3tec';
 
+import { expressLoader, homeLoader, monitorLoader } from '@infra/api';
+import { authLoader } from '@infra/auth';
 import { banner } from '@infra/console/banner';
-import { authLoader } from '@infra/loaders/authLoader';
-import { eventDispatchLoader } from '@infra/loaders/eventDispatchLoader';
-import { expressLoader } from '@infra/loaders/expressLoader';
-import { graphqlLoader } from '@infra/loaders/graphqlLoader';
-import { homeLoader } from '@infra/loaders/homeLoader';
-import { iocLoader } from '@infra/loaders/iocLoader';
-import { loginLoader } from '@infra/loaders/loginLoader';
-import { mongooseLoader } from '@infra/loaders/mongooseLoader';
-import { monitorLoader } from '@infra/loaders/monitorLoader';
-import { publicLoader } from '@infra/loaders/publicLoader';
-import { winstonLoader } from '@infra/loaders/winstonLoader';
-import { Logger } from '@infra/logger';
+import { mongooseLoader } from '@infra/database';
+import { eventDispatchLoader } from '@infra/eventDispatch';
+import { graphqlLoader } from '@infra/graphql';
+import { iocLoader } from '@infra/ioc';
+import { Logger, winstonLoader } from '@infra/logger';
+import { publicLoader } from '@infra/public';
 
 /**
  * EXPRESS TYPESCRIPT BOILERPLATE
@@ -41,7 +37,6 @@ bootstrapMicroframework({
     monitorLoader,
     homeLoader,
     publicLoader,
-    loginLoader,
     graphqlLoader,
   ],
 })

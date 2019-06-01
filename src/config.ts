@@ -37,7 +37,9 @@ export const config = {
     },
   },
   auth: {
-    authSecret: getOsEnv('AUTH_SECRET'),
+    domain: getOsEnv('API_AUTH0_DOMAIN'),
+    clientId: getOsEnv('API_AUTH0_CLIENT_ID'),
+    audience: getOsEnv('API_AUTH0_AUDIENCE'),
   },
   log: {
     level: getOsEnv('LOG_LEVEL'),

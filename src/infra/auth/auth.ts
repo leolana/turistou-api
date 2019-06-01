@@ -1,7 +1,7 @@
 import { Handler, NextFunction, Request, Response } from 'express';
 import * as passport from 'passport';
 
-type AuthenticateRet = (
+export type AuthenticateRet = (
   req: Request,
   res: Response,
   next: NextFunction,
