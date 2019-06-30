@@ -124,11 +124,11 @@ const customerSchema: mongoose.Schema = new mongoose.Schema(
     },
     number: {
       type: dataTypes.String,
-      maxlength: 30
+      maxlength: 15
     },
     complement: {
       type: dataTypes.String,
-      maxlength: 30
+      maxlength: 20
     },
     state: {
       type: dataTypes.String,
