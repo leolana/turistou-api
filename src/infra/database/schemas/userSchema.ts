@@ -69,6 +69,12 @@ const companyType: mongoose.Schema = new mongoose.Schema(
   },
 );
 
+export enum Roles {
+  Backoffice = 'BACKOFFICE',
+  TouristGuide = 'TOURISTGUIDE',
+  TouristAgent = 'TOURISTAGENT',
+}
+
 const userSchema: mongoose.Schema = new mongoose.Schema(
   {
     email: {
@@ -100,6 +106,9 @@ const userSchema: mongoose.Schema = new mongoose.Schema(
     },
     birthDate: {
       type: dataTypes.Date,
+    },
+    roles: {
+      type: [dataTypes.String],
     },
     active: {
       type: dataTypes.Boolean,
@@ -386,7 +395,7 @@ export enum passengerStatus {
   canceled = 'CANCELED'
 }
 
-const installmentSchema: mongoose.Schema = new mongoose.Schema(
+const installmentCreditCardSchema: mongoose.Schema = new mongoose.Schema(
   {
     quantity: {
       type: dataTypes.Number
@@ -396,6 +405,44 @@ const installmentSchema: mongoose.Schema = new mongoose.Schema(
     },
     firstDueDate: {
       type: dataTypes.Date
+    }
+  },
+  { timestamps: true }
+);
+
+const installmentBankSlipSchema: mongoose.Schema = new mongoose.Schema(
+  {
+    quantity: {
+      type: dataTypes.Number
+    },
+    value: {
+      type: dataTypes.Decimal128
+    },
+    dueDate: {
+      type: dataTypes.Date
+    }
+  },
+  { timestamps: true }
+);
+
+export enum OperationPayment {
+  Credit = 'CREDIT',
+  ChargeBack = 'CHARGEBACK',
+}
+
+const paymentTransactionSchema: mongoose.Schema = new mongoose.Schema(
+  {
+    value: {
+      type: dataTypes.Decimal128
+    },
+    dueDate: {
+      type: dataTypes.Date
+    },
+    payDate: {
+      type: dataTypes.Date
+    },
+    operation: {
+      type: dataTypes.String
     }
   },
   { timestamps: true }
@@ -417,7 +464,7 @@ const paymentConditionCreditCardSchema: mongoose.Schema = new mongoose.Schema(
       required: true,
     },
     installment: {
-      type: installmentSchema,
+      type: installmentCreditCardSchema,
       default: null
     },
   },
@@ -459,7 +506,7 @@ const paymentConditionPaymentBankSlipSchema: mongoose.Schema = new mongoose.Sche
       required: true,
     },
     installment: {
-      type: installmentSchema,
+      type: installmentBankSlipSchema,
       default: null
     },
   },
@@ -506,8 +553,11 @@ const passengerSchema: mongoose.Schema = new mongoose.Schema(
     transportExcursionId: {
       type: dataTypes.ObjectId,
     },
-    paymentCondition: {
+    paymentConditions: {
       type: [dataTypes.Mixed]
+    },
+    payments: {
+      type: [paymentTransactionSchema]
     },
   },
   { timestamps: true }
