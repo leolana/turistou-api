@@ -7,7 +7,7 @@ import { DbSchema } from './DbSchema';
 
 const dataTypes = mongoose.Schema.Types;
 
-export interface IOrgnizationModel extends IOrganization, mongoose.Document {
+export interface IOrganizationModel extends IOrganization, mongoose.Document {
 }
 
 const organizationSchema: mongoose.Schema = new mongoose.Schema(
@@ -62,7 +62,7 @@ const organizationSchema: mongoose.Schema = new mongoose.Schema(
 
 const collectionName = 'Orgnization';
 
-export const orgnizationModel = mongoose.model<IOrgnizationModel>(collectionName, organizationSchema);
+export const organizationModel = mongoose.model<IOrganizationModel>(collectionName, organizationSchema);
 
 export default {
   collectionName,
