@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-import { IUser } from '@domain/entities/IUser';
+import { IUser } from '@domain/entities/User';
 
 import { DbSchema } from './DbSchema';
 
@@ -8,22 +8,6 @@ const dataTypes = mongoose.Schema.Types;
 
 export interface IUserModel extends IUser, mongoose.Document {
   fullName(): string;
-}
-
-export enum Gender {
-  Male = 'MASC',
-  Female = 'FEM'
-}
-
-export enum Identity {
-  Person = 'PF',
-  Company = 'PJ'
-}
-
-export enum Roles {
-  Backoffice = 'BACKOFFICE',
-  TouristGuide = 'TOURIST_GUIDE',
-  TouristAgent = 'TOURIST_AGENT',
 }
 
 const userSchema: mongoose.Schema = new mongoose.Schema(
@@ -68,19 +52,6 @@ const userSchema: mongoose.Schema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
-export enum OperationPayment {
-  Credit = 'CREDIT',
-  ChargeBack = 'CHARGE_BACK',
-}
-
-export enum PaymentCondition {
-  Money = 'MONEY',
-  CreditCard = 'CREDIT_CARD',
-  Debit = 'DEBIT',
-  BankTransfer = 'BANK_TRANSFER',
-  PaymentBankSlip = 'PAYMENT_BANKSLIP',
-}
 
 userSchema.methods.fullName = (): string => {
   return `${userSchema.obj.firstName.trim()} ${userSchema.obj.lastName.trim()}`;

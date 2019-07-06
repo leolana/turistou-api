@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-import { IOrganization } from '@domain/entities/IOrganization';
+import { IOrganization } from '@domain/entities/Organization';
 
 import { addressSchema } from './addressSchema';
 import { DbSchema } from './DbSchema';

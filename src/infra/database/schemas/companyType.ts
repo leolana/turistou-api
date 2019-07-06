@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-import { ICompanyType } from '@domain/entities/ICompanyType';
+import { ICompanyType } from '@domain/entities/CompanyType';
 
 import { DbSchema } from './DbSchema';
 

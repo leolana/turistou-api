@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-import { IState } from '@domain/entities/IState';
+import { IState } from '@domain/entities/State';
 
 import { DbSchema } from './DbSchema';
 

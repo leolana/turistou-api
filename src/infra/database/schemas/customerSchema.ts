@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-import { ICustomer } from '@domain/entities/ICustomer';
+import { ICustomer } from '@domain/entities/Customer';
 
 import { addressSchema } from './addressSchema';
 import { DbSchema } from './DbSchema';

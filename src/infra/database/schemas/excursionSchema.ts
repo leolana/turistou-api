@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-import { IExcursion } from '@domain/entities/IExcursion';
+import { IExcursion } from '@domain/entities/Excursion';
 
 import { DbSchema } from './DbSchema';
 import { stopPointSchema } from './stopPointSchema';

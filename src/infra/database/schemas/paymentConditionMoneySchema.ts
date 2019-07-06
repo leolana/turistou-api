@@ -1,5 +1,7 @@
 import * as mongoose from 'mongoose';
 
+import { PaymentConditionEnum as PaymentCondition } from '@domain/entities/PaymentCondition';
+
 const dataTypes = mongoose.Schema.Types;
 
 export const paymentConditionMoneySchema: mongoose.Schema = new mongoose.Schema(

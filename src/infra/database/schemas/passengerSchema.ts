@@ -1,16 +1,10 @@
 import * as mongoose from 'mongoose';
 
-import { IPassenger } from '@domain/entities/IPassenger';
+import { IPassenger } from '@domain/entities/Passenger';
 
 import { DbSchema } from './DbSchema';
 
 const dataTypes = mongoose.Schema.Types;
-
-export enum passengerStatus {
-  booked = 'BOOKED',
-  waiting = 'WAITING',
-  canceled = 'CANCELED'
-}
 
 export interface IPassengerModel extends IPassenger, mongoose.Document {
 }

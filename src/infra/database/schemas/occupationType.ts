@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-import { IOccupationType } from '@domain/entities/IOccupationType';
+import { IOccupationType } from '@domain/entities/OccupationType';
 
 import { DbSchema } from './DbSchema';
 
