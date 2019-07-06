@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose';
 
 import { IOrganization } from '@domain/entities/IOrganization';
 
+import { addressSchema } from './addressSchema';
 import { DbSchema } from './DbSchema';
 
 const dataTypes = mongoose.Schema.Types;
@@ -12,32 +13,7 @@ export interface IOrgnizationModel extends IOrganization, mongoose.Document {
 const organizationSchema: mongoose.Schema = new mongoose.Schema(
   {
     address: {
-      type: dataTypes.String,
-      maxlength: 150,
-    },
-    zipcode: {
-      type: dataTypes.String,
-      maxlength: 8,
-    },
-    area: {
-      type: dataTypes.String,
-      maxlength: 150,
-    },
-    number: {
-      type: dataTypes.String,
-      maxlength: 15
-    },
-    complement: {
-      type: dataTypes.String,
-      maxlength: 20
-    },
-    state: {
-      type: dataTypes.String,
-      maxlength: 2
-    },
-    city: {
-      type: dataTypes.String,
-      maxlength: 150
+      type: addressSchema,
     },
     cadastur: {
       type: dataTypes.String,

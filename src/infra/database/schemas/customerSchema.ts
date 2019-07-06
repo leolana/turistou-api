@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose';
 
 import { ICustomer } from '@domain/entities/ICustomer';
 
+import { addressSchema } from './addressSchema';
 import { DbSchema } from './DbSchema';
 
 const dataTypes = mongoose.Schema.Types;
@@ -39,34 +40,9 @@ const customerSchema: mongoose.Schema = new mongoose.Schema(
     gender: {
       type: dataTypes.String,
       maxlength: 4
-    }, // Criar um schema de endereço para reutilização
+    },
     address: {
-      type: dataTypes.String,
-      maxlength: 150,
-    },
-    zipcode: {
-      type: dataTypes.String,
-      maxlength: 8,
-    },
-    area: {
-      type: dataTypes.String,
-      maxlength: 150,
-    },
-    number: {
-      type: dataTypes.String,
-      maxlength: 15
-    },
-    complement: {
-      type: dataTypes.String,
-      maxlength: 20
-    },
-    state: {
-      type: dataTypes.String,
-      maxlength: 2
-    },
-    city: {
-      type: dataTypes.String,
-      maxlength: 150
+      type: addressSchema,
     },
     cellphone: {
       type: dataTypes.String,
