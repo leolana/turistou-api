@@ -21,9 +21,6 @@ export interface IExcursion {
 
 export default class Excursion implements IExcursion, Entity {
   id: String;
-  stopPointIds?: String[];
-  transportIds?: String[];
-  ticketPriceIds?: String[];
   destination: String;
   departurePoint: String;
   departureDate: Date;

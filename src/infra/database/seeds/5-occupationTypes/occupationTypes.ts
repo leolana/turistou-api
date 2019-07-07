@@ -6,7 +6,7 @@ export = [
     updatedAt: new Date()
   },
   {
-    name: 'Guia turístico',
+    name: 'Guia de turismo',
     active: true,
     createdAt: new Date(),
     updatedAt: new Date()
