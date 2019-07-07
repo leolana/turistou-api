@@ -54,7 +54,7 @@ const userSchema: mongoose.Schema = new mongoose.Schema(
 );
 
 userSchema.methods.fullName = (): string => {
-  return `${userSchema.obj.firstName.trim()} ${userSchema.obj.lastName.trim()}`;
+  return `${userSchema.obj.name.trim()} ${userSchema.obj.lastName.trim()}`;
 };
 
 const collectionName = 'User';
