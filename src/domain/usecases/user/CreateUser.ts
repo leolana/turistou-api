@@ -1,6 +1,6 @@
 import { Service } from 'typedi';
 
-import { IUser } from '@domain//entities/IUser';
+import { IUser } from '@domain//entities/User';
 import { events } from '@domain/subscribers/events';
 import { DbModel, ModelInterface } from '@infra/database/DbModel';
 import userSchema, { IUserModel } from '@infra/database/schemas/userSchema';

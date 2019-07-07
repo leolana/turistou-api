@@ -1,5 +1,4 @@
-import { IUser } from '@domain//entities/IUser';
-import { User } from '@domain//entities/User';
+import User, { IUser } from '@domain//entities/User';
 import { SignupAccountInput } from '@interfaces/graphql/types/input/SignupAccountInput';
 
 export const inputToUserModel = (input: SignupAccountInput): IUser => <User>({

@@ -1,37 +1,36 @@
-import * as bcrypt from 'bcrypt';
+import { Gender } from './Gender';
 
-import { IUser } from './IUser';
+export enum Roles {
+  TI = 'TI',
+  Backoffice = 'BACKOFFICE',
+  TouristGuide = 'TOURIST_GUIDE',
+  TouristAgent = 'TOURIST_AGENT',
+}
 
-export class User implements IUser {
-  public username: string;
-  public active: boolean;
-  public id: string;
-  public firstName: string;
-  public lastName: string;
-  public email: string;
-  public password: string;
+export interface IUser {
+  email: String;
+  name: String;
+  lastName: String;
+  phone: String;
+  cpf: String;
+  gender: Gender;
+  birthDate: Date;
+  roles: Roles[];
+  active: Boolean;
+}
 
-  public static hashPassword(password: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const base = 10;
-      return bcrypt.hash(password, base, (err, hash) => {
-        if (err) {
-          return reject(err);
-        }
-        resolve(hash);
-      });
-    });
-  }
-
-  public static comparePassword(user: User, password: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      return bcrypt.compare(password, user.password, (err, res) => {
-        resolve(res);
-      });
-    });
-  }
+export default class User implements IUser {
+  email: String;
+  name: String;
+  lastName: String;
+  phone: String;
+  cpf: String;
+  gender: Gender;
+  birthDate: Date;
+  roles: Roles[];
+  active: Boolean;
 
   public toString(): string {
-    return `${this.firstName} ${this.lastName} (${this.email})`;
+    return `${this.name} ${this.lastName} (${this.email})`;
   }
 }

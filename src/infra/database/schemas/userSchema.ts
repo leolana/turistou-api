@@ -1,8 +1,10 @@
 import * as mongoose from 'mongoose';
 
-import { IUser } from '@domain/entities/IUser';
+import { IUser } from '@domain/entities/User';
 
 import { DbSchema } from './DbSchema';
+
+const dataTypes = mongoose.Schema.Types;
 
 export interface IUserModel extends IUser, mongoose.Document {
   fullName(): string;
@@ -10,20 +12,52 @@ export interface IUserModel extends IUser, mongoose.Document {
 
 const userSchema: mongoose.Schema = new mongoose.Schema(
   {
-    email: mongoose.Schema.Types.String,
-    firstName: mongoose.Schema.Types.String,
-    lastName: mongoose.Schema.Types.String,
-    password: mongoose.Schema.Types.String,
+    email: {
+      type: dataTypes.String,
+      required: true,
+      maxlength: 255,
+      unique: true,
+    },
+    name: {
+      type: dataTypes.String,
+      required: true,
+      maxlength: 30
+    },
+    lastName: {
+      type: dataTypes.String,
+      maxlength: 50
+    },
+    phone: {
+      type: dataTypes.String,
+      maxlength: 11,
+      required: true,
+      unique: true,
+    },
+    cpf: {
+      type: dataTypes.String,
+      maxlength: 11,
+      unique: true
+    },
+    gender: {
+      type: dataTypes.String,
+      maxlength: 4
+    },
+    birthDate: {
+      type: dataTypes.Date,
+    },
+    roles: {
+      type: [dataTypes.String],
+    },
     active: {
-      type: mongoose.Schema.Types.Boolean,
+      type: dataTypes.Boolean,
       default: true,
-    }
+    },
   },
   { timestamps: true }
 );
 
 userSchema.methods.fullName = (): string => {
-  return `${userSchema.obj.firstName.trim()} ${userSchema.obj.lastName.trim()}`;
+  return `${userSchema.obj.name.trim()} ${userSchema.obj.lastName.trim()}`;
 };
 
 const collectionName = 'User';
