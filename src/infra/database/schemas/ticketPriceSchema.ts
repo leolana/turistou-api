@@ -1,6 +1,13 @@
 import * as mongoose from 'mongoose';
 
+import { ITicketPrice } from '@domain/entities/TicketPrice';
+
+import { DbSchema } from './DbSchema';
+
 const dataTypes = mongoose.Schema.Types;
+
+export interface ITicketPriceModel extends ITicketPrice, mongoose.Document {
+}
 
 export const ticketPriceSchema: mongoose.Schema = new mongoose.Schema(
   {
@@ -21,3 +28,12 @@ export const ticketPriceSchema: mongoose.Schema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+const collectionName = 'TicketPrice';
+
+export const ticketPriceModel = mongoose.model<ITicketPriceModel>(collectionName, ticketPriceSchema);
+
+export default {
+  collectionName,
+  schema: ticketPriceSchema,
+} as DbSchema;

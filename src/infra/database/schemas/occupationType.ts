@@ -16,6 +16,10 @@ const occupationTypeSchema: mongoose.Schema = new mongoose.Schema(
       required: true,
       maxlength: 30
     },
+    active: {
+      type: dataTypes.Boolean,
+      default: true,
+    },
   },
 );
 

@@ -16,6 +16,7 @@ const userSchema: mongoose.Schema = new mongoose.Schema(
       type: dataTypes.String,
       required: true,
       maxlength: 255,
+      unique: true,
     },
     name: {
       type: dataTypes.String,
@@ -29,11 +30,13 @@ const userSchema: mongoose.Schema = new mongoose.Schema(
     phone: {
       type: dataTypes.String,
       maxlength: 11,
-      required: true
+      required: true,
+      unique: true,
     },
     cpf: {
       type: dataTypes.String,
       maxlength: 11,
+      unique: true
     },
     gender: {
       type: dataTypes.String,

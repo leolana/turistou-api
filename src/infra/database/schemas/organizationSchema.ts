@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import * as mongooseAutopopulate from 'mongoose-autopopulate';
 
 import { IOrganization } from '@domain/entities/Organization';
 
@@ -26,15 +27,19 @@ const organizationSchema: mongoose.Schema = new mongoose.Schema(
       type: dataTypes.String,
       maxlength: 2,
     },
-    occupationType: {
+    occupationTypeId: {
       type: dataTypes.ObjectId,
+      ref: 'OccupationType',
+      autopopulate: true
     },
     occupationTypeCustom: {
       type: dataTypes.String,
       maxlength: 30,
     },
-    companyType: {
+    companyTypeId: {
       type: dataTypes.ObjectId,
+      ref: 'CompanyType',
+      autopopulate: true
     },
     companyTypeCustom: {
       type: dataTypes.String,
@@ -59,6 +64,8 @@ const organizationSchema: mongoose.Schema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+organizationSchema.plugin(mongooseAutopopulate);
 
 const collectionName = 'Orgnization';
 

@@ -1,13 +1,17 @@
 import Address from './Address';
+import CompanyType from './CompanyType';
+import OccupationType from './OccupationType';
 
 export interface IOrganization {
   address: Address;
   cadastur: String;
   cadasturExpiration: Date;
   identityType: String;
-  occupationType: String;
+  occupationTypeId: String;
+  occupationType?: OccupationType;
   occupationTypeCustom: String;
-  companyType: String;
+  companyTypeId: String;
+  companyType?: CompanyType;
   companyTypeCustom: String;
   companyName: String;
   companyTradeName: String;
@@ -25,9 +29,11 @@ export default class Organization implements IOrganization {
   cadastur: String;
   cadasturExpiration: Date;
   identityType: Identity;
-  occupationType: String;
+  occupationTypeId: String;
+  occupationType?: OccupationType;
   occupationTypeCustom: String;
-  companyType: String;
+  companyTypeId: String;
+  companyType?: CompanyType;
   companyTypeCustom: String;
   companyName: String;
   companyTradeName: String;

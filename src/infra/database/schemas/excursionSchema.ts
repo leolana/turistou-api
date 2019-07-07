@@ -3,9 +3,6 @@ import * as mongoose from 'mongoose';
 import { IExcursion } from '@domain/entities/Excursion';
 
 import { DbSchema } from './DbSchema';
-import { stopPointSchema } from './stopPointSchema';
-import { ticketPriceSchema } from './ticketPriceSchema';
-import { transportSchema } from './transportSchema';
 
 const dataTypes = mongoose.Schema.Types;
 
@@ -37,17 +34,20 @@ const excursionSchema: mongoose.Schema = new mongoose.Schema(
       type: dataTypes.Date,
       required: true,
     },
-    stopPoints: {
-      type: [stopPointSchema],
+    stopPointIds: {
+      type: [dataTypes.ObjectId],
+      ref: 'StopPoint'
     },
-    transports: {
-      type: [transportSchema],
+    transportIds: {
+      type: [dataTypes.ObjectId],
+      ref: 'Transport'
     },
     ticketPriceDefault: {
       type: dataTypes.Decimal128,
     },
-    ticketPrices: {
-      type: [ticketPriceSchema],
+    ticketPriceIds: {
+      type: [dataTypes.ObjectId],
+      ref: 'TicketPrice',
     },
     active: {
       type: dataTypes.Boolean,
@@ -57,7 +57,7 @@ const excursionSchema: mongoose.Schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const collectionName = 'excursion';
+const collectionName = 'Excursion';
 
 export const excursionModel = mongoose.model<IExcursionModel>(collectionName, excursionSchema);
 

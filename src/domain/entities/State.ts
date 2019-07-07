@@ -1,9 +1,9 @@
 export interface IState {
-  initials: string;
-  name: string;
+  initials: String;
+  name: String;
 }
 
 export default class State implements IState {
-  initials: string;
-  name: string;
+  initials: String;
+  name: String;
 }

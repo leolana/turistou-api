@@ -1,7 +1,9 @@
 export interface IOccupationType {
-  name: string;
+  name: String;
+  active: Boolean;
 }
 
 export default class OccupationType implements IOccupationType {
-  name: string;
+  name: String;
+  active: Boolean;
 }

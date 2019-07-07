@@ -8,9 +8,12 @@ export interface IExcursion {
   departureDate: Date;
   arrivalPoint: String;
   regressDate: Date;
-  stopPoints: StopPoint[];
+  stopPointIds?: String[];
+  stopPoints?: StopPoint[];
+  transportIds?: String[];
   transports: Transport[];
   ticketPriceDefault: Number;
+  ticketPriceIds?: String[];
   ticketPrices: TicketPrice[];
   active: Boolean;
 }

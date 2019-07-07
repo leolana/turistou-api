@@ -31,11 +31,13 @@ const passengerSchema: mongoose.Schema = new mongoose.Schema(
   {
     customerId: {
       type: dataTypes.ObjectId,
-      required: true
+      required: true,
+      ref: 'Customer'
     },
     excursionId: {
       type: dataTypes.ObjectId,
-      required: true
+      required: true,
+      ref: 'Excursion'
     },
     status: {
       type: dataTypes.String,
@@ -43,16 +45,19 @@ const passengerSchema: mongoose.Schema = new mongoose.Schema(
     },
     ticketPriceId: {
       type: dataTypes.ObjectId,
-      default: null
+      default: null,
+      ref: 'TicketPrice'
     },
     boardingPointId: {
       type: dataTypes.ObjectId,
+      ref: 'StopPoint'
     },
     spot: {
       type: dataTypes.Number
     },
     transportExcursionId: {
       type: dataTypes.ObjectId,
+      ref: 'Transport'
     },
     paymentConditions: {
       type: [dataTypes.Mixed]
