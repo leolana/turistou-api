@@ -12,8 +12,8 @@ import { User } from '../types/User';
 export class ExcursionResolver {
   constructor(private listExcursionsUseCase: ListExcursion) {}
 
-  @Query(returns => User)
-  public async signup(@Arg('signUpAccount') signUpAccount: SignupAccountInput): Promise<any> {
+  @Query(returns => [User])
+  public async signup(@Arg('params') params: SignupAccountInput): Promise<any> {
     const model = inputToUserModel(signUpAccount);
     return this.listExcursionsUseCase.execute(model);
   }

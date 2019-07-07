@@ -1,3 +1,4 @@
+import Entity from './Entity';
 import { Gender } from './Gender';
 
 export enum Roles {
@@ -19,7 +20,8 @@ export interface IUser {
   active: Boolean;
 }
 
-export default class User implements IUser {
+export default class User implements IUser, Entity {
+  id: String;
   email: String;
   name: String;
   lastName: String;
@@ -29,6 +31,8 @@ export default class User implements IUser {
   birthDate: Date;
   roles: Roles[];
   active: Boolean;
+  createdAt: Date;
+  updatedAt: Date;
 
   public toString(): string {
     return `${this.name} ${this.lastName} (${this.email})`;

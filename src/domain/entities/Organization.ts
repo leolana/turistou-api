@@ -1,5 +1,6 @@
 import Address from './Address';
 import CompanyType from './CompanyType';
+import Entity from './Entity';
 import OccupationType from './OccupationType';
 
 export interface IOrganization {
@@ -24,7 +25,8 @@ export enum Identity {
   Company = 'PJ'
 }
 
-export default class Organization implements IOrganization {
+export default class Organization implements IOrganization, Entity {
+  id: String;
   address: Address;
   cadastur: String;
   cadasturExpiration: Date;
@@ -39,4 +41,6 @@ export default class Organization implements IOrganization {
   companyTradeName: String;
   cnpj: String;
   active: Boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }

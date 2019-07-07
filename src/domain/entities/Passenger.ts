@@ -1,4 +1,5 @@
 import Customer from './Customer';
+import Entity from './Entity';
 import Excursion from './Excursion';
 import PaymentCondition from './PaymentCondition';
 import PaymentTransaction from './PaymentTransaction';
@@ -29,7 +30,13 @@ export interface IPassenger {
   payments: PaymentTransaction[];
 }
 
-export default class Passenger implements IPassenger {
+export default class Passenger implements IPassenger, Entity {
+  id: String;
+  customerId?: String;
+  excursionId?: String;
+  ticketPriceId?: String;
+  boardingPointId?: String;
+  transportExcursionId?: String;
   customer: Customer;
   excursion: Excursion;
   ticketPrice?: TicketPrice;
@@ -39,4 +46,6 @@ export default class Passenger implements IPassenger {
   transportExcursion?: Transport;
   paymentConditions: PaymentCondition[];
   payments: PaymentTransaction[];
+  createdAt: Date;
+  updatedAt: Date;
 }

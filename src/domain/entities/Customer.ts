@@ -1,4 +1,5 @@
 import Address from './Address';
+import Entity from './Entity';
 import { Gender } from './Gender';
 
 export interface ICustomer {
@@ -22,7 +23,8 @@ export interface ICustomer {
   active: Boolean;
 }
 
-export default class Customer implements ICustomer {
+export default class Customer implements ICustomer, Entity {
+  id: String;
   name: String;  email: String;
   cpf: String;
   documentState: String;
@@ -40,4 +42,6 @@ export default class Customer implements ICustomer {
   howHearAbout: String;
   notes: String;
   active: Boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
