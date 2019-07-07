@@ -5,7 +5,7 @@ import { User } from '../User';
 @InputType()
 export class SignupAccountInput implements Partial<User> {
   @Field()
-  public firstName: string;
+  public name: string;
 
   @Field()
   public lastName: string;
@@ -15,20 +15,17 @@ export class SignupAccountInput implements Partial<User> {
   })
   public email: string;
 
-  // @Field()
-  // public phone: string;
+  @Field()
+  public phone: string;
 
   @Field()
-  public password: string;
+  public cpf: string;
 
-  // @Field()
-  // public confirmPassword: string;
+  @Field()
+  public gender: string;
 
-  // @Field()
-  // public cpf: string;
-
-  // @Field()
-  // public gender: string;
+  @Field()
+  public birthDate: Date;
 
   // @Field()
   // public zipcode: string;

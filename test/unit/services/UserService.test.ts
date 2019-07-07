@@ -1,4 +1,4 @@
-import { User } from '../../../src/domain/entities/User';
+import User from '../../../src/domain/entities/User';
 import { UserService } from '../../../src/domain/services/UserService';
 import { events } from '../../../src/domain/subscribers/events';
 import { EventDispatcherMock } from '../infra/EventDispatcherMock';
