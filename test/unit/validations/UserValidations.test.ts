@@ -1,6 +1,6 @@
 import { validate } from 'class-validator';
 
-import { User } from '../../../src/domain/entities/User';
+import User from '../../../src/domain/entities/User';
 
 describe('UserValidations', () => {
 

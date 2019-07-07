@@ -18,11 +18,11 @@ export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkS
     expressApp.use(passport.initialize());
     expressApp.use(passport.session());
 
-    passport.serializeUser<IUserModel, string>((user, done) => {
-      done(null, user.username);
+    passport.serializeUser<IUserModel, String>((user, done) => {
+      done(null, user.email);
     });
 
-    passport.deserializeUser<IUserModel, string>(async (id, done) => {
+    passport.deserializeUser<IUserModel, String>(async (id, done) => {
       const result: any = await userModel.findOne({
         email: id,
         active: true,
@@ -32,7 +32,7 @@ export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkS
 
       const user = {
         id: result._id,
-        firstName: result.firstName,
+        name: result.name,
         lastName: result.lastName,
         active: result.active
       } as IUserModel;
@@ -59,7 +59,7 @@ export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkS
         const result = await userModel
           .findOne({
             email: payload.email,
-            // active: true,
+            active: true,
           });
 
         if (result) {
