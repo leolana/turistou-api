@@ -1,20 +1,19 @@
-import { Arg, Query, Resolver } from 'type-graphql';
+import { Query, Resolver } from 'type-graphql';
 import { Service } from 'typedi';
 
 import ListExcursion from '@domain/usecases/excursion/ListExcursion';
-import { inputToUserModel } from '@interfaces/mapper/UserMapper';
+import { modelToExcursionSerializer } from '@interfaces/mapper/ExcursionMapper';
 
-import { SignupAccountInput } from '../types/input/SignupAccountInput';
-import { User } from '../types/User';
+import { Excursion } from '../types/Excursion';
 
 @Service()
-@Resolver(of => User)
+@Resolver(of => Excursion)
 export class ExcursionResolver {
   constructor(private listExcursionsUseCase: ListExcursion) {}
 
-  @Query(returns => [User])
-  public async signup(@Arg('params') params: SignupAccountInput): Promise<any> {
-    const model = inputToUserModel(signUpAccount);
-    return this.listExcursionsUseCase.execute(model);
+  @Query(returns => [Excursion])
+  public async excursions(): Promise<Excursion[]> {
+    const excursions = await this.listExcursionsUseCase.execute({});
+    return excursions.map(modelToExcursionSerializer);
   }
 }

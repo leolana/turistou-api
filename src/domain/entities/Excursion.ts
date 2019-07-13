@@ -1,20 +1,18 @@
-import Entity from './Entity';
+import Entity, { TimestampEntity } from './Entity';
 import StopPoint from './StopPoint';
 import TicketPrice from './TicketPrice';
 import Transport from './Transport';
 
-export interface IExcursion {
+export interface IExcursion extends TimestampEntity {
   destination: String;
   departurePoint: String;
   departureDate: Date;
   arrivalPoint: String;
   regressDate: Date;
-  stopPointIds?: String[];
   stopPoints?: StopPoint[];
   transportIds?: String[];
   transports: Transport[];
   ticketPriceDefault: Number;
-  ticketPriceIds?: String[];
   ticketPrices: TicketPrice[];
   active: Boolean;
 }
