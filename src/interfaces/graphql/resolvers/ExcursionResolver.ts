@@ -1,4 +1,4 @@
-import { Query, Resolver } from 'type-graphql';
+import { Authorized, Query, Resolver } from 'type-graphql';
 import { Service } from 'typedi';
 
 import ListExcursion from '@domain/usecases/excursion/ListExcursion';
@@ -11,6 +11,7 @@ import { Excursion } from '../types/Excursion';
 export class ExcursionResolver {
   constructor(private listExcursionsUseCase: ListExcursion) {}
 
+  @Authorized()
   @Query(returns => [Excursion])
   public async excursions(): Promise<Excursion[]> {
     const excursions = await this.listExcursionsUseCase.execute({});

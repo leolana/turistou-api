@@ -47,7 +47,7 @@ export const graphqlLoader: MicroframeworkLoader = async (settings: Microframewo
         const context = { requestId, container, request, response, next, passport } as Context; // create our context
         container.set('context', context); // place context or other data in container
         // Setup GraphQL Server
-        GraphQLHTTP({
+        return GraphQLHTTP({
           schema,
           context,
           graphiql: config.graphql.editor,
@@ -56,7 +56,7 @@ export const graphqlLoader: MicroframeworkLoader = async (settings: Microframewo
             message: getErrorMessage(error.message),
             path: error.path
           }),
-        })(request, response, next);
+        })(request, response);
       });
   }
 };
