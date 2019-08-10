@@ -4,7 +4,9 @@ import * as mongooseAutopopulate from 'mongoose-autopopulate';
 import { IOrganization } from '@domain/entities/Organization';
 
 import { addressSchema } from './addressSchema';
+import customerSchema from './customerSchema';
 import { DbSchema } from './DbSchema';
+import userSchema from './userSchema';
 
 const dataTypes = mongoose.Schema.Types;
 
@@ -57,6 +59,15 @@ const organizationSchema: mongoose.Schema = new mongoose.Schema(
       type: dataTypes.String,
       maxlength: 14,
     },
+    userIds: {
+      type: [dataTypes.ObjectId],
+      ref: userSchema.collectionName,
+      required: true,
+    },
+    customerIds:{
+      type:[dataTypes.ObjectId],
+      ref: customerSchema.collectionName
+    },
     active: {
       type: dataTypes.Boolean,
       default: true,
@@ -67,7 +78,7 @@ const organizationSchema: mongoose.Schema = new mongoose.Schema(
 
 organizationSchema.plugin(mongooseAutopopulate);
 
-const collectionName = 'Orgnization';
+const collectionName = 'Organization';
 
 export const organizationModel = mongoose.model<IOrganizationModel>(collectionName, organizationSchema);
 

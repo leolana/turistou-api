@@ -2,7 +2,11 @@ import * as mongoose from 'mongoose';
 
 import { IPassenger } from '@domain/entities/Passenger';
 
+import customerSchema from './customerSchema';
 import { DbSchema } from './DbSchema';
+import excursionSchema from './excursionSchema';
+import ticketPriceSchema from './ticketPriceSchema';
+import transportSchema from './transportSchema';
 
 const dataTypes = mongoose.Schema.Types;
 
@@ -32,12 +36,12 @@ const passengerSchema: mongoose.Schema = new mongoose.Schema(
     customerId: {
       type: dataTypes.ObjectId,
       required: true,
-      ref: 'Customer'
+      ref: customerSchema.collectionName
     },
     excursionId: {
       type: dataTypes.ObjectId,
       required: true,
-      ref: 'Excursion'
+      ref: excursionSchema.collectionName
     },
     status: {
       type: dataTypes.String,
@@ -46,7 +50,7 @@ const passengerSchema: mongoose.Schema = new mongoose.Schema(
     ticketPriceId: {
       type: dataTypes.ObjectId,
       default: null,
-      ref: 'TicketPrice'
+      ref: ticketPriceSchema.collectionName
     },
     boardingPointId: {
       type: dataTypes.ObjectId,
@@ -57,7 +61,7 @@ const passengerSchema: mongoose.Schema = new mongoose.Schema(
     },
     transportExcursionId: {
       type: dataTypes.ObjectId,
-      ref: 'Transport'
+      ref: transportSchema.collectionName
     },
     paymentConditions: {
       type: [dataTypes.Mixed]

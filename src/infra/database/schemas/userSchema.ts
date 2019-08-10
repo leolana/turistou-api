@@ -1,6 +1,7 @@
 import * as mongoose from 'mongoose';
 
 import { IUser } from '@domain/entities/User';
+import organizationSchema from '@infra/database/schemas/organizationSchema';
 
 import { DbSchema } from './DbSchema';
 
@@ -47,6 +48,11 @@ const userSchema: mongoose.Schema = new mongoose.Schema(
     },
     roles: {
       type: [dataTypes.String],
+    },
+    organizationId: {
+      type: dataTypes.ObjectId,
+      ref: organizationSchema.collectionName,
+      required: false,
     },
     active: {
       type: dataTypes.Boolean,

@@ -9,7 +9,17 @@ const dataTypes = mongoose.Schema.Types;
 export interface ITransportModel extends ITransport, mongoose.Document {
 }
 
-export const transportSchema: mongoose.Schema = new mongoose.Schema(
+const driverSchema: mongoose.Schema = new mongoose.Schema(
+  {
+    name: {
+      type: dataTypes.String,
+      required: true
+    }
+  },
+  { timestamps: true }
+);
+
+const transportSchema: mongoose.Schema = new mongoose.Schema(
   {
     type: {
       type: dataTypes.String,
@@ -23,7 +33,8 @@ export const transportSchema: mongoose.Schema = new mongoose.Schema(
       required: true
     },
     driver: {
-      type: dataTypes.String
+      type: [driverSchema],
+      required: true
     }
   },
   { timestamps: true }
