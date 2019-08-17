@@ -4,9 +4,10 @@ import * as mongooseAutopopulate from 'mongoose-autopopulate';
 import { IOrganization } from '@domain/entities/Organization';
 
 import { addressSchema } from './addressSchema';
-import customerSchema from './customerSchema';
-import { DbSchema } from './DbSchema';
-import userSchema from './userSchema';
+import {
+    COMPANY_TYPE_COLLECTION_NAME, CUSTOMER_COLLECTION_NAME, DbSchema,
+    OCCUPATION_TYPE_COLLECTION_NAME, ORGANIZATION_COLLECTION_NAME, USER_COLLECTION_NAME
+} from './DbSchema';
 
 const dataTypes = mongoose.Schema.Types;
 
@@ -31,7 +32,7 @@ const organizationSchema: mongoose.Schema = new mongoose.Schema(
     },
     occupationTypeId: {
       type: dataTypes.ObjectId,
-      ref: 'OccupationType',
+      ref: OCCUPATION_TYPE_COLLECTION_NAME,
       autopopulate: true
     },
     occupationTypeCustom: {
@@ -40,7 +41,7 @@ const organizationSchema: mongoose.Schema = new mongoose.Schema(
     },
     companyTypeId: {
       type: dataTypes.ObjectId,
-      ref: 'CompanyType',
+      ref: COMPANY_TYPE_COLLECTION_NAME,
       autopopulate: true
     },
     companyTypeCustom: {
@@ -61,12 +62,12 @@ const organizationSchema: mongoose.Schema = new mongoose.Schema(
     },
     userIds: {
       type: [dataTypes.ObjectId],
-      ref: userSchema.collectionName,
+      ref: USER_COLLECTION_NAME,
       required: true,
     },
     customerIds:{
       type:[dataTypes.ObjectId],
-      ref: customerSchema.collectionName
+      ref: CUSTOMER_COLLECTION_NAME
     },
     active: {
       type: dataTypes.Boolean,
@@ -78,7 +79,7 @@ const organizationSchema: mongoose.Schema = new mongoose.Schema(
 
 organizationSchema.plugin(mongooseAutopopulate);
 
-const collectionName = 'Organization';
+const collectionName = ORGANIZATION_COLLECTION_NAME;
 
 export const organizationModel = mongoose.model<IOrganizationModel>(collectionName, organizationSchema);
 
