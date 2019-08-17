@@ -1,7 +1,7 @@
 import { ObjectId } from 'bson';
 import { DateTime } from 'luxon';
 
-const today = (new DateTime()).startOf('day');
+const today = DateTime.local().startOf('day');
 
 export = [
   {

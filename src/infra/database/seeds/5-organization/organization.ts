@@ -1,7 +1,5 @@
 import { ObjectId } from 'bson';
 
-import { Identity } from '@domain/entities/Organization';
-
 export = [
   {
     id: new ObjectId('5d5821a9ffc3c7010f0c2f01'),
@@ -16,7 +14,7 @@ export = [
     },
     cadastur: '98989898987',
     cadasturExpiration: new Date(),
-    identityType: Identity.Company,
+    identityType: 'PJ',
     occupationTypeId: new ObjectId('5d58214d23de3e677b458667'),
     occupationTypeCustom: '',
     companyTypeId: new ObjectId('5d58213754691356e291f3ca'),
