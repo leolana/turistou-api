@@ -21,7 +21,6 @@ export interface IPassenger {
   status: PassengerStatus;
   ticketPriceId?: String;
   ticketPrice?: TicketPrice;
-  boardingPointId?: String;
   boardingPoint?: StopPoint;
   spot: Number;
   transportExcursionId?: String;
@@ -35,7 +34,6 @@ export default class Passenger implements IPassenger, Entity {
   customerId?: String;
   excursionId?: String;
   ticketPriceId?: String;
-  boardingPointId?: String;
   transportExcursionId?: String;
   customer: Customer;
   excursion: Excursion;

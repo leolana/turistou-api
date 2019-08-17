@@ -52,7 +52,7 @@ const passengerSchema: mongoose.Schema = new mongoose.Schema(
       default: null,
       ref: TICKET_PRICE_COLLECTION_NAME
     },
-    boardingPointId: {
+    boardingPoint: {
       type: stopPointSchema,
     },
     spot: {
