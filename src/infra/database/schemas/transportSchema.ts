@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 
 import { ITransport } from '@domain/entities/Transport';
 
-import { DbSchema } from './DbSchema';
+import { DbSchema, TRANSPORT_COLLECTION_NAME } from './DbSchema';
 
 const dataTypes = mongoose.Schema.Types;
 
@@ -44,11 +44,13 @@ const transportSchema: mongoose.Schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const collectionName = 'Transport';
+const collectionName = TRANSPORT_COLLECTION_NAME;
 
 export const transportModel = mongoose.model<ITransportModel>(collectionName, transportSchema);
 
-export default {
+const transportDbSchema: DbSchema = {
   collectionName,
   schema: transportSchema,
 } as DbSchema;
+
+export default transportDbSchema;

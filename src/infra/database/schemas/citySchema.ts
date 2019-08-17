@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 
 import { ICity } from '@domain/entities/City';
 
-import { DbSchema } from './DbSchema';
+import { CITY_COLLECTION_NAME, DbSchema } from './DbSchema';
 
 const dataTypes = mongoose.Schema.Types;
 
@@ -23,7 +23,7 @@ const citySchema: mongoose.Schema = new mongoose.Schema(
   },
 );
 
-const collectionName = 'City';
+const collectionName = CITY_COLLECTION_NAME;
 
 export const cityModel = mongoose.model<ICityModel>(collectionName, citySchema);
 

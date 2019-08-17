@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 
 import { IState } from '@domain/entities/State';
 
-import { DbSchema } from './DbSchema';
+import { DbSchema, STATE_COLLECTION_NAME } from './DbSchema';
 
 const dataTypes = mongoose.Schema.Types;
 
@@ -24,7 +24,7 @@ export const stateSchema: mongoose.Schema = new mongoose.Schema(
   },
 );
 
-const collectionName = 'State';
+const collectionName = STATE_COLLECTION_NAME;
 
 export const stateModel = mongoose.model<IStateModel>(collectionName, stateSchema);
 

@@ -3,9 +3,9 @@ import * as mongoose from 'mongoose';
 import { ICustomer } from '@domain/entities/Customer';
 
 import { addressSchema } from './addressSchema';
-import { DbSchema } from './DbSchema';
-import organizationSchema from './organizationSchema';
-import passengerSchema from './passengerSchema';
+import {
+    CUSTOMER_COLLECTION_NAME, DbSchema, ORGANIZATION_COLLECTION_NAME, PASSENGER_COLLECTION_NAME
+} from './DbSchema';
 
 const dataTypes = mongoose.Schema.Types;
 
@@ -85,18 +85,18 @@ const customerSchema: mongoose.Schema = new mongoose.Schema(
     },
     organizationId: {
       type: dataTypes.ObjectId,
-      ref:organizationSchema.collectionName,
+      ref: ORGANIZATION_COLLECTION_NAME,
       required: true
     },
     passengerIds: {
       type: [dataTypes.ObjectId],
-      ref:passengerSchema.collectionName
+      ref: PASSENGER_COLLECTION_NAME
     }
   },
   { timestamps: true }
 );
 
-const collectionName = 'Customer';
+const collectionName = CUSTOMER_COLLECTION_NAME;
 
 export const customerModel = mongoose.model<ICustomerModel>(collectionName, customerSchema);
 
