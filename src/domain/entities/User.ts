@@ -18,8 +18,8 @@ export interface IUser {
   gender: Gender;
   birthDate: Date;
   roles: Roles[];
-  organizationId: String;
-  organization: Organization;
+  organizationId?: String;
+  organization?: Organization;
   active: Boolean;
 }
 
@@ -33,8 +33,8 @@ export default class User implements IUser, Entity {
   gender: Gender;
   birthDate: Date;
   roles: Roles[];
-  organizationId: String;
-  organization: Organization;
+  organizationId?: String;
+  organization?: Organization;
   active: Boolean;
   createdAt: Date;
   updatedAt: Date;

@@ -15,7 +15,7 @@ export interface ITransport {
   type: String;
   plate: String;
   capacity: Number;
-  driver: Driver;
+  drivers: Driver[];
 }
 
 export default class Transport implements ITransport, Entity {
@@ -23,7 +23,7 @@ export default class Transport implements ITransport, Entity {
   type: String;
   plate: String;
   capacity: Number;
-  driver: Driver;
+  drivers: Driver[];
   createdAt: Date;
   updatedAt: Date;
 }
