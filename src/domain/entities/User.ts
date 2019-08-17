@@ -1,5 +1,6 @@
 import Entity from './Entity';
 import { Gender } from './Gender';
+import Organization from './Organization';
 
 export enum Roles {
   TI = 'TI',
@@ -17,6 +18,8 @@ export interface IUser {
   gender: Gender;
   birthDate: Date;
   roles: Roles[];
+  organizationId: String;
+  organization: Organization;
   active: Boolean;
 }
 
@@ -30,6 +33,8 @@ export default class User implements IUser, Entity {
   gender: Gender;
   birthDate: Date;
   roles: Roles[];
+  organizationId: String;
+  organization: Organization;
   active: Boolean;
   createdAt: Date;
   updatedAt: Date;

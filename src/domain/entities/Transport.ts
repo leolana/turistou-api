@@ -1,3 +1,4 @@
+import Driver from './Driver';
 import Entity from './Entity';
 
 export enum TransportType {
@@ -13,7 +14,7 @@ export interface ITransport {
   type: String;
   plate: String;
   capacity: Number;
-  driver: String;
+  driver: Driver;
 }
 
 export default class Transport implements ITransport, Entity {
@@ -21,7 +22,7 @@ export default class Transport implements ITransport, Entity {
   type: String;
   plate: String;
   capacity: Number;
-  driver: String;
+  driver: Driver;
   createdAt: Date;
   updatedAt: Date;
 }

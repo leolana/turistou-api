@@ -1,6 +1,8 @@
 import Address from './Address';
 import Entity from './Entity';
 import { Gender } from './Gender';
+import Organization from './Organization';
+import Passenger from './Passenger';
 
 export interface ICustomer {
   name: String;
@@ -21,6 +23,10 @@ export interface ICustomer {
   howHearAbout: String;
   notes: String;
   active: Boolean;
+  organizationId: String;
+  organization: Organization;
+  passengerIds: String[];
+  passengers: Passenger[];
 }
 
 export default class Customer implements ICustomer, Entity {
@@ -42,6 +48,10 @@ export default class Customer implements ICustomer, Entity {
   howHearAbout: String;
   notes: String;
   active: Boolean;
+  organizationId: String;
+  organization: Organization;
+  passengerIds: String[];
+  passengers: Passenger[];
   createdAt: Date;
   updatedAt: Date;
 }

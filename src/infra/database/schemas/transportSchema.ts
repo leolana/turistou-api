@@ -14,7 +14,11 @@ const driverSchema: mongoose.Schema = new mongoose.Schema(
     name: {
       type: dataTypes.String,
       required: true
-    }
+    },
+    active: {
+      type: dataTypes.Boolean,
+      default: true,
+    },
   },
   { timestamps: true }
 );

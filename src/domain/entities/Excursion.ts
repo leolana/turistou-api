@@ -1,4 +1,5 @@
 import Entity, { TimestampEntity } from './Entity';
+import Passenger from './Passenger';
 import StopPoint from './StopPoint';
 import TicketPrice from './TicketPrice';
 import Transport from './Transport';
@@ -14,10 +15,13 @@ export interface IExcursion extends TimestampEntity {
   transports: Transport[];
   ticketPriceDefault: Number;
   ticketPrices: TicketPrice[];
+  passengerIds: String[];
+  passengers: Passenger[];
   active: Boolean;
 }
 
 export default class Excursion implements IExcursion, Entity {
+  transportIds?: String[];
   id: String;
   destination: String;
   departurePoint: String;
@@ -29,6 +33,8 @@ export default class Excursion implements IExcursion, Entity {
   ticketPriceDefault: Number;
   ticketPrices: TicketPrice[];
   active: Boolean;
+  passengerIds: String[];
+  passengers: Passenger[];
   createdAt: Date;
   updatedAt: Date;
 }
