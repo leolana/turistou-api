@@ -8,6 +8,7 @@ export enum TransportType {
   TRAIN = 'TRAIN',
   CAR = 'CAR',
   AIRPLANE = 'AIRPLANE',
+  VAN = 'VAN',
 }
 
 export interface ITransport {
