@@ -1,4 +1,5 @@
 import { Field, ID, ObjectType } from 'type-graphql';
+import Driver from '@domain/entities/Driver';
 
 @ObjectType({
   description: 'Transport object.'
@@ -25,7 +26,7 @@ export class Transport {
   @Field({
     description: 'The driver of the Transport.'
   })
-  driver: String;
+  drivers: [Driver];
 
   @Field({
     description: 'The createdAt of the Transport.'

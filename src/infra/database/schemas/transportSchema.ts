@@ -36,7 +36,7 @@ const transportSchema: mongoose.Schema = new mongoose.Schema(
       type: dataTypes.Number,
       required: true
     },
-    driver: {
+    drivers: {
       type: [driverSchema],
       required: true
     }
