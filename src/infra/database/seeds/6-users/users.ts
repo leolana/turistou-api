@@ -1,3 +1,7 @@
+import { ObjectId } from 'bson';
+
+import { Roles } from '@domain/entities/User';
+
 export = [
   {
     email: 'user1@gmail.com',
@@ -7,7 +11,8 @@ export = [
     cpf: '40340419865',
     gender: 'MASC',
     birthDate: new Date(),
-    roles: ['BACKOFFICE'],
+    roles: [Roles.TouristAgent],
+    organizationId: new ObjectId('5d5821a9ffc3c7010f0c2f01'),
     active: true,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -20,7 +25,8 @@ export = [
     cpf: '27148384052',
     gender: 'MASC',
     birthDate: new Date(),
-    roles: ['BACKOFFICE'],
+    roles: [Roles.TouristGuide],
+    organizationId: new ObjectId('5d5821a9ffc3c7010f0c2f01'),
     active: true,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -33,7 +39,7 @@ export = [
     cpf: '20673110001',
     gender: 'FEM',
     birthDate: new Date(),
-    roles: ['BACKOFFICE'],
+    roles: [Roles.Backoffice],
     active: true,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -46,7 +52,7 @@ export = [
     cpf: '17102160003',
     gender: 'FEM',
     birthDate: new Date(),
-    roles: ['BACKOFFICE'],
+    roles: [Roles.Backoffice],
     active: true,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -59,7 +65,7 @@ export = [
     cpf: '60533040000',
     gender: 'FEM',
     birthDate: new Date(),
-    roles: ['BACKOFFICE'],
+    roles: [Roles.Backoffice, Roles.TI],
     active: true,
     createdAt: new Date(),
     updatedAt: new Date()
