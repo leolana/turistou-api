@@ -1,5 +1,5 @@
 import Driver from './Driver';
-import Entity from './Entity';
+import Entity, { TimestampEntity } from './Entity';
 
 export enum TransportType {
   BUS = 'BUS',
@@ -11,7 +11,7 @@ export enum TransportType {
   VAN = 'VAN',
 }
 
-export interface ITransport {
+export interface ITransport extends TimestampEntity {
   type: String;
   plate: String;
   capacity: Number;

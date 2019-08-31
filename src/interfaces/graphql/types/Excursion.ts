@@ -1,5 +1,6 @@
 import { Field, ID, ObjectType } from 'type-graphql';
 
+import { Passenger } from './Passenger';
 import { StopPoint } from './StopPoint';
 import { TicketPrice } from './TicketPrice';
 import { Transport } from './Transport';
@@ -45,6 +46,11 @@ export class Excursion {
     description: 'The transports of the excursion.'
   })
   public transports: Transport[];
+
+  @Field(type => [Passenger], {
+    description: 'The passengers of the excursion.'
+  })
+  public passengers: Passenger[];
 
   @Field({
     description: 'The ticketPriceDefault of the excursion.'

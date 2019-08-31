@@ -1,8 +1,8 @@
-import { Authorized, Query, Resolver } from 'type-graphql';
+import { Query, Resolver } from 'type-graphql';
 import { Service } from 'typedi';
 
 import ListExcursion from '@domain/usecases/excursion/ListExcursion';
-import { modelToExcursionSerializer } from '@interfaces/mapper/ExcursionMapper';
+import { entityToExcursionSerializer } from '@interfaces/mapper/ExcursionMapper';
 
 import { Excursion } from '../types/Excursion';
 
@@ -11,10 +11,10 @@ import { Excursion } from '../types/Excursion';
 export class ExcursionResolver {
   constructor(private listExcursionsUseCase: ListExcursion) {}
 
-  @Authorized()
+  // @Authorized()
   @Query(returns => [Excursion])
   public async excursions(): Promise<Excursion[]> {
     const excursions = await this.listExcursionsUseCase.execute({});
-    return excursions.map(modelToExcursionSerializer);
+    return excursions.map(entityToExcursionSerializer);
   }
 }

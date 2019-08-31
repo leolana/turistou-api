@@ -1,5 +1,5 @@
 import Customer from './Customer';
-import Entity from './Entity';
+import Entity, { TimestampEntity } from './Entity';
 import Excursion from './Excursion';
 import PaymentCondition from './PaymentCondition';
 import PaymentTransaction from './PaymentTransaction';
@@ -13,7 +13,7 @@ export enum PassengerStatus {
   canceled = 'CANCELED'
 }
 
-export interface IPassenger {
+export interface IPassenger extends TimestampEntity {
   customerId?: String;
   customer?: Customer;
   excursionId?: String;
