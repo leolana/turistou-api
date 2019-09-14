@@ -1,7 +1,8 @@
-import User, { IUser, Roles } from '@domain//entities/User';
+import User, { IUser, Roles } from '@domain/entities/User';
 import { SignupAccountInput } from '@interfaces/graphql/types/input/SignupAccountInput';
 
 export const inputToUserModel = (input: SignupAccountInput): IUser => <User>({
+  id: '',
   email: input.email,
   name: input.name,
   lastName: input.lastName,
@@ -11,4 +12,6 @@ export const inputToUserModel = (input: SignupAccountInput): IUser => <User>({
   birthDate: input.birthDate,
   roles: [Roles.Backoffice],
   active: true,
+  createdAt: new Date(),
+  updatedAt: new Date(),
 });

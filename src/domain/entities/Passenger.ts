@@ -1,4 +1,5 @@
 import Customer from './Customer';
+import Entity, { TimestampEntity } from './Entity';
 import Excursion from './Excursion';
 import PaymentCondition from './PaymentCondition';
 import PaymentTransaction from './PaymentTransaction';
@@ -12,7 +13,7 @@ export enum PassengerStatus {
   canceled = 'CANCELED'
 }
 
-export interface IPassenger {
+export interface IPassenger extends TimestampEntity {
   customerId?: String;
   customer?: Customer;
   excursionId?: String;
@@ -20,7 +21,6 @@ export interface IPassenger {
   status: PassengerStatus;
   ticketPriceId?: String;
   ticketPrice?: TicketPrice;
-  boardingPointId?: String;
   boardingPoint?: StopPoint;
   spot: Number;
   transportExcursionId?: String;
@@ -29,7 +29,12 @@ export interface IPassenger {
   payments: PaymentTransaction[];
 }
 
-export default class Passenger implements IPassenger {
+export default class Passenger implements IPassenger, Entity {
+  id: String;
+  customerId?: String;
+  excursionId?: String;
+  ticketPriceId?: String;
+  transportExcursionId?: String;
   customer: Customer;
   excursion: Excursion;
   ticketPrice?: TicketPrice;
@@ -39,4 +44,6 @@ export default class Passenger implements IPassenger {
   transportExcursion?: Transport;
   paymentConditions: PaymentCondition[];
   payments: PaymentTransaction[];
+  createdAt: Date;
+  updatedAt: Date;
 }

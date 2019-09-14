@@ -1,14 +1,16 @@
 import { Service } from 'typedi';
 
-import { IUser } from '@domain//entities/User';
+import { IUser } from '@domain/entities/User';
 import { events } from '@domain/subscribers/events';
 import { DbModel, ModelInterface } from '@infra/database/DbModel';
 import userSchema, { IUserModel } from '@infra/database/schemas/userSchema';
 import { EventDispatcher, EventDispatcherInterface } from '@infra/eventDispatch/EventDispatcher';
 import { LoggerDecorator as Logger, LoggerInterface } from '@infra/logger';
 
+import { UseCase } from '../UseCase';
+
 @Service()
-export class CreateUser {
+export class CreateUser implements UseCase<IUser, IUserModel>  {
   constructor(
     @EventDispatcher() private eventDispatcher: EventDispatcherInterface,
     @DbModel<IUserModel>(userSchema) private userModel: ModelInterface<IUserModel>,

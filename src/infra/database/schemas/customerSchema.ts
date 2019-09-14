@@ -3,28 +3,29 @@ import * as mongoose from 'mongoose';
 import { ICustomer } from '@domain/entities/Customer';
 
 import { addressSchema } from './addressSchema';
-import { DbSchema } from './DbSchema';
+import {
+    CUSTOMER_COLLECTION_NAME, DbSchema, ORGANIZATION_COLLECTION_NAME, PASSENGER_COLLECTION_NAME
+} from './DbSchema';
 
 const dataTypes = mongoose.Schema.Types;
 
-export interface ICustomerModel extends ICustomer, mongoose.Document {
-}
+export interface ICustomerModel extends ICustomer, mongoose.Document {}
 
 const customerSchema: mongoose.Schema = new mongoose.Schema(
   {
     name: {
       type: dataTypes.String,
       required: true,
-      maxlength: 150,
+      maxlength: 150
     },
     email: {
       type: dataTypes.String,
-      required: true,
+      required: true
     },
     cpf: {
       type: dataTypes.String,
       required: true,
-      maxlength: 11,
+      maxlength: 11
     },
     documentState: {
       type: dataTypes.String,
@@ -35,20 +36,20 @@ const customerSchema: mongoose.Schema = new mongoose.Schema(
       maxlength: 2
     },
     birthDate: {
-      type: dataTypes.Date,
+      type: dataTypes.Date
     },
     gender: {
       type: dataTypes.String,
       maxlength: 4
     },
     address: {
-      type: addressSchema,
+      type: addressSchema
     },
     cellphone: {
-      type: dataTypes.String,
+      type: dataTypes.String
     },
     telephone: {
-      type: dataTypes.String,
+      type: dataTypes.String
     },
     healthPlan: {
       type: dataTypes.String,
@@ -80,17 +81,26 @@ const customerSchema: mongoose.Schema = new mongoose.Schema(
     },
     active: {
       type: dataTypes.Boolean,
-      default: true,
+      default: true
     },
+    organizationId: {
+      type: dataTypes.ObjectId,
+      ref: ORGANIZATION_COLLECTION_NAME,
+      required: true
+    },
+    passengerIds: {
+      type: [dataTypes.ObjectId],
+      ref: PASSENGER_COLLECTION_NAME
+    }
   },
   { timestamps: true }
 );
 
-const collectionName = 'Customer';
+const collectionName = CUSTOMER_COLLECTION_NAME;
 
 export const customerModel = mongoose.model<ICustomerModel>(collectionName, customerSchema);
 
 export default {
   collectionName,
-  schema: customerSchema,
+  schema: customerSchema
 } as DbSchema;

@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 
 import { ICompanyType } from '@domain/entities/CompanyType';
 
-import { DbSchema } from './DbSchema';
+import { COMPANY_TYPE_COLLECTION_NAME, DbSchema } from './DbSchema';
 
 const dataTypes = mongoose.Schema.Types;
 
@@ -23,7 +23,7 @@ const companyTypeSchema: mongoose.Schema = new mongoose.Schema(
   },
 );
 
-const collectionName = 'CompanyType';
+const collectionName = COMPANY_TYPE_COLLECTION_NAME;
 
 export const companyTypeModel = mongoose.model<ICompanyTypeModel>(collectionName, companyTypeSchema);
 

@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 
 import { IUser } from '@domain/entities/User';
 
-import { DbSchema } from './DbSchema';
+import { DbSchema, ORGANIZATION_COLLECTION_NAME, USER_COLLECTION_NAME } from './DbSchema';
 
 const dataTypes = mongoose.Schema.Types;
 
@@ -48,6 +48,11 @@ const userSchema: mongoose.Schema = new mongoose.Schema(
     roles: {
       type: [dataTypes.String],
     },
+    organizationId: {
+      type: dataTypes.ObjectId,
+      ref: ORGANIZATION_COLLECTION_NAME,
+      required: false,
+    },
     active: {
       type: dataTypes.Boolean,
       default: true,
@@ -60,7 +65,7 @@ userSchema.methods.fullName = (): string => {
   return `${userSchema.obj.name.trim()} ${userSchema.obj.lastName.trim()}`;
 };
 
-const collectionName = 'User';
+const collectionName = USER_COLLECTION_NAME;
 
 export const userModel = mongoose.model<IUserModel>(collectionName, userSchema);
 

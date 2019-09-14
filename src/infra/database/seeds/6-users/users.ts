@@ -1,3 +1,5 @@
+import { ObjectId } from 'bson';
+
 export = [
   {
     email: 'user1@gmail.com',
@@ -7,7 +9,8 @@ export = [
     cpf: '40340419865',
     gender: 'MASC',
     birthDate: new Date(),
-    roles: ['BACKOFFICE'],
+    roles: ['TOURIST_AGENT'],
+    organizationId: new ObjectId('5d5821a9ffc3c7010f0c2f01'),
     active: true,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -20,7 +23,8 @@ export = [
     cpf: '27148384052',
     gender: 'MASC',
     birthDate: new Date(),
-    roles: ['BACKOFFICE'],
+    roles: ['TOURIST_GUIDE'],
+    organizationId: new ObjectId('5d5821a9ffc3c7010f0c2f01'),
     active: true,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -59,7 +63,7 @@ export = [
     cpf: '60533040000',
     gender: 'FEM',
     birthDate: new Date(),
-    roles: ['BACKOFFICE'],
+    roles: ['BACKOFFICE', 'TI'],
     active: true,
     createdAt: new Date(),
     updatedAt: new Date()

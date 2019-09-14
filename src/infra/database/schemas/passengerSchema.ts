@@ -2,7 +2,11 @@ import * as mongoose from 'mongoose';
 
 import { IPassenger } from '@domain/entities/Passenger';
 
-import { DbSchema } from './DbSchema';
+import {
+    CUSTOMER_COLLECTION_NAME, DbSchema, EXCURSION_COLLECTION_NAME, PASSENGER_COLLECTION_NAME,
+    TICKET_PRICE_COLLECTION_NAME, TRANSPORT_COLLECTION_NAME
+} from './DbSchema';
+import { stopPointSchema } from './stopPointSchema';
 
 const dataTypes = mongoose.Schema.Types;
 
@@ -32,12 +36,12 @@ const passengerSchema: mongoose.Schema = new mongoose.Schema(
     customerId: {
       type: dataTypes.ObjectId,
       required: true,
-      ref: 'Customer'
+      ref: CUSTOMER_COLLECTION_NAME
     },
     excursionId: {
       type: dataTypes.ObjectId,
       required: true,
-      ref: 'Excursion'
+      ref: EXCURSION_COLLECTION_NAME
     },
     status: {
       type: dataTypes.String,
@@ -46,18 +50,17 @@ const passengerSchema: mongoose.Schema = new mongoose.Schema(
     ticketPriceId: {
       type: dataTypes.ObjectId,
       default: null,
-      ref: 'TicketPrice'
+      ref: TICKET_PRICE_COLLECTION_NAME
     },
-    boardingPointId: {
-      type: dataTypes.ObjectId,
-      ref: 'StopPoint'
+    boardingPoint: {
+      type: stopPointSchema,
     },
     spot: {
       type: dataTypes.Number
     },
     transportExcursionId: {
       type: dataTypes.ObjectId,
-      ref: 'Transport'
+      ref: TRANSPORT_COLLECTION_NAME
     },
     paymentConditions: {
       type: [dataTypes.Mixed]
@@ -69,11 +72,13 @@ const passengerSchema: mongoose.Schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const collectionName = 'Passenger';
+const collectionName = PASSENGER_COLLECTION_NAME;
 
 export const passengerModel = mongoose.model<IPassengerModel>(collectionName, passengerSchema);
 
-export default {
+const passengerDbSchema: DbSchema = {
   collectionName,
   schema: passengerSchema,
 } as DbSchema;
+
+export default passengerDbSchema;
