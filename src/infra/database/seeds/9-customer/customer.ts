@@ -1,13 +1,16 @@
 import { ObjectId } from 'bson';
 
 const randomDate = () => {
-  const age = Math.round(Math.random() * 60);
-  const day = Math.ceil(Math.random() * 30);
-  const month = Math.ceil(Math.random() * 11);
-  return new Date(2000 - age, month, day);
+  const rangeAge = 60;
+  const daysOnMonth = 30;
+  const maxIndexOfMonth = 11;
+  const yearBase = 2000;
+  const age = Math.round(Math.random() * rangeAge);
+  const day = Math.ceil(Math.random() * daysOnMonth);
+  const month = Math.ceil(Math.random() * maxIndexOfMonth);
+  return new Date(yearBase - age, month, day);
 };
-
-export = [
+const data = [
   {
     id: new ObjectId('5d5821a9ffc3c7010f0c2f22'),
     name: 'Maria Aparecida da Silva',
@@ -65,3 +68,4 @@ export = [
     organizationId: new ObjectId('5d5821a9ffc3c7010f0c2f01'),
   },
 ];
+export = data;

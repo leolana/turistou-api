@@ -11,6 +11,7 @@ import { stopPointSchema } from './stopPointSchema';
 const dataTypes = mongoose.Schema.Types;
 
 export interface IPassengerModel extends IPassenger, mongoose.Document {
+
 }
 
 const paymentTransactionSchema: mongoose.Schema = new mongoose.Schema(
