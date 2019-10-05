@@ -5,6 +5,7 @@ const today = DateTime.local().startOf('day');
 
 export = [
   {
+    id: new ObjectId('5d5821a9ffc3c7010f0c2f32'),
     destination: 'Porto Alegre',
     departurePoint: 'Av. Antonio Carlos Pannunzio - Sorocaba - SP',
     departureDate: today.minus({ day: 5, hour: 8 }).toJSDate(),
