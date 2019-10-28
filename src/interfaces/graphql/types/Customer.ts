@@ -1,4 +1,5 @@
 import { Field, ID, ObjectType } from 'type-graphql';
+import { Address } from './Address';
 
 @ObjectType({
   description: 'Customer object.'
@@ -46,7 +47,7 @@ export class Customer {
   @Field({
     description: 'The address of the Customer.'
   })
-  public address: String;
+  public address: Address;
 
   @Field({
     description: 'The cellphone of the Customer.'

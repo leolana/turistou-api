@@ -38,7 +38,7 @@ export default class Customer implements ICustomer, Entity {
   document: String;
   birthDate: Date;
   gender: Gender;
-  address: any;
+  address: Address;
   cellphone: String;
   telephone: String;
   healthPlan: String;

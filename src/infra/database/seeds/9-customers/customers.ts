@@ -8,7 +8,7 @@ const randomDate = () => {
   return new Date(2000 - age, month, day);
 };
 
-export = [
+export =[
   {
     id: new ObjectId('5d5821a9ffc3c7010f0c2f22'),
     name: 'Maria Aparecida da Silva',
@@ -20,6 +20,7 @@ export = [
     gender: 'FEM',
     cellphone: '(15) 91234-5678',
     telephone: '(15) 1234-5678',
+    address: { city: 'Sorocaba' },
     active: true,
     organizationId: new ObjectId('5d5821a9ffc3c7010f0c2f01'),
   },
@@ -34,6 +35,7 @@ export = [
     gender: 'MASC',
     cellphone: '(15) 91234-5678',
     telephone: '(15) 1234-5678',
+    address: { city: 'Sorocaba' },
     active: true,
     organizationId: new ObjectId('5d5821a9ffc3c7010f0c2f01'),
   },
@@ -48,6 +50,7 @@ export = [
     gender: 'MASC',
     cellphone: '(15) 91234-5678',
     telephone: '(15) 1234-5678',
+    address: { city: 'São Paulo' },
     active: true,
     organizationId: new ObjectId('5d5821a9ffc3c7010f0c2f01'),
   },
@@ -62,6 +65,7 @@ export = [
     gender: 'FEM',
     cellphone: '(15) 91234-5678',
     telephone: '(15) 1234-5678',
+    address: { city: 'Sorocaba' },
     active: true,
     organizationId: new ObjectId('5d5821a9ffc3c7010f0c2f01'),
   },
