@@ -1,5 +1,4 @@
-// import { Authorized, Mutation, Query, Resolver } from 'type-graphql';
-import { Authorized, Query, Resolver } from 'type-graphql';
+import { Arg, Authorized, Mutation, Query, Resolver } from 'type-graphql';
 import { Service } from 'typedi';
 
 import ListExcursion from '@domain/usecases/excursion/ListExcursion';
@@ -7,6 +6,7 @@ import ListExcursion from '@domain/usecases/excursion/ListExcursion';
 import { entityToExcursionSerializer } from '@interfaces/mapper/ExcursionMapper';
 
 import { Excursion } from '../types/Excursion';
+import { SaveExcursionInput } from '../types/input/SaveExcursionInput';
 
 @Service()
 @Resolver(of => Excursion)
@@ -20,11 +20,9 @@ export class ExcursionResolver {
     return excursions.map(entityToExcursionSerializer);
   }
 
-  // @Authorized()
-  // @Mutation(returns => Excursion)
-  // public async saveExcursion(input): Promise<Excursion> {
-  //   const excursionInput = inputToExcursionModel(input);
-  //   const excursion = await this.listExcursionsUseCase.execute(excursionInput);
-  //   return entityToExcursionSerializer(excursion);
-  // }
+  @Authorized()
+  @Mutation(returns => Excursion)
+  public async saveExcursion(@Arg('input') input: SaveExcursionInput): Promise<Excursion> {
+    return { id: 'sdadsadsad' as String } as Excursion;
+  }
 }
