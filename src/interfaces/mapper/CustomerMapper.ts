@@ -1,0 +1,53 @@
+import Customer from '@domain/entities/Customer';
+import { ICustomerModel } from '@infra/database/schemas/customerSchema';
+import { Customer as CustomerResolver } from '@interfaces/graphql/types/Customer';
+
+export const entityToCustomerSerializer = (customer: Customer): CustomerResolver => <CustomerResolver>({
+  id: customer.id,
+  name: customer.name,
+  email: customer.email,
+  cpf: customer.cpf,
+  documentState: customer.documentState,
+  // gender: customer.gender,
+  document: customer.document,
+  birthDate: customer.birthDate,
+  address: customer.address,
+  cellphone: customer.cellphone,
+  telephone: customer.telephone,
+  healthPlan: customer.healthPlan,
+  alergy: customer.alergy,
+  contactName: customer.contactName,
+  contactPhone: customer.contactPhone,
+  foodRestriction: customer.foodRestriction,
+  howHearAbout: customer.howHearAbout,
+  notes: customer.notes,
+  active: customer.active,
+  // organization: customer.organization,
+  // passengers: customer.passengers,
+});
+
+export const modelToCustomerEntity = (customer: ICustomerModel): Customer => <Customer>({
+  id: customer.id,
+  name: customer.name,
+  email: customer.email,
+  cpf: customer.cpf,
+  documentState: customer.documentState,
+  document: customer.document,
+  birthDate: customer.birthDate,
+  gender: customer.gender,
+  address: customer.address,
+  cellphone: customer.cellphone,
+  telephone: customer.telephone,
+  healthPlan: customer.healthPlan,
+  alergy: customer.alergy,
+  contactName: customer.contactName,
+  contactPhone: customer.contactPhone,
+  foodRestriction: customer.foodRestriction,
+  howHearAbout: customer.howHearAbout,
+  notes: customer.notes,
+  active: customer.active,
+  organizationId: customer.organizationId,
+  organization: customer.organization,
+  passengerIds: customer.passengerIds,
+  passengers: customer.passengers,
+});

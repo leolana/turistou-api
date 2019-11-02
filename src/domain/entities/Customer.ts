@@ -31,13 +31,14 @@ export interface ICustomer {
 
 export default class Customer implements ICustomer, Entity {
   id: String;
-  name: String;  email: String;
+  name: String;
+  email: String;
   cpf: String;
   documentState: String;
   document: String;
   birthDate: Date;
   gender: Gender;
-  address: any;
+  address: Address;
   cellphone: String;
   telephone: String;
   healthPlan: String;
