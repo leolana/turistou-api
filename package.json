@@ -4,7 +4,7 @@
   "description": "A delightful way to building a Node.js RESTful API Services with beautiful code written in TypeScript",
   "main": "src/App.ts",
   "scripts": {
-    "start": "nps",
+    "start": "npx nps",
     "test": "npm start test",
     "build": "npm start build",
     "presetup": "yarn install",
