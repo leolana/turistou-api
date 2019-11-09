@@ -1,5 +1,18 @@
-import Transport from '@domain/entities/Transport';
+import Driver from '@domain/entities/Driver';
+import Transport, { ITransport } from '@domain/entities/Transport';
 import { ITransportModel } from '@infra/database/schemas/transportSchema';
+import { SaveTransportInput } from '@interfaces/graphql/types/input/SaveExcursionInput';
+
+export const inputToDriverModel = (input: String): Driver => <Driver>({
+  name: input,
+});
+
+export const inputToTransportModel = (input: SaveTransportInput): ITransport => <Transport>({
+  type: input.type,
+  plate: input.plate,
+  capacity: input.capacity,
+  drivers: [inputToDriverModel(input.driver)]
+});
 
 export const modelToTransportEntity = (transport: ITransportModel): Transport => <Transport>({
   id: transport.id,

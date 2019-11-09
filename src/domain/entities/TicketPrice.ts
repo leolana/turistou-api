@@ -8,11 +8,11 @@ export interface ITicketPrice {
 }
 
 export default class TicketPrice implements ITicketPrice, Entity {
-  id: String;
+  id?: String;
   description: String;
   price: Number;
   ageInitial: Number;
   ageFinal: Number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

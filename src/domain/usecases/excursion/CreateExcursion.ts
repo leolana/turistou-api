@@ -11,7 +11,7 @@ import { LoggerDecorator as Logger, LoggerInterface } from '@infra/logger';
 import { UseCase } from '../UseCase';
 
 @Service()
-export default class CreateExcursion implements UseCase<any, Excursion[]> {
+export default class CreateExcursion implements UseCase<any, Excursion> {
   constructor(
     // @DbModel<IExcursionModel>(excursionSchema) private excursionModel: ModelInterface<IExcursionModel>,
     // @DbModel<IExcursionModel>(transportSchema) private transportModel: ModelInterface<ITransportModel>,
@@ -19,11 +19,11 @@ export default class CreateExcursion implements UseCase<any, Excursion[]> {
     @Logger(__filename) private logger: LoggerInterface
   ) {}
 
-  public async execute(params: any): Promise<Excursion[]> {
+  public async execute(params: any): Promise<Excursion> {
     this.logger.info('Create excursion => ', params);
 
     // const mko = modelToExcursionEntity(excursion);
 
-    return [];
+    return { id: 'sdadsadsad' as String } as Excursion;
   }
 }
