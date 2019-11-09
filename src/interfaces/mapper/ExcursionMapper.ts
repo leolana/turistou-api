@@ -5,7 +5,7 @@ import { SignupAccountInput } from '@interfaces/graphql/types/input/SignupAccoun
 
 import { IPassengerModel } from '../../infra/database/schemas/passengerSchema';
 import { ITransportModel } from '../../infra/database/schemas/transportSchema';
-import { modelToPassengerEntity } from './PassengerMapper';
+import { modelToPassengerEntity, entityToPassengerSerializer } from './PassengerMapper';
 import { modelToTransportEntity } from './TransportMapper';
 
 export const inputToExcursionModel = (input: SignupAccountInput): IExcursion => <Excursion>({
@@ -20,7 +20,7 @@ export const entityToExcursionSerializer = (excursion: Excursion): ExcursionReso
   regressDate: excursion.regressDate,
   stopPoints: excursion.stopPoints,
   transports: excursion.transports,
-  passengers: excursion.passengers,
+  passengers: excursion.passengers.map(entityToPassengerSerializer),
   ticketPriceDefault: excursion.ticketPriceDefault,
   ticketPrices: excursion.ticketPrices,
   active: excursion.active,

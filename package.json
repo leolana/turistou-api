@@ -7,7 +7,7 @@
     "start": "nps",
     "test": "npm start test",
     "build": "npm start build",
-    "presetup": "yarn install",
+    "presetup": "npm install",
     "setup": "npm start config && npm start setup.script"
   },
   "engines": {
@@ -123,7 +123,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "npx lint-staged",
-      "commit-msg": "./node_modules/commitlint/cli.js -E HUSKY_GIT_PARAMS"
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "config": {

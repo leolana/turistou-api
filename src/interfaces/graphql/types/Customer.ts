@@ -65,9 +65,9 @@ export class Customer {
   public healthPlan: String;
 
   @Field({
-    description: 'The alergy of the Customer.'
+    description: 'The allergy of the Customer.'
   })
-  public alergy: String;
+  public allergy: String;
 
   @Field({
     description: 'The contact name for emergency of the Customer.'

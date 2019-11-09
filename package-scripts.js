@@ -137,7 +137,7 @@ module.exports = {
                 script: series(
                   'nps banner.seed',
                   'nps config',
-                  `./node_modules/mongo-seeding-cli/bin/seed.js --drop-database --replace-id --db-name turistou ./src/infra/database/seeds`
+                  `npx mongo-seeding-cli --drop-database --replace-id --db-name turistou ./src/infra/database/seeds`
                 ),
                 description: 'Seeds generated records into the database'
             }
