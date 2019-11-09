@@ -23,6 +23,8 @@ export class ExcursionResolver {
   @Authorized()
   @Mutation(returns => Excursion)
   public async saveExcursion(@Arg('input') input: SaveExcursionInput): Promise<Excursion> {
+    console.log('-------------- saveExcursion ---------------');
+    console.log(input);
     return { id: 'sdadsadsad' as String } as Excursion;
   }
 }
