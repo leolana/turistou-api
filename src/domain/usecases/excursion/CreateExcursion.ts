@@ -1,29 +1,38 @@
+import { ObjectId } from 'bson';
 import { Service } from 'typedi';
 
 import Excursion from '@domain/entities/Excursion';
-// import { DbModel, ModelInterface } from '@infra/database/DbModel';
-// import excursionSchema, { IExcursionModel } from '@infra/database/schemas/excursionSchema';
-// import passengerSchema, { IPassengerModel } from '@infra/database/schemas/passengerSchema';
-// import transportSchema, { ITransportModel } from '@infra/database/schemas/transportSchema';
+import { DbModel, ModelInterface } from '@infra/database/DbModel';
+import excursionSchema, { IExcursionModel } from '@infra/database/schemas/excursionSchema';
+import transportSchema, { ITransportModel } from '@infra/database/schemas/transportSchema';
 import { LoggerDecorator as Logger, LoggerInterface } from '@infra/logger';
+import { SaveExcursionInput } from '@interfaces/graphql/types/input/SaveExcursionInput';
+import { inputToExcursionEntity, modelToExcursionEntity } from '@interfaces/mapper/ExcursionMapper';
 
-// import { modelToExcursionEntity } from '@interfaces/mapper/ExcursionMapper';
 import { UseCase } from '../UseCase';
 
 @Service()
-export default class CreateExcursion implements UseCase<any, Excursion> {
+export default class CreateExcursion implements UseCase<SaveExcursionInput, Excursion> {
   constructor(
-    // @DbModel<IExcursionModel>(excursionSchema) private excursionModel: ModelInterface<IExcursionModel>,
-    // @DbModel<IExcursionModel>(transportSchema) private transportModel: ModelInterface<ITransportModel>,
-    // @DbModel<IPassengerModel>(passengerSchema) private passengerModel: ModelInterface<IPassengerModel>,
+    @DbModel<IExcursionModel>(excursionSchema) private excursionModel: ModelInterface<IExcursionModel>,
+    @DbModel<ITransportModel>(transportSchema) private transportModel: ModelInterface<ITransportModel>,
     @Logger(__filename) private logger: LoggerInterface
   ) {}
 
-  public async execute(params: any): Promise<Excursion> {
-    this.logger.info('Create excursion => ', params);
+  public async execute(input: SaveExcursionInput): Promise<Excursion> {
+    this.logger.info('Create excursion => ', input);
 
-    // const mko = modelToExcursionEntity(excursion);
+    const excursionEntity = inputToExcursionEntity(input);
 
-    return { id: 'sdadsadsad' as String } as Excursion;
+    const transportsPromises = excursionEntity.transports.map(t => new this.transportModel(t).save());
+
+    const transportsModel = await Promise.all(transportsPromises);
+
+    excursionEntity.transportIds = transportsModel.map(t => t.id);
+    excursionEntity.organizationId = new ObjectId('5d5821a9ffc3c7010f0c2f01') as any;
+
+    const excursionModel = await this.excursionModel.create(excursionEntity);
+
+    return modelToExcursionEntity(excursionModel, transportsModel, []);
   }
 }

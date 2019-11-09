@@ -10,7 +10,7 @@ import { inputToStopPointModel } from './StopPointMapper';
 import { inputToTicketPriceModel } from './TicketPriceMapper';
 import { inputToTransportModel, modelToTransportEntity } from './TransportMapper';
 
-export const inputToExcursionModel = (input: SaveExcursionInput): IExcursion => <Excursion>({
+export const inputToExcursionEntity = (input: SaveExcursionInput): IExcursion => <Excursion>({
   destination: input.destination,
   departurePoint: input.departurePoint,
   departureDate: input.departureDatetime,

@@ -3,9 +3,7 @@ import { Service } from 'typedi';
 
 import CreateExcursion from '@domain/usecases/excursion/CreateExcursion';
 import ListExcursion from '@domain/usecases/excursion/ListExcursion';
-import {
-    entityToExcursionSerializer, inputToExcursionModel
-} from '@interfaces/mapper/ExcursionMapper';
+import { entityToExcursionSerializer } from '@interfaces/mapper/ExcursionMapper';
 
 import { Excursion } from '../types/Excursion';
 import { SaveExcursionInput } from '../types/input/SaveExcursionInput';
@@ -28,8 +26,8 @@ export class ExcursionResolver {
   @Authorized()
   @Mutation(returns => Excursion)
   public async saveExcursion(@Arg('input') input: SaveExcursionInput): Promise<Excursion> {
-    const excursionEntity = inputToExcursionModel(input);
-    const excursion = await this.createExcursion.execute(excursionEntity);
+
+    const excursion = await this.createExcursion.execute(input);
 
     return entityToExcursionSerializer(excursion);
   }
