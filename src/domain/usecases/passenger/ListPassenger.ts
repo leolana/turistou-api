@@ -13,12 +13,26 @@ export default class ListPassenger implements UseCase<any, Passenger[]> {
   constructor(
     @DbModel<IPassengerModel>(passengerSchema) private passengerModel: ModelInterface<IPassengerModel>,
     @Logger(__filename) private logger: LoggerInterface
-  ) {}
+  ) { }
 
   public async execute(params: any): Promise<Passenger[]> {
     this.logger.info('List all passengers => ', params);
 
-    const passengersModel = await this.passengerModel.find();
+    const passengersModel = await this.passengerModel.aggregate([
+      {
+        $lookup: {
+          from: 'customers',
+          localField: 'customerId',
+          foreignField: '_id',
+          as: 'customer',
+        }
+      },
+      {
+        $addFields: {
+          customer: { $arrayElemAt: ['$customer', 0] },
+        }
+      }
+    ]);
 
     return passengersModel.map(
       (passenger: IPassengerModel) => modelToPassengerEntity(passenger)

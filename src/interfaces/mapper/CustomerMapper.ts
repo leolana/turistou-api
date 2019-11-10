@@ -8,7 +8,7 @@ export const entityToCustomerSerializer = (customer: Customer): CustomerResolver
   email: customer.email,
   cpf: customer.cpf,
   documentState: customer.documentState,
-  // gender: customer.gender,
+  gender: customer.gender,
   document: customer.document,
   birthDate: customer.birthDate,
   address: customer.address,

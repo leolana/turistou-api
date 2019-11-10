@@ -18,7 +18,7 @@ export class Passenger {
   @Field(type => Customer, {
     description: 'The Customer who is the Passenger.'
   })
-  customer: Customer;
+  customer?: Customer;
 
   @Field({
     description: 'The type of the Passenger.'

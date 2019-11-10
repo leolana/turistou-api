@@ -1,5 +1,6 @@
 import { Field, ID, ObjectType } from 'type-graphql';
 import { Address } from './Address';
+import { Gender } from '@domain/entities/Gender';
 
 @ObjectType({
   description: 'Customer object.'
@@ -19,10 +20,10 @@ export class Customer {
   })
   public email: String;
 
-  // @Field(type => [Gender], {
-  //   description: 'The gender of the Customer.'
-  // })
-  // public gender: Gender;
+  @Field({
+    description: 'The gender of the Customer.'
+  })
+  public gender: Gender;
 
   @Field({
     description: 'The number CPF of the Customer.'
