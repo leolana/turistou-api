@@ -6,8 +6,7 @@ import { IPassengerModel } from '@infra/database/schemas/passengerSchema';
 import { ITransportModel } from '@infra/database/schemas/transportSchema';
 import { Excursion as ExcursionResolver } from '@interfaces/graphql/types/Excursion';
 import { SaveExcursionInput } from '@interfaces/graphql/types/input/SaveExcursionInput';
-
-import { modelToPassengerEntity } from './PassengerMapper';
+import { modelToPassengerEntity, entityToPassengerSerializer } from './PassengerMapper';
 import { inputToStopPointModel } from './StopPointMapper';
 import { inputToTicketPriceModel } from './TicketPriceMapper';
 import { inputToTransportModel, modelToTransportEntity } from './TransportMapper';
@@ -34,7 +33,7 @@ export const entityToExcursionSerializer = (excursion: Excursion): ExcursionReso
   regressDate: excursion.regressDate,
   stopPoints: excursion.stopPoints,
   transports: excursion.transports,
-  passengers: excursion.passengers,
+  passengers: excursion.passengers.map(entityToPassengerSerializer),
   ticketPriceDefault: excursion.ticketPriceDefault,
   ticketPrices: excursion.ticketPrices,
   active: excursion.active,

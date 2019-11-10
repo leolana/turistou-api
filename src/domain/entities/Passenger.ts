@@ -31,11 +31,11 @@ export interface IPassenger extends TimestampEntity {
 
 export default class Passenger implements IPassenger, Entity {
   id: String;
-  customerId?: String;
+  customerId: String;
+  customer: Customer;
   excursionId?: String;
   ticketPriceId?: String;
   transportExcursionId?: String;
-  customer: Customer;
   excursion: Excursion;
   ticketPrice?: TicketPrice;
   status: PassengerStatus;

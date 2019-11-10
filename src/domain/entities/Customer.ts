@@ -16,7 +16,7 @@ export interface ICustomer {
   cellphone: String;
   telephone: String;
   healthPlan: String;
-  alergy: String;
+  allergy: String;
   contactName: String;
   contactPhone: String;
   foodRestriction: String;
@@ -42,7 +42,7 @@ export default class Customer implements ICustomer, Entity {
   cellphone: String;
   telephone: String;
   healthPlan: String;
-  alergy: String;
+  allergy: String;
   contactName: String;
   contactPhone: String;
   foodRestriction: String;

@@ -55,7 +55,7 @@ const customerSchema: mongoose.Schema = new mongoose.Schema(
       type: dataTypes.String,
       maxlength: 30
     },
-    alergy: {
+    allergy: {
       type: dataTypes.String,
       maxlength: 100
     },
