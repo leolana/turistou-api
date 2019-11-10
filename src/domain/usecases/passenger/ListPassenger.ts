@@ -15,7 +15,7 @@ export default class ListPassenger implements UseCase<any, Passenger[]> {
     @Logger(__filename) private logger: LoggerInterface
   ) { }
 
-  public async execute(params: any): Promise<Passenger[]> {
+  public async execute(params: any, options?: any): Promise<Passenger[]> {
     this.logger.info('List all passengers => ', params);
 
     const passengersModel = await this.passengerModel.aggregate([
@@ -33,6 +33,10 @@ export default class ListPassenger implements UseCase<any, Passenger[]> {
         }
       }
     ]);
+
+    if (options && options.asModel) {
+      return passengersModel;
+    }
 
     return passengersModel.map(
       (passenger: IPassengerModel) => modelToPassengerEntity(passenger)
