@@ -51,6 +51,7 @@ export = [
       }
     ],
     active: true,
+    organizationId: new ObjectId('5d5821a9ffc3c7010f0c2f01'),
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -114,6 +115,7 @@ export = [
       }
     ],
     active: true,
+    organizationId: new ObjectId('5d5821a9ffc3c7010f0c2f01'),
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -157,6 +159,7 @@ export = [
       }
     ],
     active: true,
+    organizationId: new ObjectId('5d5821a9ffc3c7010f0c2f01'),
     createdAt: new Date(),
     updatedAt: new Date()
   },

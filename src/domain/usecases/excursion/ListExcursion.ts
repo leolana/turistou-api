@@ -15,7 +15,7 @@ import ListPassenger from '../passenger/ListPassenger';
 export default class ListExcursion implements UseCase<any, Excursion[]> {
   constructor(
     @DbModel<IExcursionModel>(excursionSchema) private excursionModel: ModelInterface<IExcursionModel>,
-    @DbModel<IExcursionModel>(transportSchema) private transportModel: ModelInterface<ITransportModel>,
+    @DbModel<ITransportModel>(transportSchema) private transportModel: ModelInterface<ITransportModel>,
     private listPassengersUseCase: ListPassenger,
     @Logger(__filename) private logger: LoggerInterface,
   ) { }

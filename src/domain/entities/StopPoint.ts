@@ -5,8 +5,8 @@ export interface IStopPoint {
 }
 
 export default class StopPoint implements IStopPoint, Entity {
-  id: String;
+  id?: String;
   stopPoint: String;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
