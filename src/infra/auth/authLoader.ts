@@ -54,16 +54,16 @@ export const authLoader: MicroframeworkLoader = async (settings: MicroframeworkS
 
     passport.use(
       new JWTStrategy(options, async (payload, done) => {
-        console.log('-------JWTStrategy------------');
-        console.log(payload);
         const result = await userModel
           .findOne({
             email: payload.email,
             active: true,
-          });
+          })
+          .lean();
 
         if (result) {
-          return done(undefined, payload);
+          const user = Object.assign({}, payload, result);
+          return done(undefined, user);
         }
 
         return done('User not found', false);

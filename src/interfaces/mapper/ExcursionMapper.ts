@@ -1,3 +1,5 @@
+import { ObjectId } from 'bson';
+
 import Excursion, { IExcursion } from '@domain/entities/Excursion';
 import { IExcursionModel } from '@infra/database/schemas/excursionSchema';
 import { IPassengerModel } from '@infra/database/schemas/passengerSchema';
@@ -19,7 +21,8 @@ export const inputToExcursionEntity = (input: SaveExcursionInput): IExcursion =>
   stopPoints: input.stoppingPoints.map(inputToStopPointModel),
   ticketPriceDefault: input.ticketPriceDefault,
   ticketPrices: input.prices.map(inputToTicketPriceModel),
-  transports: input.excursionTransports.map(inputToTransportModel)
+  transports: input.excursionTransports.map(inputToTransportModel),
+  organizationId: input.organizationId ? input.organizationId : new ObjectId('5d5821a9ffc3c7010f0c2f01') as any,
 });
 
 export const entityToExcursionSerializer = (excursion: Excursion): ExcursionResolver => <ExcursionResolver>({

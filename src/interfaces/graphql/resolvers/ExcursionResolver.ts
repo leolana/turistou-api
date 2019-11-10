@@ -1,6 +1,7 @@
-import { Arg, Authorized, Mutation, Query, Resolver } from 'type-graphql';
+import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from 'type-graphql';
 import { Service } from 'typedi';
 
+import { Context } from '@Context';
 import CreateExcursion from '@domain/usecases/excursion/CreateExcursion';
 import ListExcursion from '@domain/usecases/excursion/ListExcursion';
 import { entityToExcursionSerializer } from '@interfaces/mapper/ExcursionMapper';
@@ -25,7 +26,11 @@ export class ExcursionResolver {
 
   @Authorized()
   @Mutation(returns => Excursion)
-  public async saveExcursion(@Arg('input') input: SaveExcursionInput): Promise<Excursion> {
+  public async saveExcursion(@Arg('input') input: SaveExcursionInput, @Ctx() context: Context): Promise<Excursion> {
+    console.log(context.request.user);
+    const { user } = context.request;
+
+    input.organizationId = user.organizationId;
 
     const excursion = await this.createExcursion.execute(input);
 
