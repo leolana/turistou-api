@@ -1,4 +1,3 @@
-import { ObjectId } from 'bson';
 import { Service } from 'typedi';
 
 import Excursion from '@domain/entities/Excursion';
@@ -29,7 +28,6 @@ export default class CreateExcursion implements UseCase<SaveExcursionInput, Excu
     const transportsModel = await Promise.all(transportsPromises);
 
     excursionEntity.transportIds = transportsModel.map(t => t.id);
-    excursionEntity.organizationId = new ObjectId('5d5821a9ffc3c7010f0c2f01') as any;
 
     const excursionModel = await this.excursionModel.create(excursionEntity);
 

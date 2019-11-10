@@ -84,4 +84,6 @@ export class SaveExcursionInput implements Partial<Excursion> {
     nullable: true
   })
   public excursionTransports?: SaveTransportInput[];
+
+  public organizationId?: String;
 }
