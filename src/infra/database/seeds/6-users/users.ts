@@ -1,6 +1,21 @@
+/* tslint:disable */
 import { ObjectId } from 'bson';
 
 export = [
+  {
+    email: 'camillamv@gmail.com',
+    name: 'Camilla',
+    lastName: 'Mi',
+    phone: '1599072105',
+    cpf: '39531671893',
+    gender: 'FEM',
+    birthDate: new Date(1992, 3, 12),
+    roles: ['TOURIST_AGENT'],
+    organizationId: new ObjectId('5d5821a9ffc3c7010f0c2f01'),
+    active: true,
+    createdAt: new Date(),
+    updatedAt: null
+  },
   {
     email: 'user1@gmail.com',
     name: 'user1',

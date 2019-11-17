@@ -1,6 +1,7 @@
 import { Field, ID, ObjectType } from 'type-graphql';
 import { PassengerStatus } from '@domain/entities/Passenger';
 import { Customer } from './Customer';
+import { TicketPrice } from './TicketPrice';
 
 @ObjectType({
   description: 'Passenger object.'
@@ -21,7 +22,12 @@ export class Passenger {
   customer?: Customer;
 
   @Field({
-    description: 'The type of the Passenger.'
+    description: 'The TicketPrice of the Passenger.'
+  })
+  ticketPrice: TicketPrice;
+
+  @Field({
+    description: 'The spot of the Passenger.'
   })
   spot: Number;
 

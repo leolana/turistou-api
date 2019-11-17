@@ -42,6 +42,7 @@ export = [
     ticketPriceDefault: 100,
     ticketPrices: [
       {
+        id: new ObjectId('5dbde2686aac4e44e8b1c030'),
         description: 'Adulto Novos',
         price: 120,
         ageInitial: 12,
@@ -56,6 +57,7 @@ export = [
     updatedAt: new Date()
   },
   {
+    id: new ObjectId('5dbde2686aac4e44e8b1c02e'),
     destination: 'Campos do Jordão',
     departurePoint: 'Sorocaba - SP',
     departureDate: today.plus({ day: 5, hour: 9, minutes: 30 }).toJSDate(),
@@ -92,6 +94,7 @@ export = [
     ticketPriceDefault: 800,
     ticketPrices: [
       {
+        id: new ObjectId('5dbde2686aac4e44e8b1c031'),
         description: 'Crianças',
         price: 400,
         ageFinal: 11,
@@ -99,6 +102,7 @@ export = [
         updatedAt: new Date(),
       },
       {
+        id: new ObjectId('5dbde2686aac4e44e8b1c032'),
         description: 'Jovens',
         price: 700,
         ageInitial: 12,
@@ -107,6 +111,7 @@ export = [
         updatedAt: new Date(),
       },
       {
+        id: new ObjectId('5dbde2686aac4e44e8b1c033'),
         description: 'Idosos',
         price: 600,
         ageInitial: 65,

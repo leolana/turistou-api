@@ -18,7 +18,7 @@ export default class ListPassenger implements UseCase<any, Passenger[]> {
   public async execute(params: any, options?: any): Promise<Passenger[]> {
     this.logger.info('List all passengers => ', params);
 
-    const passengersModel = await this.passengerModel.aggregate([
+    const queryResult = await this.passengerModel.aggregate([
       {
         $lookup: {
           from: 'customers',
@@ -28,12 +28,35 @@ export default class ListPassenger implements UseCase<any, Passenger[]> {
         }
       },
       {
+        $lookup: {
+          from: 'excursions',
+          localField: 'excursionId',
+          foreignField: '_id',
+          as: 'excursion',
+        }
+      },
+      {
         $addFields: {
           customer: { $arrayElemAt: ['$customer', 0] },
+          excursion: { $arrayElemAt: ['$excursion', 0] },
         }
-      }
+      },
     ]);
 
+    const passengersModel = queryResult.map((passengerModel) => {
+      const ticketPrice = passengerModel.ticketPriceId
+        ? passengerModel.excursion.ticketPrices.find(x => x.id.toString() == passengerModel.ticketPriceId.toString())
+        : {
+          description: 'Padrão',
+          price: passengerModel.excursion.ticketPriceDefault,
+        };
+      return {
+        ...passengerModel,
+        ticketPrice
+      };
+    });
+
+    // TODO:
     if (options && options.asModel) {
       return passengersModel;
     }
