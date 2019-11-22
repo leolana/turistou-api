@@ -3,6 +3,7 @@ import { IPassengerModel } from '@infra/database/schemas/passengerSchema';
 import { Passenger as PassengerResolver } from '@interfaces/graphql/types/Passenger';
 import { SignupAccountInput } from '@interfaces/graphql/types/input/SignupAccountInput';
 import { entityToCustomerSerializer } from './CustomerMapper';
+import { modelToPaymentTransactionEntity, entityToPaymentTransactionSerializer } from './PaymentTransactionMapper';
 
 export const inputToPassengerModel = (input: SignupAccountInput): IPassenger => <Passenger>({
 });
@@ -14,6 +15,7 @@ export const entityToPassengerSerializer = (passenger: Passenger): PassengerReso
   customer: entityToCustomerSerializer(passenger.customer),
   createdAt: passenger.createdAt,
   updatedAt: passenger.updatedAt,
+  payments: passenger.payments.map(entityToPaymentTransactionSerializer)
 });
 
 export const modelToPassengerEntity =
@@ -34,4 +36,5 @@ export const modelToPassengerEntity =
     // payments: passenger.payments,
     createdAt: passenger.createdAt,
     updatedAt: passenger.updatedAt,
+    payments: passenger.payments.map(modelToPaymentTransactionEntity)
   });

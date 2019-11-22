@@ -1,6 +1,7 @@
 import { Field, ID, ObjectType } from 'type-graphql';
 import { PassengerStatus } from '@domain/entities/Passenger';
 import { Customer } from './Customer';
+import { PaymentTransaction } from './PaymentTransaction';
 
 @ObjectType({
   description: 'Passenger object.'
@@ -34,4 +35,9 @@ export class Passenger {
     description: 'The updatedAt of the Passenger.'
   })
   updatedAt: Date;
+
+  @Field(type => [PaymentTransaction], {
+    description: 'A list of all payments made by the Passenger.',
+  })
+  payments: PaymentTransaction[];
 }
