@@ -6,7 +6,8 @@ import { IPassengerModel } from '@infra/database/schemas/passengerSchema';
 import { ITransportModel } from '@infra/database/schemas/transportSchema';
 import { Excursion as ExcursionResolver } from '@interfaces/graphql/types/Excursion';
 import { SaveExcursionInput } from '@interfaces/graphql/types/input/SaveExcursionInput';
-import { modelToPassengerEntity, entityToPassengerSerializer } from './PassengerMapper';
+
+import { entityToPassengerSerializer, modelToPassengerEntity } from './PassengerMapper';
 import { inputToStopPointModel } from './StopPointMapper';
 import { inputToTicketPriceModel } from './TicketPriceMapper';
 import { inputToTransportModel, modelToTransportEntity } from './TransportMapper';
@@ -42,7 +43,7 @@ export const entityToExcursionSerializer = (excursion: Excursion): ExcursionReso
 });
 
 export const modelToExcursionEntity =
-  (excursion: IExcursionModel, transports: ITransportModel[], passengers: IPassengerModel[]): Excursion => <Excursion>({
+  (excursion: IExcursionModel): Excursion => <Excursion>({
     id: excursion.id,
     destination: excursion.destination,
     departurePoint: excursion.departurePoint,
@@ -50,8 +51,8 @@ export const modelToExcursionEntity =
     arrivalPoint: excursion.arrivalPoint,
     regressDate: excursion.regressDate,
     stopPoints: excursion.stopPoints,
-    transports: transports.map(modelToTransportEntity),
-    passengers: passengers.map(modelToPassengerEntity),
+    transports: (excursion.transports as ITransportModel[]).map(modelToTransportEntity),
+    passengers: (excursion.passengers as IPassengerModel[]).map(modelToPassengerEntity),
     ticketPriceDefault: excursion.ticketPriceDefault,
     ticketPrices: excursion.ticketPrices,
     active: excursion.active,

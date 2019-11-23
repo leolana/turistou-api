@@ -39,6 +39,12 @@ export = [
       },
     ],
     transportIds: [new ObjectId('5d2a2faa2956627571be8f5f')],
+    passengerIds: [
+      new ObjectId('5dc8587aae446b3b8d4de546'),
+      new ObjectId('5dc858889a3e040aa67f29d6'),
+      new ObjectId('5dc85890acae73753e6195be'),
+      new ObjectId('5dc8589706a2360145908053')
+    ],
     ticketPriceDefault: 100,
     ticketPrices: [
       {

@@ -31,6 +31,9 @@ export default class CreateExcursion implements UseCase<SaveExcursionInput, Excu
 
     const excursionModel = await this.excursionModel.create(excursionEntity);
 
-    return modelToExcursionEntity(excursionModel, transportsModel, []);
+    excursionModel.transports = transportsModel;
+    excursionModel.passengers = [];
+
+    return modelToExcursionEntity(excursionModel);
   }
 }
