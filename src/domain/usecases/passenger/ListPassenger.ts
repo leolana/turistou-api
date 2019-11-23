@@ -45,7 +45,7 @@ export default class ListPassenger implements UseCase<any, Passenger[]> {
 
     const passengersModel = queryResult.map((passengerModel) => {
       const ticketPrice = passengerModel.ticketPriceId
-        ? passengerModel.excursion.ticketPrices.find(x => x.id.toString() == passengerModel.ticketPriceId.toString())
+        ? passengerModel.excursion.ticketPrices.find(x => x.id.toString() === passengerModel.ticketPriceId.toString())
         : {
           description: 'Padrão',
           price: passengerModel.excursion.ticketPriceDefault,
