@@ -46,9 +46,6 @@ export default class ListExcursion implements UseCase<any, Excursion[]> {
     ])
       .exec();
 
-    console.log('---------- excursionsModel -------------');
-    console.log(excursionsModel);
-
     return excursionsModel.map(
       (excursion: IExcursionModel) => modelToExcursionEntity(excursion)
     );
