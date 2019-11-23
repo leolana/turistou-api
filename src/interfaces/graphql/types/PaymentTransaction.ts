@@ -1,7 +1,6 @@
-import { Field, ID, ObjectType } from 'type-graphql';
+import { Field, ID, ObjectType, Float } from 'type-graphql';
 
 import { OperationPayment } from '@domain/entities/PaymentTransaction';
-
 
 @ObjectType({
   description: 'PaymentTransaction object.'
@@ -11,7 +10,7 @@ export class PaymentTransaction {
   @Field(type => ID)
   id: String;
 
-  @Field({
+  @Field(type => Float, {
     description: 'The value(money) paid.'
   })
   value: Number;
@@ -26,9 +25,9 @@ export class PaymentTransaction {
   })
   payDate: Date;
 
-  // @Field(type => OperationPayment, {
-  //   description: 'The operation type.',
-  // })
+  @Field({
+    description: 'The operation type.',
+  })
   operation: OperationPayment;
 
   @Field({

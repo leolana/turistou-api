@@ -7,7 +7,7 @@ export enum OperationPayment {
 
 export interface IPaymentTransaction extends TimestampEntity {
   id: String;
-  value: Number;
+  value: Buffer;
   dueDate: Date;
   payDate: Date;
   operation: OperationPayment;
@@ -17,7 +17,7 @@ export interface IPaymentTransaction extends TimestampEntity {
 
 export default class PaymentTransaction implements IPaymentTransaction, Entity {
   id: String;
-  value: Number;
+  value: Buffer;
   dueDate: Date;
   payDate: Date;
   operation: OperationPayment;
