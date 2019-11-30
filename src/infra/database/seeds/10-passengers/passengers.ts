@@ -5,6 +5,12 @@ enum PassengerStatus {
   waiting = 'WAITING',
   canceled = 'CANCELED'
 }
+
+enum OperationPayment {
+  Credit = 'CREDIT',
+  ChargeBack = 'CHARGE_BACK',
+}
+
 export = [
   {
     id: new ObjectId('5dc8587aae446b3b8d4de546'),
@@ -14,6 +20,24 @@ export = [
     ticketPriceId: null,
     spot: 1,
     // transportExcursionId: new ObjectId(''),
+    payments: [
+      {
+        value: 60,
+        dueDate: new Date(),
+        payDate: new Date(),
+        operation: OperationPayment.ChargeBack,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        value: 30,
+        dueDate: new Date(),
+        payDate: new Date(),
+        operation: OperationPayment.Credit,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
+    ]
   },
   {
     id: new ObjectId('5dc858889a3e040aa67f29d6'),
@@ -23,6 +47,7 @@ export = [
     ticketPriceId: new ObjectId('5dbde2686aac4e44e8b1c030'),
     spot: 2,
     // transportExcursionId: new ObjectId(''),
+    payments: []
   },
   {
     id: new ObjectId('5dc85890acae73753e6195be'),
@@ -32,6 +57,16 @@ export = [
     ticketPriceId: new ObjectId('5dbde2686aac4e44e8b1c033'),
     spot: 15,
     // transportExcursionId: new ObjectId(''),
+    payments: [
+      {
+        value: 45,
+        dueDate: new Date(),
+        payDate: new Date(),
+        operation: OperationPayment.Credit,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
+    ]
   },
   {
     id: new ObjectId('5dc8589706a2360145908053'),
@@ -41,5 +76,23 @@ export = [
     ticketPriceId: new ObjectId('5dbde2686aac4e44e8b1c032'),
     spot: 18,
     // transportExcursionId: new ObjectId(''),
+    payments: [
+      {
+        value: 20,
+        dueDate: new Date(),
+        payDate: new Date(),
+        operation: OperationPayment.ChargeBack,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        value: 80,
+        dueDate: new Date(),
+        payDate: new Date(),
+        operation: OperationPayment.ChargeBack,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
+    ]
   },
 ];
