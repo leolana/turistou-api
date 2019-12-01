@@ -44,7 +44,7 @@ export = [
     customerId: new ObjectId('5d5821a9ffc3c7010f0c2f23'),
     excursionId: new ObjectId('5dbde2686aac4e44e8b1c02d'),
     status: PassengerStatus.booked,
-    ticketPriceId: new ObjectId('5dbde2686aac4e44e8b1c030'),
+    ticketPriceId: new ObjectId('5d2a2faa2956627571be8f5f'),
     spot: 2,
     // transportExcursionId: new ObjectId(''),
     payments: []
@@ -54,7 +54,7 @@ export = [
     customerId: new ObjectId('5d5821a9ffc3c7010f0c2f24'),
     excursionId: new ObjectId('5dbde2686aac4e44e8b1c02e'),
     status: PassengerStatus.waiting,
-    ticketPriceId: new ObjectId('5dbde2686aac4e44e8b1c033'),
+    ticketPriceId: new ObjectId('5dc858889a3e040aa67f29d6'),
     spot: 15,
     // transportExcursionId: new ObjectId(''),
     payments: [
@@ -73,7 +73,7 @@ export = [
     customerId: new ObjectId('5d5821a9ffc3c7010f0c2f25'),
     excursionId: new ObjectId('5dbde2686aac4e44e8b1c02e'),
     status: PassengerStatus.canceled,
-    ticketPriceId: new ObjectId('5dbde2686aac4e44e8b1c032'),
+    ticketPriceId: new ObjectId('5dbde2686aac4e44e8b1c02e'),
     spot: 18,
     // transportExcursionId: new ObjectId(''),
     payments: [
