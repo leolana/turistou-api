@@ -2,6 +2,7 @@ import Customer, { ICustomer } from '@domain/entities/Customer';
 import { ICustomerModel } from '@infra/database/schemas/customerSchema';
 import { Customer as CustomerResolver } from '@interfaces/graphql/types/Customer';
 import { SaveCustomerInput } from '@interfaces/graphql/types/input/SaveCustomerInput';
+import { inputToAddressModel } from './AddressMapper';
 
 export const inputToCustomerEntity = (input: SaveCustomerInput): ICustomer => <Customer>({
   name: input.name,
@@ -11,7 +12,7 @@ export const inputToCustomerEntity = (input: SaveCustomerInput): ICustomer => <C
   document: input.document,
   documentState: input.documentState,
   birthDate: input.birthDate,
-  // address: inputtoadessmodel(input.address),
+  address: inputToAddressModel(input.address),
   cellphone: input.cellphone,
   telephone: input.telephone,
   healthPlan: input.healthPlan,

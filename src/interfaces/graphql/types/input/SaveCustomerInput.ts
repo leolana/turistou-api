@@ -51,7 +51,7 @@ export class SaveCustomerInput implements Partial<Customer> {
   @Field({ nullable: true })
   public birthDate: Date;
 
-  @Field({ nullable: true })
+  @Field()
   public address: SaveAddressInput;
 
   @Field({ nullable: true })
@@ -87,7 +87,6 @@ export class SaveCustomerInput implements Partial<Customer> {
   // @Field({ nullable: true })
   // public passengers: Passenger[];
 
-  @Field()
   @Field({ nullable: true })
   public organizationId?: String;
 
