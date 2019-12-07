@@ -5,20 +5,20 @@ import { Field, ID, ObjectType } from 'type-graphql';
 })
 export class StopPoint {
   @Field(type => ID)
-  id: String;
+  public id: String;
 
   @Field({
     description: 'The stopPoint of the StopPoint.'
   })
-  stopPoint: String;
+  public stopPoint: String;
 
   @Field({
     description: 'The createdAt of the StopPoint.'
   })
-  createdAt: Date;
+  public createdAt: Date;
 
   @Field({
     description: 'The updatedAt of the StopPoint.'
   })
-  updatedAt: Date;
+  public updatedAt: Date;
 }

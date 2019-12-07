@@ -23,8 +23,8 @@ export interface ICustomer {
   howHearAbout: String;
   notes: String;
   active: Boolean;
-  organizationId: String;
-  organization: Organization;
+  organizationId?: String;
+  organization?: Organization;
   passengerIds: String[];
   passengers: Passenger[];
 }
@@ -49,8 +49,8 @@ export default class Customer implements ICustomer, Entity {
   howHearAbout: String;
   notes: String;
   active: Boolean;
-  organizationId: String;
-  organization: Organization;
+  organizationId?: String;
+  organization?: Organization;
   passengerIds: String[];
   passengers: Passenger[];
   createdAt: Date;

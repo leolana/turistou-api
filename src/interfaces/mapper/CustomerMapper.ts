@@ -1,6 +1,28 @@
-import Customer from '@domain/entities/Customer';
+import Customer, { ICustomer } from '@domain/entities/Customer';
 import { ICustomerModel } from '@infra/database/schemas/customerSchema';
 import { Customer as CustomerResolver } from '@interfaces/graphql/types/Customer';
+import { SaveCustomerInput } from '@interfaces/graphql/types/input/SaveCustomerInput';
+
+export const inputToCustomerEntity = (input: SaveCustomerInput): ICustomer => <Customer>({
+  name: input.name,
+  email: input.email,
+  gender: input.gender,
+  cpf: input.cpf,
+  document: input.document,
+  documentState: input.documentState,
+  birthDate: input.birthDate,
+  // address: inputtoadessmodel(input.address),
+  cellphone: input.cellphone,
+  telephone: input.telephone,
+  healthPlan: input.healthPlan,
+  allergy: input.allergy,
+  contactName: input.contactName,
+  contactPhone: input.contactPhone,
+  foodRestriction: input.foodRestriction,
+  howHearAbout: input.howHearAbout,
+  notes: input.notes,
+  active: input.active,
+});
 
 export const entityToCustomerSerializer = (customer: Customer): CustomerResolver => <CustomerResolver>({
   id: customer.id,

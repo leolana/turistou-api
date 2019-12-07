@@ -9,35 +9,35 @@ import { TicketPrice } from './TicketPrice';
 
 export class Passenger {
   @Field(type => ID)
-  id: String;
+  public id: String;
 
   @Field({
     description: 'The status of the Passenger.'
   })
-  status: PassengerStatus;
+  public status: PassengerStatus;
 
   @Field(type => Customer, {
     description: 'The Customer who is the Passenger.'
   })
-  customer?: Customer;
+  public customer?: Customer;
 
   @Field({
     description: 'The TicketPrice of the Passenger.'
   })
-  ticketPrice: TicketPrice;
+  public ticketPrice: TicketPrice;
 
   @Field({
     description: 'The spot of the Passenger.'
   })
-  spot: Number;
+  public spot: Number;
 
   @Field({
     description: 'The createdAt of the Passenger.'
   })
-  createdAt: Date;
+  public createdAt: Date;
 
   @Field({
     description: 'The updatedAt of the Passenger.'
   })
-  updatedAt: Date;
+  public updatedAt: Date;
 }
