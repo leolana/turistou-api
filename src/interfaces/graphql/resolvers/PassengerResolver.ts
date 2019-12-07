@@ -1,4 +1,4 @@
-import { Query, Resolver, Arg } from 'type-graphql';
+import { Arg, Authorized, Query, Resolver } from 'type-graphql';
 import { Service } from 'typedi';
 
 import ListPassenger from '@domain/usecases/passenger/ListPassenger';
@@ -17,7 +17,7 @@ export class PassengerResolver {
     private listPaymentsUseCase: ListPayments)
     {}
 
-  // @Authorized()
+  @Authorized()
   @Query(returns => [Passenger])
   public async passengers(): Promise<Passenger[]> {
     const passengers = await this.listPassengersUseCase.execute({});

@@ -1,5 +1,7 @@
 import { Field, ID, ObjectType } from 'type-graphql';
+
 import { PassengerStatus } from '@domain/entities/Passenger';
+
 import { Customer } from './Customer';
 import { PaymentTransaction } from './PaymentTransaction';
 import { TicketPrice } from './TicketPrice';
@@ -46,4 +48,9 @@ export class Passenger {
     description: 'A list of all payments made by the Passenger.',
   })
   payments: PaymentTransaction[];
+
+  @Field(type => Number, {
+    description: 'The Amount paid for the excursion'
+  })
+  amountPaid: Number;
 }
