@@ -34,7 +34,7 @@ export const entityToCustomerSerializer = (customer: Customer): CustomerResolver
   gender: customer.gender,
   document: customer.document,
   birthDate: customer.birthDate,
-  address: customer.address,
+  address: customer.address || {},
   cellphone: customer.cellphone,
   telephone: customer.telephone,
   healthPlan: customer.healthPlan,

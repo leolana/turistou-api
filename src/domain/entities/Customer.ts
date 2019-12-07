@@ -1,4 +1,4 @@
-import Address from './Address';
+import Address, { IAddress } from './Address';
 import Entity from './Entity';
 import { Gender } from './Gender';
 import Organization from './Organization';
@@ -12,7 +12,7 @@ export interface ICustomer {
   document: String;
   birthDate: Date;
   gender: Gender;
-  address: Address;
+  address: IAddress;
   cellphone: String;
   telephone: String;
   healthPlan: String;
