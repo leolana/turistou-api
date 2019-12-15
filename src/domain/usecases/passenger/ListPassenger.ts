@@ -56,7 +56,7 @@ export default class ListPassenger implements UseCase<any, Passenger[]> {
       };
     });
 
-    console.log('PASSENGER_MODEL===', passengersModel)
+    console.log('PASSENGER_MODEL===', passengersModel);
 
     // TODO:
     if (options && options.asModel) {
