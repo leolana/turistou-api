@@ -15,6 +15,10 @@ export interface IPassengerModel extends IPassenger, mongoose.Document {
 
 const paymentTransactionSchema: mongoose.Schema = new mongoose.Schema(
   {
+    _id: {
+      type: dataTypes.ObjectId,
+      auto: true
+    },
     value: {
       type: dataTypes.Decimal128
     },
@@ -22,7 +26,8 @@ const paymentTransactionSchema: mongoose.Schema = new mongoose.Schema(
       type: dataTypes.Date
     },
     payDate: {
-      type: dataTypes.Date
+      type: dataTypes.Date,
+      required: false,
     },
     operation: {
       type: dataTypes.String

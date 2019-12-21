@@ -31,15 +31,17 @@ export = [
     // transportExcursionId: new ObjectId(''),
     payments: [
       {
+        _id: new ObjectId('5dc8587aae446b3b8d4de546'),
         value: 60,
         dueDate: new Date(),
-        payDate: new Date(),
+        payDate: null,
         operation: OperationPayment.Credit,
         method: PaymentTypes.CreditCard,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
+        _id: new ObjectId('5de8406c09e0b9247c3af9da'),
         value: 30,
         dueDate: new Date(),
         payDate: new Date(),
@@ -70,6 +72,7 @@ export = [
     // transportExcursionId: new ObjectId(''),
     payments: [
       {
+        _id: new ObjectId('5de8406c09e0b9247c3af9dc'),
         value: 45,
         dueDate: new Date(),
         payDate: new Date(),
@@ -90,6 +93,7 @@ export = [
     // transportExcursionId: new ObjectId(''),
     payments: [
       {
+        _id: new ObjectId('5de8406c09e0b9247c3af9dd'),
         value: 20,
         dueDate: new Date(),
         payDate: new Date(),
@@ -99,15 +103,17 @@ export = [
         updatedAt: new Date(),
       },
       {
+        _id: new ObjectId('5de8406c09e0b9247c3af9df'),
         value: 80,
         dueDate: new Date(),
         payDate: new Date(),
-        operation: OperationPayment.ChargeBack,
+        operation: OperationPayment.Credit,
         method: PaymentTypes.CreditCard,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
+        _id: new ObjectId(),
         value: 20,
         dueDate: new Date(),
         payDate: new Date(),

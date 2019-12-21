@@ -22,9 +22,10 @@ export class PaymentTransaction {
   dueDate: Date;
 
   @Field({
-    description: 'The payment date.'
+    description: 'The payment date.',
+    nullable: true,
   })
-  payDate: Date;
+  payDate?: Date;
 
   @Field({
     description: 'The operation type.',

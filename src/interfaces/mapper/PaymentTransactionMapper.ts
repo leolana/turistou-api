@@ -26,3 +26,14 @@ export const modelToPaymentTransactionEntity =
     createdAt: paymentTransaction.createdAt,
     updatedAt: paymentTransaction.updatedAt,
   });
+
+// export const inputToPaymentTransactionEntity =
+//   (paymentTransaction: PaymentTransactionResolver): PaymentTransaction => <PaymentTransaction>({
+//     id: paymentTransaction.id,
+//     dueDate: paymentTransaction.dueDate,
+//     operation: paymentTransaction.operation,
+//     value: Buffer.from(paymentTransaction.value.toString()),
+//     createdAt: paymentTransaction.createdAt,
+//     payDate: paymentTransaction.payDate,
+//     updatedAt: paymentTransaction.updatedAt,
+//   });
