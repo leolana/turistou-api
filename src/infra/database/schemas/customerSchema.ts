@@ -24,7 +24,6 @@ const customerSchema: mongoose.Schema = new mongoose.Schema(
     },
     cpf: {
       type: dataTypes.String,
-      required: true,
       maxlength: 11
     },
     documentState: {
@@ -33,7 +32,7 @@ const customerSchema: mongoose.Schema = new mongoose.Schema(
     },
     document: {
       type: dataTypes.String,
-      maxlength: 2
+      maxlength: 12
     },
     birthDate: {
       type: dataTypes.Date
@@ -86,7 +85,7 @@ const customerSchema: mongoose.Schema = new mongoose.Schema(
     organizationId: {
       type: dataTypes.ObjectId,
       ref: ORGANIZATION_COLLECTION_NAME,
-      required: true
+      // required: true
     },
     passengerIds: {
       type: [dataTypes.ObjectId],
