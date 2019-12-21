@@ -10,7 +10,7 @@ export const addressSchema: mongoose.Schema = new mongoose.Schema(
     },
     zipcode: {
       type: dataTypes.String,
-      maxlength: 8,
+      maxlength: 9,
     },
     area: {
       type: dataTypes.String,

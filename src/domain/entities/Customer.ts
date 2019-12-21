@@ -1,4 +1,4 @@
-import Address from './Address';
+import Address, { IAddress } from './Address';
 import Entity from './Entity';
 import { Gender } from './Gender';
 import Organization from './Organization';
@@ -12,7 +12,7 @@ export interface ICustomer {
   document: String;
   birthDate: Date;
   gender: Gender;
-  address: Address;
+  address: IAddress;
   cellphone: String;
   telephone: String;
   healthPlan: String;
@@ -23,8 +23,8 @@ export interface ICustomer {
   howHearAbout: String;
   notes: String;
   active: Boolean;
-  organizationId: String;
-  organization: Organization;
+  organizationId?: String;
+  organization?: Organization;
   passengerIds: String[];
   passengers: Passenger[];
 }
@@ -49,8 +49,8 @@ export default class Customer implements ICustomer, Entity {
   howHearAbout: String;
   notes: String;
   active: Boolean;
-  organizationId: String;
-  organization: Organization;
+  organizationId?: String;
+  organization?: Organization;
   passengerIds: String[];
   passengers: Passenger[];
   createdAt: Date;
