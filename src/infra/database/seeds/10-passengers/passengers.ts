@@ -9,6 +9,15 @@ enum PassengerStatus {
 enum OperationPayment {
   Credit = 'CREDIT',
   ChargeBack = 'CHARGE_BACK',
+  Canceled = 'CANCELED'
+}
+
+enum PaymentTypes {
+  Money = 'MONEY',
+  CreditCard = 'CREDIT_CARD',
+  Debit = 'DEBIT',
+  BankTransfer = 'BANK_TRANSFER',
+  PaymentBankSlip = 'PAYMENT_BANK_SLIP',
 }
 
 export = [
@@ -25,7 +34,8 @@ export = [
         value: 60,
         dueDate: new Date(),
         payDate: new Date(),
-        operation: OperationPayment.ChargeBack,
+        operation: OperationPayment.Credit,
+        method: PaymentTypes.CreditCard,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -34,6 +44,7 @@ export = [
         dueDate: new Date(),
         payDate: new Date(),
         operation: OperationPayment.Credit,
+        method: PaymentTypes.BankTransfer,
         createdAt: new Date(),
         updatedAt: new Date(),
       }
@@ -63,6 +74,7 @@ export = [
         dueDate: new Date(),
         payDate: new Date(),
         operation: OperationPayment.Credit,
+        method: PaymentTypes.CreditCard,
         createdAt: new Date(),
         updatedAt: new Date(),
       }
@@ -81,7 +93,8 @@ export = [
         value: 20,
         dueDate: new Date(),
         payDate: new Date(),
-        operation: OperationPayment.ChargeBack,
+        operation: OperationPayment.Credit,
+        method: PaymentTypes.CreditCard,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -90,9 +103,19 @@ export = [
         dueDate: new Date(),
         payDate: new Date(),
         operation: OperationPayment.ChargeBack,
+        method: PaymentTypes.CreditCard,
         createdAt: new Date(),
         updatedAt: new Date(),
-      }
+      },
+      {
+        value: 20,
+        dueDate: new Date(),
+        payDate: new Date(),
+        operation: OperationPayment.Canceled,
+        method: PaymentTypes.CreditCard,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]
   },
 ];
