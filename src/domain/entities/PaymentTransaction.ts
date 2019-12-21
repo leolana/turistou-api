@@ -12,7 +12,7 @@ export interface IPaymentTransaction extends TimestampEntity {
   id: String;
   value: Number;
   dueDate: Date;
-  payDate: Date;
+  payDate?: Date;
   operation: OperationPayment;
   method: PaymentTypes;
   createdAt: Date;
@@ -23,7 +23,7 @@ export default class PaymentTransaction implements IPaymentTransaction, Entity {
   id: String;
   value: Number;
   dueDate: Date;
-  payDate: Date;
+  payDate?: Date;
   operation: OperationPayment;
   method: PaymentTypes;
   createdAt: Date;
