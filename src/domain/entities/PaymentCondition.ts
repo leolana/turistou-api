@@ -1,4 +1,4 @@
-export enum PaymentConditionEnum {
+export enum PaymentTypes {
   Money = 'MONEY',
   CreditCard = 'CREDIT_CARD',
   Debit = 'DEBIT',
@@ -7,7 +7,7 @@ export enum PaymentConditionEnum {
 }
 
 export default interface PaymentCondition {
-  type: PaymentConditionEnum;
+  type: PaymentTypes;
 }
 
 export interface Installment {
@@ -17,7 +17,7 @@ export interface Installment {
 
 export class PaymentConditionBankTransfer implements PaymentCondition
 {
-  type: PaymentConditionEnum.BankTransfer = PaymentConditionEnum.BankTransfer;
+  type: PaymentTypes.BankTransfer = PaymentTypes.BankTransfer;
   value?: Number;
 }
 
@@ -30,19 +30,19 @@ export class InstallmentCreditCard implements Installment
 
 export class PaymentConditionCreditCard implements PaymentCondition
 {
-  type: PaymentConditionEnum.CreditCard = PaymentConditionEnum.CreditCard;
+  type: PaymentTypes.CreditCard = PaymentTypes.CreditCard;
   installment?: InstallmentCreditCard;
 }
 
 export class PaymentConditionDebit implements PaymentCondition
 {
-  type: PaymentConditionEnum.Debit = PaymentConditionEnum.Debit;
+  type: PaymentTypes.Debit = PaymentTypes.Debit;
   value?: Number;
 }
 
 export class PaymentConditionMoney implements PaymentCondition
 {
-  type: PaymentConditionEnum.Money = PaymentConditionEnum.Money;
+  type: PaymentTypes.Money = PaymentTypes.Money;
   value?: Number;
 }
 
@@ -55,6 +55,6 @@ export class InstallmentBankSlip implements Installment
 
 export class PaymentConditionPaymentBankSlip implements PaymentCondition
 {
-  type: PaymentConditionEnum.PaymentBankSlip = PaymentConditionEnum.PaymentBankSlip;
+  type: PaymentTypes.PaymentBankSlip = PaymentTypes.PaymentBankSlip;
   installment?: InstallmentBankSlip;
 }

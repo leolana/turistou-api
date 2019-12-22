@@ -5,25 +5,25 @@ import { Field, ID, ObjectType } from 'type-graphql';
 })
 export class Driver {
   @Field(type => ID)
-  id: String;
+  public id: String;
 
   @Field({
     description: 'The name of the Driver.'
   })
-  name: String;
+  public name: String;
 
   @Field({
     description: 'The active of the Driver.'
   })
-  active: Boolean;
+  public active: Boolean;
 
   @Field({
     description: 'The createdAt of the Driver.'
   })
-  createdAt: Date;
+  public createdAt: Date;
 
   @Field({
     description: 'The updatedAt of the Driver.'
   })
-  updatedAt: Date;
+  public updatedAt: Date;
 }

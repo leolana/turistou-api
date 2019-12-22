@@ -63,8 +63,12 @@ export default class ListPassenger implements UseCase<any, Passenger[]> {
       return passengersModel;
     }
 
-    return passengersModel.map(
+    const passengersEntity: Passenger[] = passengersModel.map(
       (passenger: IPassengerModel) => modelToPassengerEntity(passenger)
     );
+
+    passengersEntity.forEach(entity => entity.amountPaid = entity.calculateAmountPaid());
+
+    return passengersEntity;
   }
 }

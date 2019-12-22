@@ -1,13 +1,16 @@
-import { Query, Resolver, Arg, Mutation } from 'type-graphql';
+
+import { Arg, Authorized, Mutation, Query, Resolver } from 'type-graphql';
 import { Service } from 'typedi';
 
 import ListPassenger from '@domain/usecases/passenger/ListPassenger';
 import ListPayments from '@domain/usecases/passenger/ListPayments';
+import SetToPaid from '@domain/usecases/passenger/SetToPaid';
+import SetToUnpaid from '@domain/usecases/passenger/SetToUnpaid';
 import PaymentInsert from '@domain/usecases/passenger/PaymentInsert';
-
 import { entityToPassengerSerializer } from '@interfaces/mapper/PassengerMapper';
 import { entityToPaymentTransactionSerializer } from '@interfaces/mapper/PaymentTransactionMapper';
 
+import { UpdatePayDateInput } from '../types/input/PaymentInput';
 import { Passenger } from '../types/Passenger';
 import { PaymentTransaction } from '../types/PaymentTransaction';
 import { PaymentInsertInput } from '../types/input/PaymentInput';
@@ -18,10 +21,12 @@ export class PassengerResolver {
   constructor(
     private listPassengersUseCase: ListPassenger,
     private listPaymentsUseCase: ListPayments,
-    private paymentInsertUseCase: PaymentInsert)
+    private paymentInsertUseCase: PaymentInsert,
+    private setToUnpaidUseCase: SetToUnpaid,
+    private setToPaidUseCase: SetToPaid)
     {}
 
-  // @Authorized()
+  @Authorized()
   @Query(returns => [Passenger])
   public async passengers(): Promise<Passenger[]> {
     const passengers = await this.listPassengersUseCase.execute({});
@@ -41,5 +46,21 @@ export class PassengerResolver {
     const payments = await this.paymentInsertUseCase.execute(paymentInsertInput);
 
     return payments.map(entityToPaymentTransactionSerializer);
+  }
+
+  @Mutation(returns => PaymentTransaction)
+  public async setPayDateToUnpaid(@Arg('updatePayDateInput')
+  updatePayDateInput: UpdatePayDateInput) : Promise<PaymentTransaction> {
+    const payment = await this.setToUnpaidUseCase.execute(updatePayDateInput);
+
+    return entityToPaymentTransactionSerializer(payment);
+  }
+
+  @Mutation(returns => PaymentTransaction)
+  public async setPayDateToPaid(@Arg('updatePayDateInput')
+  updatePayDateInput: UpdatePayDateInput) : Promise<PaymentTransaction> {
+    const payment = await this.setToPaidUseCase.execute(updatePayDateInput);
+
+    return entityToPaymentTransactionSerializer(payment);
   }
 }

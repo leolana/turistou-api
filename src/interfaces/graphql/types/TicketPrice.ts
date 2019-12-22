@@ -5,35 +5,35 @@ import { Field, ID, ObjectType } from 'type-graphql';
 })
 export class TicketPrice {
   @Field(type => ID)
-  id: String;
+  public id: String;
 
   @Field({
     description: 'The description of the TicketPrice.'
   })
-  description: String;
+  public description: String;
 
   @Field({
     description: 'The price of the TicketPrice.'
   })
-  price: Number;
+  public price: Number;
 
   @Field({
     description: 'The ageInitial of the TicketPrice.'
   })
-  ageInitial: Number;
+  public ageInitial?: Number;
 
   @Field({
     description: 'The ageFinal of the TicketPrice.'
   })
-  ageFinal: Number;
+  public ageFinal?: Number;
 
   @Field({
     description: 'The createdAt of the TicketPrice.'
   })
-  createdAt: Date;
+  public createdAt: Date;
 
   @Field({
     description: 'The updatedAt of the TicketPrice.'
   })
-  updatedAt: Date;
+  public updatedAt: Date;
 }

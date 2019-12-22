@@ -1,6 +1,5 @@
 import { Service } from 'typedi';
 
-// import Passenger from '@domain/entities/Passenger';
 import PaymentTransaction from '@domain/entities/PaymentTransaction';
 import { DbModel, ModelInterface } from '@infra/database/DbModel';
 import passengerSchema, { IPassengerModel } from '@infra/database/schemas/passengerSchema';

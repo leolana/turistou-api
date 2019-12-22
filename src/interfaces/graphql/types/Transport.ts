@@ -7,22 +7,22 @@ import { Driver } from './Driver';
 })
 export class Transport {
   @Field(type => ID)
-  id: String;
+  public id: String;
 
   @Field({
     description: 'The type of the Transport.'
   })
-  type: String;
+  public type: String;
 
   @Field({
     description: 'The plate of the Transport.'
   })
-  plate: String;
+  public plate: String;
 
   @Field({
     description: 'The capacity of the Transport.'
   })
-  capacity: Number;
+  public capacity: Number;
 
   @Field(type => [Driver], {
     description: 'The drivers of the drivers.'
@@ -32,10 +32,10 @@ export class Transport {
   @Field({
     description: 'The createdAt of the Transport.'
   })
-  createdAt: Date;
+  public createdAt: Date;
 
   @Field({
     description: 'The updatedAt of the Transport.'
   })
-  updatedAt: Date;
+  public updatedAt: Date;
 }

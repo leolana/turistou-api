@@ -2,7 +2,7 @@ import Customer from './Customer';
 import Entity, { TimestampEntity } from './Entity';
 import Excursion from './Excursion';
 import PaymentCondition from './PaymentCondition';
-import PaymentTransaction from './PaymentTransaction';
+import PaymentTransaction, { OperationPayment } from './PaymentTransaction';
 import StopPoint from './StopPoint';
 import TicketPrice from './TicketPrice';
 import Transport from './Transport';
@@ -27,6 +27,9 @@ export interface IPassenger extends TimestampEntity {
   transportExcursion?: Transport;
   paymentConditions: PaymentCondition[];
   payments: PaymentTransaction[];
+  amountPaid: Number;
+
+  calculateAmountPaid(): Number;
 }
 
 export default class Passenger implements IPassenger, Entity {
@@ -44,6 +47,30 @@ export default class Passenger implements IPassenger, Entity {
   transportExcursion?: Transport;
   paymentConditions: PaymentCondition[];
   payments: PaymentTransaction[];
+  amountPaid: Number;
   createdAt: Date;
   updatedAt: Date;
+
+  calculateAmountPaid(): Number {
+    const calculateAmount = (payments: PaymentTransaction[]): Number => {
+
+      if (payments.length === 0) {
+        return 0;
+      }
+
+      return payments
+        .map(p => p.value)
+        .reduce((accumulator, currentValue) => {
+          const value = accumulator.valueOf() + currentValue.valueOf();
+          return value;
+        });
+    };
+
+    const credits = calculateAmount(this.payments.filter(p => p.operation === OperationPayment.Credit));
+    const chargeBacks = calculateAmount(this.payments.filter(p => p.operation === OperationPayment.ChargeBack));
+
+    const paidAmount = credits.valueOf() - chargeBacks.valueOf();
+
+    return paidAmount;
+  }
 }
