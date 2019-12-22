@@ -25,9 +25,10 @@ export class Passenger {
   public customer?: Customer;
 
   @Field({
-    description: 'The TicketPrice of the Passenger.'
+    description: 'The TicketPrice of the Passenger.',
+    nullable: true
   })
-  public ticketPrice: TicketPrice;
+  ticketPrice?: TicketPrice;
 
   @Field({
     description: 'The spot of the Passenger.'

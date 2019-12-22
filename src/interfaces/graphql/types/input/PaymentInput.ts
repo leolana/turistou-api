@@ -6,7 +6,7 @@ export class PaymentTransactionInsertInput {
   @Field(type => Float, {
     description: 'The value(money) paid.'
   })
-  value: Number;
+  value: number;
 
   @Field({
     description: 'The operation type.',
