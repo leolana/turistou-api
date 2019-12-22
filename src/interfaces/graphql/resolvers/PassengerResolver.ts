@@ -10,10 +10,9 @@ import PaymentInsert from '@domain/usecases/passenger/PaymentInsert';
 import { entityToPassengerSerializer } from '@interfaces/mapper/PassengerMapper';
 import { entityToPaymentTransactionSerializer } from '@interfaces/mapper/PaymentTransactionMapper';
 
-import { UpdatePayDateInput } from '../types/input/PaymentInput';
+import { UpdatePayDateInput, PaymentInsertInput } from '../types/input/PaymentInput';
 import { Passenger } from '../types/Passenger';
 import { PaymentTransaction } from '../types/PaymentTransaction';
-import { PaymentInsertInput } from '../types/input/PaymentInput';
 
 @Service()
 @Resolver(of => Passenger)
