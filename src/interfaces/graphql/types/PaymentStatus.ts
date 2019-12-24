@@ -17,9 +17,9 @@ export class PaymentStatus {
   previousPaid?: number;
 
   @Field(type => Float, {
-    description: 'The total value paid.'
+    description: 'The amount paid.'
   })
-  total: number;
+  amountPaid: number;
 
   @Field(type => Float, {
     description: 'The remaining value to pay.'

@@ -7,7 +7,9 @@ import ListPayments from '@domain/usecases/passenger/ListPayments';
 import SetToPaid from '@domain/usecases/passenger/SetToPaid';
 import SetToUnpaid from '@domain/usecases/passenger/SetToUnpaid';
 import PaymentInsert from '@domain/usecases/passenger/PaymentInsert';
-import GetPaymentStatus from '@domain/usecases/passenger/GetPaymentStatus';
+
+import PaymentStatusService from '@domain/services/payment/PaymentStatusService';
+
 import { entityToPassengerSerializer } from '@interfaces/mapper/PassengerMapper';
 import { entityToPaymentTransactionSerializer } from '@interfaces/mapper/PaymentTransactionMapper';
 
@@ -25,7 +27,7 @@ export class PassengerResolver {
     private paymentInsertUseCase: PaymentInsert,
     private setToUnpaidUseCase: SetToUnpaid,
     private setToPaidUseCase: SetToPaid,
-    private paymentStatusUseCase: GetPaymentStatus)
+    private paymentStatusService: PaymentStatusService)
     {}
 
   @Authorized()
@@ -36,7 +38,7 @@ export class PassengerResolver {
   }
 
   @Query(returns => [PaymentTransaction])
-  public async payments(@Arg('passengerId') passengerId: String): Promise<PaymentTransaction[]> {
+  public async payments(@Arg('passengerId') passengerId: string): Promise<PaymentTransaction[]> {
     const payments = await this.listPaymentsUseCase.execute({ passengerId });
 
     return payments.map(entityToPaymentTransactionSerializer);
@@ -45,7 +47,7 @@ export class PassengerResolver {
   @Query(returns => PaymentStatus)
   public async paymentStatus(@Arg('passengerId') passengerId: string):
   Promise<PaymentStatus> {
-    const paymentStatus = await this.paymentStatusUseCase.execute(passengerId);
+    const paymentStatus = await this.paymentStatusService.execute(passengerId);
 
     return paymentStatus;
   }
