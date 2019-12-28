@@ -45,14 +45,30 @@ export = [
       new ObjectId('5dc85890acae73753e6195be'),
       new ObjectId('5dc8589706a2360145908053')
     ],
-    ticketPriceDefault: 100,
+    ticketPriceDefault: 200,
     ticketPrices: [
       {
         id: new ObjectId('5dbde2686aac4e44e8b1c030'),
-        description: 'Adulto Novos',
+        description: 'Criança',
         price: 120,
-        ageInitial: 12,
-        ageFinal: 30,
+        ageFinal: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: new ObjectId('5dbde2686aac4e44e8b1c031'),
+        description: 'Juvenil',
+        price: 120,
+        ageInitial: 6,
+        ageFinal: 12,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: new ObjectId('5dbde2686aac4e44e8b1c032'),
+        description: 'Melhor idade',
+        price: 150,
+        ageInitial: 60,
         createdAt: new Date(),
         updatedAt: new Date(),
       }
