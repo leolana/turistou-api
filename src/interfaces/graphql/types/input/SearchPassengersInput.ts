@@ -11,4 +11,13 @@ export class SearchPassengersInput {
     description: 'The status of the passenger to search.',
   })
   public status: string;
+
+  @Field({ nullable: true })
+  public query: string;
+
+  @Field({ nullable: true })
+  public startPay: boolean;
+
+  @Field({ nullable: true })
+  public fullPay: boolean;
 }
