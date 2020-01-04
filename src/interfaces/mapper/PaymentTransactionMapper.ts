@@ -1,4 +1,4 @@
-import PaymentTransaction, { IPaymentTransaction } from '@domain/entities/PaymentTransaction';
+import PaymentTransaction, { IPaymentTransaction, OperationPayment } from '@domain/entities/PaymentTransaction';
 import { PaymentTransaction as PaymentTransactionResolver } from '@interfaces/graphql/types/PaymentTransaction';
 import { PaymentTransactionInsertInput } from '@interfaces/graphql/types/input/PaymentInput';
 
@@ -31,7 +31,8 @@ export const paymentInsertInputToEntity =
   dueDate: new Date(), // TODO: Verificar de onde sai esse dueDate, coloquei um new Date temporariamente
   payDate: new Date(),
   updatedAt: new Date(),
-  operation: paymentTransactionInsertInput.operation,
+  method: paymentTransactionInsertInput.method,
   value: paymentTransactionInsertInput.value,
   createdAt: new Date(),
+  operation: OperationPayment.Credit
 });

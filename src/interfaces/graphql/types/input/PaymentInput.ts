@@ -1,5 +1,5 @@
 import { Field, InputType, Float } from 'type-graphql';
-import { OperationPayment } from '@domain/entities/PaymentTransaction';
+import { PaymentTypes } from '@domain/entities/PaymentCondition';
 
 @InputType()
 export class PaymentTransactionInsertInput {
@@ -9,9 +9,9 @@ export class PaymentTransactionInsertInput {
   value: number;
 
   @Field({
-    description: 'The operation type.',
+    description: 'The method type.',
   })
-  operation: OperationPayment;
+  method: PaymentTypes;
 }
 
 @InputType()
