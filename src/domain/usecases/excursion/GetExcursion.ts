@@ -34,7 +34,9 @@ export default class GetExcursion implements UseCase<any, Excursion> {
         ticketPrices: true,
         passengerIds: true,
       }
-    ).exec();
+    )
+      .lean()
+      .exec();
 
     console.log('---------- excursionModel -------------');
     console.log(excursionModel);

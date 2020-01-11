@@ -9,8 +9,8 @@ import { SaveExcursionInput } from '@interfaces/graphql/types/input/SaveExcursio
 
 import { entityToPassengerSerializer, modelToPassengerEntity } from './PassengerMapper';
 import { inputToStopPointModel } from './StopPointMapper';
-import { inputToTicketPriceModel } from './TicketPriceMapper';
-import { inputToTransportModel, modelToTransportEntity } from './TransportMapper';
+import { inputToTicketPriceModel, entityToTicketPriceSerialize } from './TicketPriceMapper';
+import { inputToTransportModel, modelToTransportEntity, entityToTransportSerialize } from './TransportMapper';
 
 export const inputToExcursionEntity = (input: SaveExcursionInput): IExcursion => <Excursion>({
   destination: input.destination,
@@ -33,10 +33,10 @@ export const entityToExcursionSerializer = (excursion: Excursion): ExcursionReso
   arrivalPoint: excursion.arrivalPoint,
   regressDate: excursion.regressDate,
   stopPoints: excursion.stopPoints,
-  transports: excursion.transports,
+  transports: excursion.transports.map(entityToTransportSerialize),
   passengers: excursion.passengers.map(entityToPassengerSerializer),
   ticketPriceDefault: excursion.ticketPriceDefault,
-  ticketPrices: excursion.ticketPrices,
+  ticketPrices: excursion.ticketPrices.map(entityToTicketPriceSerialize),
   active: excursion.active,
   createdAt: excursion.createdAt,
   updatedAt: excursion.updatedAt,
@@ -44,7 +44,7 @@ export const entityToExcursionSerializer = (excursion: Excursion): ExcursionReso
 
 export const modelToExcursionEntity =
   (excursion: IExcursionModel): Excursion => <Excursion>({
-    id: excursion.id,
+    id: excursion.id || excursion._id,
     destination: excursion.destination,
     departurePoint: excursion.departurePoint,
     departureDate: excursion.departureDate,
