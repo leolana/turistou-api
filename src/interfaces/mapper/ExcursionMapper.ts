@@ -9,8 +9,9 @@ import { SaveExcursionInput } from '@interfaces/graphql/types/input/SaveExcursio
 
 import { entityToPassengerSerializer, modelToPassengerEntity } from './PassengerMapper';
 import { inputToStopPointModel } from './StopPointMapper';
-import { inputToTicketPriceModel, entityToTicketPriceSerialize } from './TicketPriceMapper';
+import { inputToTicketPriceModel, entityToTicketPriceSerialize, modelToTicketPriceEntity } from './TicketPriceMapper';
 import { inputToTransportModel, modelToTransportEntity, entityToTransportSerialize } from './TransportMapper';
+import { ITicketPriceModel } from '@infra/database/schemas/ticketPriceSchema';
 
 export const inputToExcursionEntity = (input: SaveExcursionInput): IExcursion => <Excursion>({
   destination: input.destination,
@@ -54,7 +55,8 @@ export const modelToExcursionEntity =
     transports: ((excursion.transports || []) as ITransportModel[]).map(modelToTransportEntity),
     passengers: ((excursion.passengers || []) as IPassengerModel[]).map(modelToPassengerEntity),
     ticketPriceDefault: excursion.ticketPriceDefault,
-    ticketPrices: excursion.ticketPrices,
+    // ticketPrices: excursion.ticketPrices,
+    ticketPrices: ((excursion.ticketPrices || []) as ITicketPriceModel[]).map(modelToTicketPriceEntity),
     active: excursion.active,
     createdAt: excursion.createdAt,
     updatedAt: excursion.updatedAt,
