@@ -27,7 +27,6 @@ export class ExcursionResolver {
   @Authorized()
   @Mutation(returns => Excursion)
   public async saveExcursion(@Arg('input') input: SaveExcursionInput, @Ctx() context: Context): Promise<Excursion> {
-    console.log(context.request.user);
     const { user } = context.request;
 
     input.organizationId = user.organizationId;

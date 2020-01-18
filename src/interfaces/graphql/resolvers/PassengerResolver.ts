@@ -1,22 +1,20 @@
-
 import { Arg, Authorized, Mutation, Query, Resolver } from 'type-graphql';
 import { Service } from 'typedi';
 
+import PaymentStatusService from '@domain/services/payment/PaymentStatusService';
 import ListPassenger from '@domain/usecases/passenger/ListPassenger';
 import ListPayments from '@domain/usecases/passenger/ListPayments';
+import PaymentInsert from '@domain/usecases/passenger/PaymentInsert';
 import SetToPaid from '@domain/usecases/passenger/SetToPaid';
 import SetToUnpaid from '@domain/usecases/passenger/SetToUnpaid';
-import PaymentInsert from '@domain/usecases/passenger/PaymentInsert';
-
-import PaymentStatusService from '@domain/services/payment/PaymentStatusService';
-
 import { entityToPassengerSerializer } from '@interfaces/mapper/PassengerMapper';
 import { entityToPaymentTransactionSerializer } from '@interfaces/mapper/PaymentTransactionMapper';
 
-import { UpdatePayDateInput, PaymentInsertInput } from '../types/input/PaymentInput';
+import { PaymentInsertInput, UpdatePayDateInput } from '../types/input/PaymentInput';
+import { SearchPassengersInput } from '../types/input/SearchPassengersInput';
 import { Passenger } from '../types/Passenger';
-import { PaymentTransaction } from '../types/PaymentTransaction';
 import { PaymentStatus } from '../types/PaymentStatus';
+import { PaymentTransaction } from '../types/PaymentTransaction';
 
 @Service()
 @Resolver(of => Passenger)
@@ -32,8 +30,8 @@ export class PassengerResolver {
 
   @Authorized()
   @Query(returns => [Passenger])
-  public async passengers(): Promise<Passenger[]> {
-    const passengers = await this.listPassengersUseCase.execute({});
+  public async passengers(@Arg('filter') filter: SearchPassengersInput): Promise<Passenger[]> {
+    const passengers = await this.listPassengersUseCase.execute(filter);
     return passengers.map(entityToPassengerSerializer);
   }
 

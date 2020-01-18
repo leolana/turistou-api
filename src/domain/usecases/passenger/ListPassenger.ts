@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import { Service } from 'typedi';
 
 import Passenger from '@domain/entities/Passenger';
@@ -18,30 +19,37 @@ export default class ListPassenger implements UseCase<any, Passenger[]> {
   public async execute(params?: any, options?: any): Promise<Passenger[]> {
     this.logger.info('List all passengers => ', params);
 
-    const queryResult = await this.passengerModel.aggregate([
-      {
-        $lookup: {
-          from: 'customers',
-          localField: 'customerId',
-          foreignField: '_id',
-          as: 'customer',
-        }
-      },
-      {
-        $lookup: {
-          from: 'excursions',
-          localField: 'excursionId',
-          foreignField: '_id',
-          as: 'excursion',
-        }
-      },
-      {
-        $addFields: {
-          customer: { $arrayElemAt: ['$customer', 0] },
-          excursion: { $arrayElemAt: ['$excursion', 0] },
-        }
-      },
-    ]);
+    const queryResult = await this.passengerModel
+      .aggregate([
+        {
+          $match: {
+            excursionId: new ObjectId(params.excursionId),
+            status: params.status
+          }
+        },
+        {
+          $lookup: {
+            from: 'customers',
+            localField: 'customerId',
+            foreignField: '_id',
+            as: 'customer',
+          }
+        },
+        {
+          $lookup: {
+            from: 'excursions',
+            localField: 'excursionId',
+            foreignField: '_id',
+            as: 'excursion',
+          }
+        },
+        {
+          $addFields: {
+            customer: { $arrayElemAt: ['$customer', 0] },
+            excursion: { $arrayElemAt: ['$excursion', 0] },
+          }
+        },
+      ]);
 
     const passengersModel = queryResult.map((passengerModel) => {
       const ticketPrice = passengerModel.ticketPriceId
@@ -56,9 +64,6 @@ export default class ListPassenger implements UseCase<any, Passenger[]> {
       };
     });
 
-    console.log('PASSENGER_MODEL===', passengersModel);
-
-    // TODO:
     if (options && options.asModel) {
       return passengersModel;
     }
