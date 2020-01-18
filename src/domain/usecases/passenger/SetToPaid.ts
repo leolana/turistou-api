@@ -1,12 +1,10 @@
 import { Service } from 'typedi';
 
-import PaymentTransaction from '@domain/entities/PaymentTransaction';
-
-import { UpdatePayDateInput } from '@interfaces/graphql/types/input/PaymentInput';
-
+import PaymentTransaction, { StatusPayment } from '@domain/entities/PaymentTransaction';
 import { DbModel, ModelInterface } from '@infra/database/DbModel';
 import passengerSchema, { IPassengerModel } from '@infra/database/schemas/passengerSchema';
 import { LoggerDecorator as Logger, LoggerInterface } from '@infra/logger';
+import { UpdatePayDateInput } from '@interfaces/graphql/types/input/PaymentInput';
 
 import { UseCase } from '../UseCase';
 
@@ -26,10 +24,11 @@ export default class SetToPaid implements UseCase<any, PaymentTransaction> {
       if (p.id.toString()  === params.paymentId) {
         p.payDate = new Date();
         p.updatedAt = new Date();
+        p.status = StatusPayment.Paid;
       }
     });
 
-    passenger.save();
+    await passenger.save();
 
     return passenger.payments.find(p => p.id === params.paymentId);
   }

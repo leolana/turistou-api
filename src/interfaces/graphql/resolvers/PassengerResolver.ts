@@ -1,7 +1,7 @@
 import { Arg, Authorized, Mutation, Query, Resolver } from 'type-graphql';
 import { Service } from 'typedi';
 
-import PaymentStatusService from '@domain/services/payment/PaymentStatusService';
+import PaymentService from '@domain/services/PaymentService';
 import ListPassenger from '@domain/usecases/passenger/ListPassenger';
 import ListPayments from '@domain/usecases/passenger/ListPayments';
 import PaymentInsert from '@domain/usecases/passenger/PaymentInsert';
@@ -25,7 +25,7 @@ export class PassengerResolver {
     private paymentInsertUseCase: PaymentInsert,
     private setToUnpaidUseCase: SetToUnpaid,
     private setToPaidUseCase: SetToPaid,
-    private paymentStatusService: PaymentStatusService)
+    private paymentService: PaymentService)
     {}
 
   @Authorized()
@@ -45,7 +45,7 @@ export class PassengerResolver {
   @Query(returns => PaymentStatus)
   public async paymentStatus(@Arg('passengerId') passengerId: string):
   Promise<PaymentStatus> {
-    const paymentStatus = await this.paymentStatusService.execute(passengerId);
+    const paymentStatus = await this.paymentService.changePaymentStatus(passengerId);
 
     return paymentStatus;
   }
