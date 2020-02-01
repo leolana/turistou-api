@@ -5,6 +5,7 @@ import PaymentService from '@domain/services/PaymentService';
 import ListPassenger from '@domain/usecases/passenger/ListPassenger';
 import ListPayments from '@domain/usecases/passenger/ListPayments';
 import PaymentInsert from '@domain/usecases/passenger/PaymentInsert';
+import SetToCanceled from '@domain/usecases/passenger/SetToCanceled';
 import SetToPaid from '@domain/usecases/passenger/SetToPaid';
 import SetToUnpaid from '@domain/usecases/passenger/SetToUnpaid';
 import { entityToPassengerSerializer } from '@interfaces/mapper/PassengerMapper';
@@ -24,6 +25,7 @@ export class PassengerResolver {
     private listPaymentsUseCase: ListPayments,
     private paymentInsertUseCase: PaymentInsert,
     private setToUnpaidUseCase: SetToUnpaid,
+    private setToCanceledUseCase: SetToCanceled,
     private setToPaidUseCase: SetToPaid,
     private paymentService: PaymentService)
     {}
@@ -70,6 +72,14 @@ export class PassengerResolver {
   public async setPayDateToPaid(@Arg('updatePayDateInput')
   updatePayDateInput: UpdatePayDateInput) : Promise<PaymentTransaction> {
     const payment = await this.setToPaidUseCase.execute(updatePayDateInput);
+
+    return entityToPaymentTransactionSerializer(payment);
+  }
+
+  @Mutation(returns => PaymentTransaction)
+  public async setStatusPaymentToCanceled(@Arg('updatePayDateInput')
+  updatePayDateInput: UpdatePayDateInput) : Promise<PaymentTransaction> {
+    const payment = await this.setToCanceledUseCase.execute(updatePayDateInput);
 
     return entityToPaymentTransactionSerializer(payment);
   }
