@@ -1,7 +1,7 @@
 import { Field, Float, ID, ObjectType } from 'type-graphql';
 
 import { PaymentTypes } from '@domain/entities/PaymentCondition';
-import { OperationPayment } from '@domain/entities/PaymentTransaction';
+import { OperationPayment, StatusPayment } from '@domain/entities/PaymentTransaction';
 
 @ObjectType({
   description: 'PaymentTransaction object.'
@@ -37,6 +37,11 @@ export class PaymentTransaction {
     description: 'The payment method.',
   })
   method: PaymentTypes;
+
+  @Field({
+    description: 'The payment status.',
+  })
+  status: StatusPayment;
 
   @Field({
     description: 'When it was created.'

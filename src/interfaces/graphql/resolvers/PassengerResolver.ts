@@ -61,7 +61,7 @@ export class PassengerResolver {
   }
 
   @Mutation(returns => PaymentTransaction)
-  public async setPayDateToUnpaid(@Arg('updatePayDateInput')
+  public async setPayDateToPending(@Arg('updatePayDateInput')
   updatePayDateInput: UpdatePayDateInput) : Promise<PaymentTransaction> {
     const payment = await this.setToUnpaidUseCase.execute(updatePayDateInput);
 

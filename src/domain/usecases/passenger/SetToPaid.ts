@@ -22,6 +22,7 @@ export default class SetToPaid implements UseCase<any, PaymentTransaction> {
 
     passenger.payments.forEach((p) => {
       if (p.id.toString()  === params.paymentId) {
+        p.status = StatusPayment.Paid;
         p.payDate = new Date();
         p.updatedAt = new Date();
         p.status = StatusPayment.Paid;

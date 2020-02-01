@@ -22,6 +22,8 @@ export default class SetToUnpaid implements UseCase<any, PaymentTransaction> {
 
     passenger.payments.forEach((p) => {
       if (p.id.toString()  === params.paymentId) {
+
+        p.status = StatusPayment.Pending;
         p.payDate = null;
         p.updatedAt = new Date();
         p.status = StatusPayment.Pending;

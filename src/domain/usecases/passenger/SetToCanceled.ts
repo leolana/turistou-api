@@ -27,6 +27,7 @@ export default class SetToCanceled implements UseCase<any, PaymentTransaction> {
     }
 
     payment.payDate = null;
+    payment.status = StatusPayment.Canceled;
     payment.updatedAt = new Date();
     payment.status = StatusPayment.Canceled;
 
