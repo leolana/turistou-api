@@ -25,7 +25,6 @@ export default class SetToPaid implements UseCase<any, PaymentTransaction> {
         p.status = StatusPayment.Paid;
         p.payDate = new Date();
         p.updatedAt = new Date();
-        p.status = StatusPayment.Paid;
       }
     });
 

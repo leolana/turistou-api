@@ -26,7 +26,6 @@ export default class SetToUnpaid implements UseCase<any, PaymentTransaction> {
         p.status = StatusPayment.Pending;
         p.payDate = null;
         p.updatedAt = new Date();
-        p.status = StatusPayment.Pending;
       }
     });
 

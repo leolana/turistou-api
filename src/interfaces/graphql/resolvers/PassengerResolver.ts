@@ -41,7 +41,12 @@ export class PassengerResolver {
   public async payments(@Arg('passengerId') passengerId: string): Promise<PaymentTransaction[]> {
     const payments = await this.listPaymentsUseCase.execute({ passengerId });
 
-    return payments.map(entityToPaymentTransactionSerializer);
+    console.log('---------- payments --------------');
+    console.log(payments);
+
+    const mko = payments.map(entityToPaymentTransactionSerializer);
+
+    return mko;
   }
 
   @Query(returns => PaymentStatus)

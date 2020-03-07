@@ -20,16 +20,15 @@ export default class SetToCanceled implements UseCase<any, PaymentTransaction> {
 
     const passenger = await this.passengerModel.findById(params.passengerId);
 
-    const payment = passenger.payments.filter(p => p.id.toString()  === params.paymentId)[0];
+    const paymentIndex: number = passenger.payments.findIndex(p => p.id.toString()  === params.paymentId);
 
-    if (payment === null) {
-      console.log('Não foi encontrado o pagamento');
+    if (paymentIndex === null) {
+      this.logger.info('Não foi encontrado o pagamento');
     }
 
-    payment.payDate = null;
-    payment.status = StatusPayment.Canceled;
-    payment.updatedAt = new Date();
-    payment.status = StatusPayment.Canceled;
+    passenger.payments[paymentIndex].payDate = null;
+    passenger.payments[paymentIndex].status = StatusPayment.Canceled;
+    passenger.payments[paymentIndex].updatedAt = new Date();
 
     await passenger.save();
 
