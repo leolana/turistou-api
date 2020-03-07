@@ -13,26 +13,31 @@ export = [
     regressDate: today.plus({ hour: 10 }).toJSDate(),
     stopPoints: [
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, General Carneiro, 350',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, Parque Campolim',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, Washingon Luíz',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, Dom Aguirre',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, Castelinho',
         createdAt: new Date(),
         updatedAt: new Date()
@@ -87,26 +92,31 @@ export = [
     regressDate: today.plus({ day: 9, hour: 18 }).toJSDate(),
     stopPoints: [
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, General Carneiro, 350',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, Parque Campolim',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, Washingon Luíz',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, Dom Aguirre',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, Castelinho',
         createdAt: new Date(),
         updatedAt: new Date()
@@ -154,6 +164,7 @@ export = [
     regressDate: today.plus({ day: 22, hour: 13 }).toJSDate(),
     stopPoints: [
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, Parque Campolim',
         createdAt: new Date(),
         updatedAt: new Date()

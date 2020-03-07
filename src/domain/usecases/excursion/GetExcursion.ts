@@ -8,11 +8,13 @@ import { LoggerDecorator as Logger, LoggerInterface } from '@infra/logger';
 import { modelToExcursionEntity } from '@interfaces/mapper/ExcursionMapper';
 
 import { UseCase } from '../UseCase';
+import transportSchema, { ITransportModel } from '@infra/database/schemas/transportSchema';
 
 @Service()
 export default class GetExcursion implements UseCase<any, Excursion> {
   constructor(
     @DbModel<IExcursionModel>(excursionSchema) private excursionModel: ModelInterface<IExcursionModel>,
+    @DbModel<ITransportModel>(transportSchema) private transportModel: ModelInterface<IExcursionModel>,
     @Logger(__filename) private logger: LoggerInterface,
   ) { }
 
@@ -29,7 +31,7 @@ export default class GetExcursion implements UseCase<any, Excursion> {
         departureDate: true,
         regressDate: true,
         stopPoints: true,
-        transports: true,
+        transportIds: true,
         ticketPriceDefault: true,
         ticketPrices: true,
         passengerIds: true,
@@ -38,8 +40,21 @@ export default class GetExcursion implements UseCase<any, Excursion> {
       .lean()
       .exec();
 
+    // FIXME: precisa arrumar esses transportes
+    const transports = await this.transportModel.find({
+      _id: {
+        $in: excursionModel.transportIds
+      }
+    });
+    excursionModel.transports = transports;
+
+    // TODO: listar lugares vagos
+
     console.log('---------- excursionModel -------------');
     console.log(excursionModel);
+
+    console.log('\n\n---------- TRANSPORTS -------------');
+    console.log(transports);
 
     return modelToExcursionEntity(excursionModel);
   }
