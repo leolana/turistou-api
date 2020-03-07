@@ -8,7 +8,7 @@ import { Excursion as ExcursionResolver } from '@interfaces/graphql/types/Excurs
 import { SaveExcursionInput } from '@interfaces/graphql/types/input/SaveExcursionInput';
 
 import { entityToPassengerSerializer, modelToPassengerEntity } from './PassengerMapper';
-import { inputToStopPointModel } from './StopPointMapper';
+import { inputToStopPointModel, entityToStopPointSerialize } from './StopPointMapper';
 import { inputToTicketPriceModel, entityToTicketPriceSerialize, modelToTicketPriceEntity } from './TicketPriceMapper';
 import { inputToTransportModel, modelToTransportEntity, entityToTransportSerialize } from './TransportMapper';
 import { ITicketPriceModel } from '@infra/database/schemas/ticketPriceSchema';
@@ -33,9 +33,10 @@ export const entityToExcursionSerializer = (excursion: Excursion): ExcursionReso
   departureDate: excursion.departureDate,
   arrivalPoint: excursion.arrivalPoint,
   regressDate: excursion.regressDate,
-  stopPoints: excursion.stopPoints,
+  stopPoints: excursion.stopPoints.map(entityToStopPointSerialize),
   transports: excursion.transports.map(entityToTransportSerialize),
   passengers: excursion.passengers.map(entityToPassengerSerializer),
+  // places:excursion
   ticketPriceDefault: excursion.ticketPriceDefault,
   ticketPrices: excursion.ticketPrices.map(entityToTicketPriceSerialize),
   active: excursion.active,
@@ -55,7 +56,6 @@ export const modelToExcursionEntity =
     transports: ((excursion.transports || []) as ITransportModel[]).map(modelToTransportEntity),
     passengers: ((excursion.passengers || []) as IPassengerModel[]).map(modelToPassengerEntity),
     ticketPriceDefault: excursion.ticketPriceDefault,
-    // ticketPrices: excursion.ticketPrices,
     ticketPrices: ((excursion.ticketPrices || []) as ITicketPriceModel[]).map(modelToTicketPriceEntity),
     active: excursion.active,
     createdAt: excursion.createdAt,
