@@ -8,9 +8,9 @@ import { Excursion as ExcursionResolver } from '@interfaces/graphql/types/Excurs
 import { SaveExcursionInput } from '@interfaces/graphql/types/input/SaveExcursionInput';
 
 import { entityToPassengerSerializer, modelToPassengerEntity } from './PassengerMapper';
-import { inputToStopPointModel, entityToStopPointSerialize } from './StopPointMapper';
+import { inputToStopPointModel, entityToStopPointSerializer } from './StopPointMapper';
 import { inputToTicketPriceModel, entityToTicketPriceSerialize, modelToTicketPriceEntity } from './TicketPriceMapper';
-import { inputToTransportModel, modelToTransportEntity, entityToTransportSerialize } from './TransportMapper';
+import { inputToTransportModel, modelToTransportEntity, entityToTransportSerializer } from './TransportMapper';
 import { ITicketPriceModel } from '@infra/database/schemas/ticketPriceSchema';
 
 export const inputToExcursionEntity = (input: SaveExcursionInput): IExcursion => <Excursion>({
@@ -33,10 +33,18 @@ export const entityToExcursionSerializer = (excursion: Excursion): ExcursionReso
   departureDate: excursion.departureDate,
   arrivalPoint: excursion.arrivalPoint,
   regressDate: excursion.regressDate,
-  stopPoints: excursion.stopPoints.map(entityToStopPointSerialize),
-  transports: excursion.transports.map(entityToTransportSerialize),
+  stopPoints: excursion.stopPoints.map(entityToStopPointSerializer),
+  transports: excursion.transports.map(entityToTransportSerializer),
   passengers: excursion.passengers.map(entityToPassengerSerializer),
-  // places:excursion
+  // spots: excursion
+  //   .transports
+  //   .map(t => Array.apply(1, Array(t.capacity))
+  //     .map((_, i) => ({
+  //       number: i + 1,
+  //       free: excursion.passengers.some(pass => /* pass.transportExcursionId === t.id &&  */pass.spot === (i + 1))
+  //     }))
+  //   )
+  // [0],
   ticketPriceDefault: excursion.ticketPriceDefault,
   ticketPrices: excursion.ticketPrices.map(entityToTicketPriceSerialize),
   active: excursion.active,

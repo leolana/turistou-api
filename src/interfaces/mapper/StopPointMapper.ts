@@ -6,7 +6,7 @@ export const inputToStopPointModel = (input: SaveStopPointInput): IStopPoint => 
   stopPoint: input.stopPoint
 });
 
-export const entityToStopPointSerialize = (stopPoint: StopPoint): StopPointResolver => <StopPointResolver>({
+export const entityToStopPointSerializer = (stopPoint: StopPoint): StopPointResolver => <StopPointResolver>({
   id: stopPoint.id,
   stopPoint: stopPoint.stopPoint,
   createdAt: stopPoint.createdAt,

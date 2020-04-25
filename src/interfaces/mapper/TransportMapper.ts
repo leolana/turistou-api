@@ -16,7 +16,7 @@ export const inputToTransportModel = (input: SaveTransportInput): ITransport => 
 });
 
 export const modelToTransportEntity = (transport: ITransportModel): Transport => <Transport>({
-  id: transport.id,
+  id: transport.id || transport._id,
   type: transport.type,
   plate: transport.plate,
   capacity: transport.capacity,
@@ -25,7 +25,7 @@ export const modelToTransportEntity = (transport: ITransportModel): Transport =>
   updatedAt: transport.updatedAt
 });
 
-export const entityToTransportSerialize = (transport: Transport): TransportResolver => <TransportResolver>({
+export const entityToTransportSerializer = (transport: Transport): TransportResolver => <TransportResolver>({
   id: transport.id,
   type: transport.type,
   plate: transport.plate,
