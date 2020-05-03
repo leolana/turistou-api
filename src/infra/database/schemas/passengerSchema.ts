@@ -3,8 +3,8 @@ import * as mongoose from 'mongoose';
 import { IPassenger } from '@domain/entities/Passenger';
 
 import {
-    CUSTOMER_COLLECTION_NAME, DbSchema, EXCURSION_COLLECTION_NAME, PASSENGER_COLLECTION_NAME,
-    TICKET_PRICE_COLLECTION_NAME, TRANSPORT_COLLECTION_NAME
+  CUSTOMER_COLLECTION_NAME, DbSchema, EXCURSION_COLLECTION_NAME, PASSENGER_COLLECTION_NAME,
+  TICKET_PRICE_COLLECTION_NAME, TRANSPORT_COLLECTION_NAME
 } from './DbSchema';
 import { stopPointSchema } from './stopPointSchema';
 
@@ -39,6 +39,11 @@ const paymentTransactionSchema: mongoose.Schema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// const passengerSpotSchema: mongoose.Schema = new mongoose.Schema({
+//   number: { type: dataTypes.Number },
+//   transport: { type: dataTypes.ObjectId }
+// });
+
 const passengerSchema: mongoose.Schema = new mongoose.Schema(
   {
     customerId: {
@@ -64,7 +69,8 @@ const passengerSchema: mongoose.Schema = new mongoose.Schema(
       type: stopPointSchema,
     },
     spot: {
-      type: dataTypes.Number
+      type: dataTypes.Number,
+      // type: passengerSpotSchema,
     },
     transportExcursionId: {
       type: dataTypes.ObjectId,

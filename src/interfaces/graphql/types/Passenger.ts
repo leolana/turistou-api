@@ -33,6 +33,7 @@ export class Passenger {
     description: 'The spot of the Passenger.'
   })
   public spot: Number;
+  // public spot: PassengerSpot;
 
   @Field({
     description: 'The createdAt of the Passenger.'
