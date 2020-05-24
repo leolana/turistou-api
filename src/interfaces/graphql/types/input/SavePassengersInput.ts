@@ -7,37 +7,47 @@ export class SavePassengerInput {
   @Field({
     description: 'The excursionId of the passenger to search.',
   })
-  public excursionId: string;
+  public excursionId: String;
 
   @Field({
     description: 'The customerId of the passenger to search.',
   })
-  public customerId: string;
+  public customerId: String;
+
+  @Field({
+    description: 'The ticketPriceId of the passenger to search.',
+  })
+  public ticketPriceId: String;
+
+  // @Field(type => [PaymentCondition], {
+  //   description: 'The paymentConditions of the passenger to search.',
+  // })
+  // public paymentConditions: PaymentCondition[];
 
   @Field({
     description: 'The transportId of the passenger to search.',
   })
-  public transportId: string;
+  public transportId: String;
 
   @Field({
     description: 'The spot of the excursion.',
   })
-  public spot: number;
+  public spot: Number;
   // public spot: PassengerSpot;
 
   @Field({
     description: 'The status of the excursion.',
     nullable: true
   })
-  public status?: string;
+  public status?: String;
 
   @Field({
     description: 'The stopPointId of the passenger to search.',
   })
-  public stopPointId: string;
+  public stopPointId: String;
 
-  @Field({
-    description: 'The typePriceId of the passenger to search.',
-  })
-  public typePriceId: string;
+  // @Field({
+  //   description: 'The typePriceId of the passenger to search.',
+  // })
+  // public typePriceId: String;
 }

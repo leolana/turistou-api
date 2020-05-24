@@ -26,6 +26,7 @@ export interface IPassenger extends TimestampEntity {
   // spot: PassengerSpot;
   transportExcursionId?: String;
   transportExcursion?: Transport;
+  stopPointId?: String;
   paymentConditions: PaymentCondition[];
   payments: PaymentTransaction[];
   amountPaid: Number;
@@ -40,6 +41,7 @@ export default class Passenger implements IPassenger, Entity {
   excursionId?: String;
   ticketPriceId?: String;
   transportExcursionId?: String;
+  stopPointId?: String;
   excursion: Excursion;
   ticketPrice?: TicketPrice;
   status: PassengerStatus;
