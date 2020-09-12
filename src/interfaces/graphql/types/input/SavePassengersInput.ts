@@ -14,10 +14,10 @@ export class SavePassengerInput {
   })
   public customerId: String;
 
-  @Field({
-    description: 'The ticketPriceId of the passenger to search.',
-  })
-  public ticketPriceId: String;
+  // @Field({
+  //   description: 'The ticketPriceId of the passenger to search.',
+  // })
+  // public ticketPriceId: String;
 
   // @Field(type => [PaymentCondition], {
   //   description: 'The paymentConditions of the passenger to search.',
@@ -41,10 +41,10 @@ export class SavePassengerInput {
   })
   public status?: String;
 
-  @Field({
-    description: 'The stopPointId of the passenger to search.',
-  })
-  public stopPointId: String;
+  // @Field({
+  //   description: 'The stopPointId of the passenger to search.',
+  // })
+  // public stopPointId: String;
 
   // @Field({
   //   description: 'The typePriceId of the passenger to search.',

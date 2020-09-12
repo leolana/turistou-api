@@ -36,15 +36,6 @@ export const entityToExcursionSerializer = (excursion: Excursion): ExcursionReso
   stopPoints: excursion.stopPoints.map(entityToStopPointSerializer),
   transports: excursion.transports.map(entityToTransportSerializer),
   passengers: excursion.passengers.map(entityToPassengerSerializer),
-  // spots: excursion
-  //   .transports
-  //   .map(t => Array.apply(1, Array(t.capacity))
-  //     .map((_, i) => ({
-  //       number: i + 1,
-  //       free: excursion.passengers.some(pass => /* pass.transportExcursionId === t.id &&  */pass.spot === (i + 1))
-  //     }))
-  //   )
-  // [0],
   ticketPriceDefault: excursion.ticketPriceDefault,
   ticketPrices: excursion.ticketPrices.map(entityToTicketPriceSerialize),
   active: excursion.active,

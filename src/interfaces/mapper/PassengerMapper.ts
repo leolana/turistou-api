@@ -13,8 +13,8 @@ export const inputToPassengerModel = (input: SavePassengerInput): IPassenger => 
   status: input.status,
   spot: input.spot,
   customerId: input.customerId,
-  ticketPriceId: input.ticketPriceId,
-  stopPointId: input.stopPointId,
+  // ticketPriceId: input.ticketPriceId,
+  // stopPointId: input.stopPointId,
   // payments: input.payments.map(entityToPaymentTransactionSerializer),
   // amountPaid: input.amountPaid
 });
