@@ -14,34 +14,32 @@ export enum PassengerStatus {
 }
 
 export interface IPassenger extends TimestampEntity {
-  customerId?: String;
+  customerId?: string;
   customer?: Customer;
-  excursionId?: String;
+  excursionId?: string;
   excursion?: Excursion;
   status: PassengerStatus;
-  ticketPriceId?: String;
+  ticketPriceId?: string;
   ticketPrice?: TicketPrice;
   boardingPoint?: StopPoint;
-  spot?: Number;
-  // spot: PassengerSpot;
-  transportExcursionId?: String;
+  spot: Number;
+  transportExcursionId?: string;
   transportExcursion?: Transport;
   stopPointId?: String;
   paymentConditions: PaymentCondition[];
   payments: PaymentTransaction[];
-  amountPaid: Number;
+  amountPaid: number;
 
-  calculateAmountPaid(): Number;
+  calculateAmountPaid(): number;
 }
 
 export default class Passenger implements IPassenger, Entity {
-  id: String;
-  customerId: String;
+  id: string;
+  customerId: string;
   customer: Customer;
-  excursionId?: String;
-  ticketPriceId?: String;
-  transportExcursionId?: String;
-  stopPointId?: String;
+  excursionId?: string;
+  ticketPriceId?: string;
+  transportExcursionId?: string;
   excursion: Excursion;
   ticketPrice?: TicketPrice;
   status: PassengerStatus;
@@ -51,11 +49,11 @@ export default class Passenger implements IPassenger, Entity {
   transportExcursion?: Transport;
   paymentConditions: PaymentCondition[];
   payments: PaymentTransaction[];
-  amountPaid: Number;
+  amountPaid: number;
   createdAt: Date;
   updatedAt: Date;
 
-  calculateAmountPaid(): Number {
+  calculateAmountPaid(): number {
     const calculateAmount = (payments: PaymentTransaction[]): Number => {
 
       if (payments.length === 0) {

@@ -29,6 +29,7 @@ export class PaymentTransaction {
 
   @Field({
     description: 'The operation type.',
+    nullable: true,
   })
   operation: OperationPayment;
 

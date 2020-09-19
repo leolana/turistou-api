@@ -17,19 +17,19 @@ export class SaveTicketPriceInput implements Partial<TicketPrice> {
   public ticketDescription: string;
 
   @Field()
-  public ticketPrice: Number;
+  public ticketPrice: number;
 
   @Field()
   public isFrom: Boolean;
 
   @Field()
-  public ageInitial: Number;
+  public ageInitial: number;
 
   @Field()
   public untilAge: Boolean;
 
   @Field()
-  public ageFinal: Number;
+  public ageFinal: number;
 }
 
 @InputType()
@@ -41,7 +41,7 @@ export class SaveTransportInput implements Partial<Transport> {
   public plate: string;
 
   @Field()
-  public capacity: Number;
+  public capacity: number;
 
   @Field()
   public driver: string;
@@ -71,7 +71,7 @@ export class SaveExcursionInput implements Partial<Excursion> {
   public stoppingPoints?: SaveStopPointInput[];
 
   @Field()
-  public ticketPriceDefault: Number;
+  public ticketPriceDefault: number;
 
   @Field(type => [SaveTicketPriceInput], {
     description: 'The ticketPrices of the excursion.',

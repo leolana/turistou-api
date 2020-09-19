@@ -33,7 +33,6 @@
           "skipFiles": [
             "<node_internals>/**"
           ],
-          "restart": true
         }
     ]
 }

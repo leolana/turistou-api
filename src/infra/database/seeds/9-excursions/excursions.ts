@@ -53,8 +53,8 @@ export = [
     ticketPriceDefault: 200,
     ticketPrices: [
       {
-        id: new ObjectId('5dbde2686aac4e44e8b1c030'),
-        description: 'Criança',
+        id: new ObjectId('5d2a2faa2956627571be8f5f'),
+        description: 'Adulto Novos',
         price: 120,
         ageFinal: 5,
         createdAt: new Date(),
