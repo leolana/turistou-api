@@ -47,7 +47,7 @@ const excursionSchema: mongoose.Schema = new mongoose.Schema(
       ref: TRANSPORT_COLLECTION_NAME
     },
     ticketPriceDefault: {
-      type: dataTypes.Decimal128,
+      type: dataTypes.Number,
     },
     ticketPrices: {
       type: [ticketPriceSchema.schema],

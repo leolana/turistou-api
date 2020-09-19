@@ -12,7 +12,7 @@ import { TicketPrice } from './TicketPrice';
 
 export class Passenger {
   @Field(type => ID)
-  public id: String;
+  public id: string;
 
   @Field({
     description: 'The status of the Passenger.'
@@ -33,7 +33,7 @@ export class Passenger {
   @Field({
     description: 'The spot of the Passenger.'
   })
-  public spot: Number;
+  public spot: number;
   // public spot: PassengerSpot;
 
   @Field({
@@ -54,5 +54,5 @@ export class Passenger {
   @Field(type => Number, {
     description: 'The Amount paid for the excursion'
   })
-  amountPaid: Number;
+  amountPaid: number;
 }
