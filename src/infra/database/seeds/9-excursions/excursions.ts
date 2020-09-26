@@ -174,6 +174,7 @@ export = [
     ticketPriceDefault: 800,
     ticketPrices: [
       {
+        id: new ObjectId(),
         description: 'Crianças',
         price: 400,
         ageFinal: 11,
@@ -181,6 +182,7 @@ export = [
         updatedAt: new Date(),
       },
       {
+        id: new ObjectId(),
         description: 'Jovens',
         price: 700,
         ageInitial: 12,
@@ -189,6 +191,7 @@ export = [
         updatedAt: new Date(),
       },
       {
+        id: new ObjectId(),
         description: 'Idosos',
         price: 600,
         ageInitial: 65,

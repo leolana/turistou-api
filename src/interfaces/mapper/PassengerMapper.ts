@@ -4,7 +4,7 @@ import { Passenger as PassengerResolver } from '@interfaces/graphql/types/Passen
 
 import { entityToCustomerSerializer } from './CustomerMapper';
 import {
-    entityToPaymentTransactionSerializer, modelToPaymentTransactionEntity
+  entityToPaymentTransactionSerializer, modelToPaymentTransactionEntity
 } from './PaymentTransactionMapper';
 import { SavePassengerInput } from '@interfaces/graphql/types/input/SavePassengersInput';
 
@@ -34,25 +34,21 @@ export const entityToPassengerSerializer = (passenger: Passenger): PassengerReso
 });
 
 export const modelToPassengerEntity =
-  (passenger: IPassengerModel): Passenger => {
-    const entity = new Passenger();
-
-    entity.id = passenger._id;
-    entity.spot = passenger.spot;
-    entity.status = passenger.status;
-    entity.customer = passenger.customer;
-    entity.customerId = passenger.customerId;
-    entity.ticketPrice = passenger.ticketPrice;
-    entity.ticketPriceId = passenger.ticketPriceId;
-    entity.excursionId = passenger.excursionId;
-    entity.transportExcursionId = passenger.transportExcursionId;
-    entity.excursion = passenger.excursion;
-    entity.boardingPoint = passenger.boardingPoint;
-    entity.transportExcursion = passenger.transportExcursion;
-    entity.paymentConditions = passenger.paymentConditions;
-    entity.payments = passenger.payments.map(modelToPaymentTransactionEntity);
-    entity.createdAt = passenger.createdAt;
-    entity.updatedAt = passenger.updatedAt;
-
-    return entity;
-  };
+  (passenger: IPassengerModel): Passenger => <Passenger>({
+    id: passenger._id || passenger.id,
+    spot: passenger.spot,
+    status: passenger.status,
+    customer: passenger.customer,
+    customerId: passenger.customerId,
+    ticketPrice: passenger.ticketPrice,
+    ticketPriceId: passenger.ticketPriceId,
+    excursionId: passenger.excursionId,
+    transportExcursionId: passenger.transportExcursionId,
+    excursion: passenger.excursion,
+    boardingPoint: passenger.boardingPoint,
+    transportExcursion: passenger.transportExcursion,
+    paymentConditions: passenger.paymentConditions,
+    payments: passenger.payments.map(modelToPaymentTransactionEntity),
+    createdAt: passenger.createdAt,
+    updatedAt: passenger.updatedAt,
+  });

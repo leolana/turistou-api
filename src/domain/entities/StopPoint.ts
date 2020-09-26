@@ -1,12 +1,12 @@
 import Entity from './Entity';
 
 export interface IStopPoint {
-  stopPoint: String;
+  stopPoint: string;
 }
 
 export default class StopPoint implements IStopPoint, Entity {
-  id?: String;
-  stopPoint: String;
+  id?: string;
+  stopPoint: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

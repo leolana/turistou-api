@@ -39,6 +39,7 @@ export default class Passenger implements IPassenger, Entity {
   customer: Customer;
   excursionId?: string;
   ticketPriceId?: string;
+  stopPointId?: string;
   transportExcursionId?: string;
   excursion: Excursion;
   ticketPrice?: TicketPrice;

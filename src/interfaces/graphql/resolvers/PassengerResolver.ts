@@ -80,7 +80,6 @@ export class PassengerResolver {
   @Mutation(returns => Passenger)
   public async savePassenger(@Arg('input') input: SavePassengerInput): Promise<Passenger> {
     const passenger = await this.setPassengersUseCase.execute(input);
-    console.log(passenger);
     return entityToPassengerSerializer(passenger);
   }
 }
