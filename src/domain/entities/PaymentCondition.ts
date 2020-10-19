@@ -59,9 +59,10 @@ export class PaymentConditionPaymentBankSlip implements PaymentConditionBase {
 export interface IPaymentCondition extends TimestampEntity {
   method: PaymentTypes;
   value: number;
+  /** Número de parcelas */
   quantity?: number;
+  /** Data de vencimento da primeira parcela (quando selecionado modo parcelado) */
   firstDueDate?: Date;
-  dueDate?: Date;
 }
 
 export default class PaymentCondition implements IPaymentCondition, Entity {
@@ -70,7 +71,6 @@ export default class PaymentCondition implements IPaymentCondition, Entity {
   value: number;
   quantity?: number;
   firstDueDate?: Date;
-  dueDate?: Date;
   createdAt: Date;
   updatedAt: Date;
 }

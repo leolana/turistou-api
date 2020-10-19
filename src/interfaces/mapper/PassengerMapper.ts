@@ -3,9 +3,9 @@ import { IPassengerModel } from '@infra/database/schemas/passengerSchema';
 import { Passenger as PassengerResolver } from '@interfaces/graphql/types/Passenger';
 
 import { entityToCustomerSerializer } from './CustomerMapper';
-import { entityToPaymentTransactionSerializer, modelToPaymentTransactionEntity } from './PaymentTransactionMapper';
-import { paymentConditionInsertInputToEntity } from './PaymentConditionMapper';
+import { entityToPaymentTransactionSerializer, modelToPaymentTransactionEntity, paymentConditionInputToPaymentTransactionModel } from './PaymentTransactionMapper';
 import { SavePassengerInput } from '@interfaces/graphql/types/input/SavePassengersInput';
+import { inputToPaymentConditionModel } from './PaymentConditionMapper';
 
 export const inputToPassengerModel = (input: SavePassengerInput): IPassenger => <Passenger>({
   excursionId: input.excursionId,
@@ -14,7 +14,10 @@ export const inputToPassengerModel = (input: SavePassengerInput): IPassenger => 
   customerId: input.customerId,
   ticketPriceId: input.ticketPriceId,
   stopPointId: input.stopPointId,
-  paymentConditions: input.paymentConditions?.map(paymentConditionInsertInputToEntity) || [],
+  paymentConditions: input.paymentConditions?.map(inputToPaymentConditionModel) || [],
+  // flat() não funcionou
+  payments: input.paymentConditions?.map(paymentConditionInputToPaymentTransactionModel)
+    .reduce((acc, it) => ([...acc, ...it])) || [],
 });
 
 export const entityToPassengerSerializer = (passenger: Passenger): PassengerResolver => <PassengerResolver>({

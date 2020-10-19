@@ -1,14 +1,12 @@
 import { IPaymentCondition } from '@domain/entities/PaymentCondition';
 import { PaymentConditionInput } from '@interfaces/graphql/types/input/PaymentInput';
 
-export const paymentConditionInsertInputToEntity =
+export const inputToPaymentConditionModel =
   (input: PaymentConditionInput): IPaymentCondition => <IPaymentCondition>({
     value: input.value,
     method: input.paymentType,
     quantity: input.installmentQuantity,
-    firstDueDate: input.installmentQuantity ? input.paymentFirstDue : undefined,
-    // FIXME: talvez ainda precise de ajustes para pagamentos parcelados
-    dueDate: input.installmentQuantity ? undefined : input.paymentFirstDue,
+    firstDueDate: input.paymentFirstDue,
     createdAt: new Date()
   });
 
