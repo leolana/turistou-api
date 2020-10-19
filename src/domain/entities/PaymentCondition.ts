@@ -1,3 +1,5 @@
+import Entity, { TimestampEntity } from './Entity';
+
 export enum PaymentTypes {
   Money = 'MONEY',
   CreditCard = 'CREDIT_CARD',
@@ -6,55 +8,69 @@ export enum PaymentTypes {
   PaymentBankSlip = 'PAYMENT_BANK_SLIP',
 }
 
-export default interface PaymentCondition {
+interface PaymentConditionBase {
   type: PaymentTypes;
 }
 
-export interface Installment {
-  quantity: Number;
-  value: Number;
+interface Installment {
+  quantity: number;
+  value: number;
 }
 
-export class PaymentConditionBankTransfer implements PaymentCondition
-{
+export class PaymentConditionBankTransfer implements PaymentConditionBase {
   type: PaymentTypes.BankTransfer = PaymentTypes.BankTransfer;
-  value?: Number;
+  value?: number;
 }
 
-export class InstallmentCreditCard implements Installment
-{
-  quantity: Number;
-  value: Number;
+export class InstallmentCreditCard implements Installment {
+  quantity: number;
+  value: number;
   firstDueDate: Date;
 }
 
-export class PaymentConditionCreditCard implements PaymentCondition
-{
+export class PaymentConditionCreditCard implements PaymentConditionBase {
   type: PaymentTypes.CreditCard = PaymentTypes.CreditCard;
   installment?: InstallmentCreditCard;
 }
 
-export class PaymentConditionDebit implements PaymentCondition
-{
+export class PaymentConditionDebit implements PaymentConditionBase {
   type: PaymentTypes.Debit = PaymentTypes.Debit;
-  value?: Number;
+  value?: number;
 }
 
-export class PaymentConditionMoney implements PaymentCondition
-{
+export class PaymentConditionMoney implements PaymentConditionBase {
   type: PaymentTypes.Money = PaymentTypes.Money;
-  value?: Number;
+  value?: number;
 }
 
-export class InstallmentBankSlip implements Installment
-{
-  quantity: Number;
-  value: Number;
+export class InstallmentBankSlip implements Installment {
+  quantity: number;
+  value: number;
   dueDate: Date;
 }
 
-export class PaymentConditionPaymentBankSlip implements PaymentCondition
-{
+export class PaymentConditionPaymentBankSlip implements PaymentConditionBase {
   type: PaymentTypes.PaymentBankSlip = PaymentTypes.PaymentBankSlip;
   installment?: InstallmentBankSlip;
+}
+
+///////////////////////
+
+export interface IPaymentCondition extends TimestampEntity {
+  method: PaymentTypes;
+  value: number;
+  quantity?: number;
+  firstDueDate?: Date;
+  dueDate?: Date;
+}
+
+export default class PaymentCondition implements IPaymentCondition, Entity {
+  id: string;
+  method: PaymentTypes;
+  value: number;
+  quantity?: number;
+  firstDueDate?: Date;
+  dueDate?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }

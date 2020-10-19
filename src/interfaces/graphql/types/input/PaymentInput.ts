@@ -2,6 +2,31 @@ import { Field, InputType, Float } from 'type-graphql';
 import { PaymentTypes } from '@domain/entities/PaymentCondition';
 
 @InputType()
+export class PaymentConditionInput {
+  @Field(type => Float, {
+    description: 'The value(money) paid.'
+  })
+  value: number;
+
+  @Field({
+    description: 'The method type.',
+  })
+  paymentType: PaymentTypes;
+
+  @Field({
+    description: 'The installmentQuantity.',
+    nullable: true
+  })
+  installmentQuantity: number;
+
+  @Field({
+    description: 'The paymentFirstDue agreed.',
+    nullable: true
+  })
+  paymentFirstDue: Date;
+}
+
+@InputType()
 export class PaymentTransactionInsertInput {
   @Field(type => Float, {
     description: 'The value(money) paid.'

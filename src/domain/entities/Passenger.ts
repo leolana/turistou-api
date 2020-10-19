@@ -28,9 +28,9 @@ export interface IPassenger extends TimestampEntity {
   stopPointId?: String;
   paymentConditions: PaymentCondition[];
   payments: PaymentTransaction[];
-  amountPaid: number;
+  amountPaid?: number;
 
-  calculateAmountPaid(): number;
+  // calculateAmountPaid: () => number;
 }
 
 export default class Passenger implements IPassenger, Entity {
@@ -50,30 +50,30 @@ export default class Passenger implements IPassenger, Entity {
   transportExcursion?: Transport;
   paymentConditions: PaymentCondition[];
   payments: PaymentTransaction[];
-  amountPaid: number;
+  amountPaid?: number;
   createdAt: Date;
   updatedAt: Date;
-
-  calculateAmountPaid(): number {
-    const calculateAmount = (payments: PaymentTransaction[]): Number => {
-
-      if (payments.length === 0) {
-        return 0;
-      }
-
-      return payments
-        .map(p => p.value)
-        .reduce((accumulator, currentValue) => {
-          const value = accumulator.valueOf() + currentValue.valueOf();
-          return value;
-        });
-    };
-
-    const credits = calculateAmount(this.payments.filter(p => p.operation === OperationPayment.Credit));
-    const chargeBacks = calculateAmount(this.payments.filter(p => p.operation === OperationPayment.ChargeBack));
-
-    const paidAmount = credits.valueOf() - chargeBacks.valueOf();
-
-    return paidAmount;
-  }
 }
+
+export const calculateAmountPaid = (passenger: Passenger) => {
+  const calculateAmount = (payments: PaymentTransaction[]): Number => {
+
+    if (payments.length === 0) {
+      return 0;
+    }
+
+    return payments
+      .map(p => p.value)
+      .reduce((accumulator, currentValue) => {
+        const value = accumulator.valueOf() + currentValue.valueOf();
+        return value;
+      });
+  };
+
+  const credits = calculateAmount(passenger.payments.filter(p => p.operation === OperationPayment.Credit));
+  const chargeBacks = calculateAmount(passenger.payments.filter(p => p.operation === OperationPayment.ChargeBack));
+
+  const paidAmount = credits.valueOf() - chargeBacks.valueOf();
+
+  return paidAmount;
+};

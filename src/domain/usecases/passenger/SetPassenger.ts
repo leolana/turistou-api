@@ -5,7 +5,7 @@ import { DbModel, ModelInterface } from '@infra/database/DbModel';
 import passengerSchema, { IPassengerModel } from '@infra/database/schemas/passengerSchema';
 import excursionSchema, { IExcursionModel } from '@infra/database/schemas/excursionSchema';
 import { LoggerDecorator as Logger, LoggerInterface } from '@infra/logger';
-import { modelToPassengerEntity } from '@interfaces/mapper/PassengerMapper';
+import { inputToPassengerModel, modelToPassengerEntity } from '@interfaces/mapper/PassengerMapper';
 
 import { UseCase } from '../UseCase';
 
@@ -20,11 +20,12 @@ export default class SetPassenger implements UseCase<any, Passenger> {
   public async execute(params: any): Promise<Passenger> {
     this.logger.info('Save passengers => ', params);
 
-    const passengerModel = await this.passengerModel.create(params);
+    const passengerEntity = inputToPassengerModel(params);
+    const passengerModel = await this.passengerModel.create(passengerEntity);
 
     const excursion = await this.excursionModel.findById(params.excursionId);
     excursion.passengerIds.push(passengerModel._id);
-    excursion.save();
+    await excursion.save();
 
     return modelToPassengerEntity(passengerModel);
   }

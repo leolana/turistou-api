@@ -1,6 +1,5 @@
 import { Field, InputType } from 'type-graphql';
-// import PaymentCondition from '@domain/entities/PaymentCondition';
-// import { PassengerSpot } from '@domain/entities/Excursion';
+import { PaymentConditionInput } from './PaymentInput';
 
 @InputType()
 export class SavePassengerInput {
@@ -14,15 +13,16 @@ export class SavePassengerInput {
   })
   public customerId: String;
 
-  // @Field({
-  //   description: 'The ticketPriceId of the passenger to search.',
-  // })
-  // public ticketPriceId: String;
+  @Field({
+    description: 'The ticketPriceId of the passenger to search.',
+    nullable: true
+  })
+  public ticketPriceId: String;
 
-  // @Field(type => [PaymentCondition], {
-  //   description: 'The paymentConditions of the passenger to search.',
-  // })
-  // public paymentConditions: PaymentCondition[];
+  @Field(type => [PaymentConditionInput], {
+    description: 'The paymentConditions of the passenger to search.',
+  })
+  public paymentConditions: PaymentConditionInput[];
 
   @Field({
     description: 'The transportId of the passenger to search.',
@@ -41,10 +41,10 @@ export class SavePassengerInput {
   })
   public status?: String;
 
-  // @Field({
-  //   description: 'The stopPointId of the passenger to search.',
-  // })
-  // public stopPointId: String;
+  @Field({
+    description: 'The stopPointId of the passenger to search.',
+  })
+  public stopPointId: String;
 
   // @Field({
   //   description: 'The typePriceId of the passenger to search.',
