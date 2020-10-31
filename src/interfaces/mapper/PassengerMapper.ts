@@ -10,7 +10,10 @@ import { inputToPaymentConditionModel } from './PaymentConditionMapper';
 export const inputToPassengerModel = (input: SavePassengerInput): IPassenger => <Passenger>({
   excursionId: input.excursionId,
   status: input.status,
-  spot: input.spot,
+  spot: {
+    number: input.spot,
+    transportId: input.transportId
+  },
   customerId: input.customerId,
   ticketPriceId: input.ticketPriceId,
   stopPointId: input.stopPointId,

@@ -33,7 +33,6 @@ export class SavePassengerInput {
     description: 'The spot of the excursion.',
   })
   public spot: Number;
-  // public spot: PassengerSpot;
 
   @Field({
     description: 'The status of the excursion.',
@@ -45,9 +44,4 @@ export class SavePassengerInput {
     description: 'The stopPointId of the passenger to search.',
   })
   public stopPointId: String;
-
-  // @Field({
-  //   description: 'The typePriceId of the passenger to search.',
-  // })
-  // public typePriceId: String;
 }

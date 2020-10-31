@@ -10,7 +10,7 @@ import Transport from './Transport';
 export enum PassengerStatus {
   booked = 'BOOKED',
   waiting = 'WAITING',
-  canceled = 'CANCELED'
+  canceled = 'CANCELED',
 }
 
 export interface IPassenger extends TimestampEntity {
@@ -22,7 +22,7 @@ export interface IPassenger extends TimestampEntity {
   ticketPriceId?: string;
   ticketPrice?: TicketPrice;
   boardingPoint?: StopPoint;
-  spot: number;
+  spot?: PassengerSpot;
   transportExcursionId?: string;
   transportExcursion?: Transport;
   stopPointId?: String;
@@ -45,8 +45,7 @@ export default class Passenger implements IPassenger, Entity {
   ticketPrice?: TicketPrice;
   status: PassengerStatus;
   boardingPoint?: StopPoint;
-  spot: number;
-  // spot: PassengerSpot;
+  spot?: PassengerSpot;
   transportExcursion?: Transport;
   paymentConditions: PaymentCondition[];
   payments: PaymentTransaction[];
@@ -57,7 +56,6 @@ export default class Passenger implements IPassenger, Entity {
 
 export const calculateAmountPaid = (passenger: Passenger) => {
   const calculateAmount = (payments: PaymentTransaction[]): Number => {
-
     if (payments.length === 0) {
       return 0;
     }
@@ -77,3 +75,12 @@ export const calculateAmountPaid = (passenger: Passenger) => {
 
   return paidAmount;
 };
+
+export interface IPassengerSpot {
+  number: number;
+  transportId: string;
+}
+export class PassengerSpot {
+  number: number;
+  transportId: string;
+}

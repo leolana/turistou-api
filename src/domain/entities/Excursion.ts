@@ -51,11 +51,3 @@ export class Spot implements ISpot {
   number: Number;
   free: Boolean;
 }
-
-export interface IPassengerSpot {
-  number: Number;
-  // transportId: Number;
-}
-export class PassengerSpot {
-  number: Number;
-}
