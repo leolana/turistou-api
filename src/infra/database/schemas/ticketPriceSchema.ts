@@ -16,7 +16,7 @@ const ticketPriceSchema: mongoose.Schema = new mongoose.Schema(
       required: true
     },
     price: {
-      type: dataTypes.Decimal128,
+      type: dataTypes.Number,
       required: true
     },
     ageInitial: {

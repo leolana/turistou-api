@@ -1,7 +1,12 @@
+import { DateTime } from 'luxon';
+
+import { PaymentTypes } from '@domain/entities/PaymentCondition';
 import PaymentTransaction, {
     IPaymentTransaction, OperationPayment, StatusPayment
 } from '@domain/entities/PaymentTransaction';
-import { PaymentTransactionInsertInput } from '@interfaces/graphql/types/input/PaymentInput';
+import {
+    PaymentConditionInput, PaymentTransactionInsertInput
+} from '@interfaces/graphql/types/input/PaymentInput';
 import {
     PaymentTransaction as PaymentTransactionResolver
 } from '@interfaces/graphql/types/PaymentTransaction';
@@ -43,3 +48,30 @@ export const paymentInsertInputToEntity =
   value: paymentTransactionInsertInput.value,
   createdAt: new Date()
 });
+
+export const paymentConditionInputToPaymentTransactionModel =
+  (input: PaymentConditionInput): IPaymentTransaction[] => {
+    const installable = [PaymentTypes.CreditCard, PaymentTypes.PaymentBankSlip];
+    if (installable.some(x => x === input.paymentType)) {
+      return Array(input.installmentQuantity)
+        .fill({
+          value: input.value / input.installmentQuantity,
+          method: input.paymentType,
+          operation: OperationPayment.Credit,
+          createdAt: new Date(),
+        })
+        .map<IPaymentTransaction>((p, i) => <IPaymentTransaction>({
+          ...p,
+          dueDate: DateTime.local().plus({ months: i }).toJSDate(),
+        }));
+    }
+
+    return [<IPaymentTransaction>({
+      dueDate: input.paymentFirstDue || new Date(),
+      payDate: null,
+      method: input.paymentType,
+      operation: OperationPayment.Credit,
+      value: input.value,
+      createdAt: new Date(),
+    })];
+  };

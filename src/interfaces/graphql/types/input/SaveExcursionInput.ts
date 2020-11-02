@@ -64,11 +64,11 @@ export class SaveExcursionInput implements Partial<Excursion> {
   @Field({ nullable: true })
   public regressDatetime?: Date;
 
-  @Field(type => [SaveStopPointInput], {
+  @Field(type => [String], {
     description: 'The stopPoints of the excursion.',
     nullable: true
   })
-  public stoppingPoints?: SaveStopPointInput[];
+  public stoppingPoints?: string[];
 
   @Field()
   public ticketPriceDefault: number;

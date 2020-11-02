@@ -13,26 +13,31 @@ export = [
     regressDate: today.plus({ hour: 10 }).toJSDate(),
     stopPoints: [
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, General Carneiro, 350',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, Parque Campolim',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, Washingon Luíz',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, Dom Aguirre',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, Castelinho',
         createdAt: new Date(),
         updatedAt: new Date()
@@ -45,14 +50,30 @@ export = [
       new ObjectId('5dc85890acae73753e6195be'),
       new ObjectId('5dc8589706a2360145908053')
     ],
-    ticketPriceDefault: 100,
+    ticketPriceDefault: 200,
     ticketPrices: [
       {
-        id: new ObjectId('5d2a2faa2956627571be8f5f'),
+        id: new ObjectId('5dbde2686aac4e44e8b1c030'),
         description: 'Adulto Novos',
         price: 120,
-        ageInitial: 12,
-        ageFinal: 30,
+        ageFinal: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: new ObjectId('5dbde2686aac4e44e8b1c031'),
+        description: 'Juvenil',
+        price: 120,
+        ageInitial: 6,
+        ageFinal: 12,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: new ObjectId('5dbde2686aac4e44e8b1c032'),
+        description: 'Melhor idade',
+        price: 150,
+        ageInitial: 60,
         createdAt: new Date(),
         updatedAt: new Date(),
       }
@@ -71,26 +92,31 @@ export = [
     regressDate: today.plus({ day: 9, hour: 18 }).toJSDate(),
     stopPoints: [
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, General Carneiro, 350',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, Parque Campolim',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, Washingon Luíz',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, Dom Aguirre',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, Castelinho',
         createdAt: new Date(),
         updatedAt: new Date()
@@ -138,6 +164,7 @@ export = [
     regressDate: today.plus({ day: 22, hour: 13 }).toJSDate(),
     stopPoints: [
       {
+        id: new ObjectId(),
         stopPoint: 'Sorocaba, Parque Campolim',
         createdAt: new Date(),
         updatedAt: new Date()
@@ -147,6 +174,7 @@ export = [
     ticketPriceDefault: 800,
     ticketPrices: [
       {
+        id: new ObjectId(),
         description: 'Crianças',
         price: 400,
         ageFinal: 11,
@@ -154,6 +182,7 @@ export = [
         updatedAt: new Date(),
       },
       {
+        id: new ObjectId(),
         description: 'Jovens',
         price: 700,
         ageInitial: 12,
@@ -162,6 +191,7 @@ export = [
         updatedAt: new Date(),
       },
       {
+        id: new ObjectId(),
         description: 'Idosos',
         price: 600,
         ageInitial: 65,

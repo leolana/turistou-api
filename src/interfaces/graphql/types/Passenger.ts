@@ -7,41 +7,51 @@ import { PaymentTransaction } from './PaymentTransaction';
 import { TicketPrice } from './TicketPrice';
 
 @ObjectType({
-  description: 'Passenger object.'
+  description: 'Passenger object.',
 })
+class PassengerSpot {
+  @Field({ description: 'The TransportId' })
+  public transportId: string;
 
+  @Field({ description: 'The Number of Spot of the Transport' })
+  public number: number;
+}
+
+@ObjectType({
+  description: 'Passenger object.',
+})
 export class Passenger {
   @Field(type => ID)
-  public id: String;
+  public id: string;
 
   @Field({
-    description: 'The status of the Passenger.'
+    description: 'The status of the Passenger.',
   })
   public status: PassengerStatus;
 
   @Field(type => Customer, {
-    description: 'The Customer who is the Passenger.'
+    description: 'The Customer who is the Passenger.',
   })
   public customer?: Customer;
 
   @Field({
     description: 'The TicketPrice of the Passenger.',
-    nullable: true
+    nullable: true,
   })
   ticketPrice?: TicketPrice;
 
   @Field({
-    description: 'The spot of the Passenger.'
+    description: 'The spot of the Passenger.',
   })
-  public spot: Number;
+  public spot?: PassengerSpot;
 
   @Field({
-    description: 'The createdAt of the Passenger.'
+    description: 'The createdAt of the Passenger.',
   })
   public createdAt: Date;
 
   @Field({
-    description: 'The updatedAt of the Passenger.'
+    description: 'The updatedAt of the Passenger.',
   })
   public updatedAt: Date;
 
@@ -51,7 +61,7 @@ export class Passenger {
   payments: PaymentTransaction[];
 
   @Field(type => Number, {
-    description: 'The Amount paid for the excursion'
+    description: 'The Amount paid for the excursion',
   })
-  amountPaid: Number;
+  amountPaid: number;
 }
