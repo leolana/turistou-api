@@ -34,6 +34,9 @@ const paymentTransactionSchema: mongoose.Schema = new mongoose.Schema(
     },
     method: {
       type: dataTypes.String
+    },
+    status: {
+      type: dataTypes.String
     }
   },
   { timestamps: true }

@@ -20,6 +20,12 @@ enum PaymentTypes {
   PaymentBankSlip = 'PAYMENT_BANK_SLIP',
 }
 
+enum StatusPayment {
+  Pending = 'PENDING',
+  Paid = 'PAID',
+  Canceled = 'CANCELED',
+}
+
 export = [
   {
     id: new ObjectId('5dc8587aae446b3b8d4de546'),
@@ -37,6 +43,7 @@ export = [
         value: 60,
         dueDate: new Date(),
         payDate: null,
+        status: StatusPayment.Pending,
         operation: OperationPayment.Credit,
         method: PaymentTypes.CreditCard,
         createdAt: new Date(),
@@ -47,6 +54,7 @@ export = [
         value: 30,
         dueDate: new Date(),
         payDate: new Date(),
+        status: StatusPayment.Paid,
         operation: OperationPayment.Credit,
         method: PaymentTypes.BankTransfer,
         createdAt: new Date(),
@@ -82,6 +90,7 @@ export = [
         value: 45,
         dueDate: new Date(),
         payDate: new Date(),
+        status: StatusPayment.Paid,
         operation: OperationPayment.Credit,
         method: PaymentTypes.CreditCard,
         createdAt: new Date(),
@@ -105,6 +114,7 @@ export = [
         value: 20,
         dueDate: new Date(),
         payDate: new Date(),
+        status: StatusPayment.Paid,
         operation: OperationPayment.Credit,
         method: PaymentTypes.CreditCard,
         createdAt: new Date(),
@@ -115,6 +125,7 @@ export = [
         value: 80,
         dueDate: new Date(),
         payDate: new Date(),
+        status: StatusPayment.Paid,
         operation: OperationPayment.Credit,
         method: PaymentTypes.CreditCard,
         createdAt: new Date(),
@@ -125,6 +136,7 @@ export = [
         value: 20,
         dueDate: new Date(),
         payDate: new Date(),
+        status: StatusPayment.Paid,
         operation: OperationPayment.Canceled,
         method: PaymentTypes.CreditCard,
         createdAt: new Date(),

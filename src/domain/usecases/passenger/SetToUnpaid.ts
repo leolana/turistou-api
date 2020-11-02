@@ -1,12 +1,10 @@
 import { Service } from 'typedi';
 
-import PaymentTransaction from '@domain/entities/PaymentTransaction';
-
-import { UpdatePayDateInput } from '@interfaces/graphql/types/input/PaymentInput';
-
+import PaymentTransaction, { StatusPayment } from '@domain/entities/PaymentTransaction';
 import { DbModel, ModelInterface } from '@infra/database/DbModel';
 import passengerSchema, { IPassengerModel } from '@infra/database/schemas/passengerSchema';
 import { LoggerDecorator as Logger, LoggerInterface } from '@infra/logger';
+import { UpdatePayDateInput } from '@interfaces/graphql/types/input/PaymentInput';
 
 import { UseCase } from '../UseCase';
 
@@ -24,12 +22,14 @@ export default class SetToUnpaid implements UseCase<any, PaymentTransaction> {
 
     passenger.payments.forEach((p) => {
       if (p.id.toString()  === params.paymentId) {
+
+        p.status = StatusPayment.Pending;
         p.payDate = null;
         p.updatedAt = new Date();
       }
     });
 
-    passenger.save();
+    await passenger.save();
 
     return passenger.payments.find(p => p.id === params.paymentId);
   }

@@ -9,6 +9,12 @@ export enum OperationPayment {
   Canceled = 'CANCELED', // Cancelamento do pagamento
 }
 
+export enum StatusPayment {
+  Pending = 'PENDING',
+  Paid = 'PAID',
+  Canceled = 'CANCELED',
+}
+
 export interface IPaymentTransaction extends TimestampEntity {
   id: String;
   value: number;
@@ -16,6 +22,7 @@ export interface IPaymentTransaction extends TimestampEntity {
   payDate?: Date;
   operation?: OperationPayment;
   method: PaymentTypes;
+  status: StatusPayment;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -27,6 +34,7 @@ export default class PaymentTransaction implements IPaymentTransaction, Entity {
   payDate?: Date;
   operation?: OperationPayment;
   method: PaymentTypes;
+  status: StatusPayment;
   createdAt: Date;
   updatedAt: Date;
 }
