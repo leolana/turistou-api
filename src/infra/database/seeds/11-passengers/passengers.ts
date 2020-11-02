@@ -59,7 +59,7 @@ export = [
     customerId: new ObjectId('5d5821a9ffc3c7010f0c2f23'),
     excursionId: new ObjectId('5dbde2686aac4e44e8b1c02d'),
     status: PassengerStatus.booked,
-    ticketPriceId: new ObjectId('5d2a2faa2956627571be8f5f'),
+    ticketPriceId: new ObjectId('5dbde2686aac4e44e8b1c030'),
     spot: {
       number: 2,
       transportId: new ObjectId('5d2a2faa2956627571be8f5f'),
@@ -74,7 +74,7 @@ export = [
     ticketPriceId: new ObjectId('5dc858889a3e040aa67f29d6'),
     spot: {
       number: 15,
-      transportId: new ObjectId('5d2a2faa2956627571be8f60'),
+      transportId: new ObjectId('5d2a2faa2956627571be8f5f'),
     },
     payments: [
       {
@@ -97,7 +97,7 @@ export = [
     ticketPriceId: new ObjectId('5dbde2686aac4e44e8b1c031'),
     spot: {
       number: 18,
-      transportId: new ObjectId('5d2a2faa2956627571be8f60'),
+      transportId: new ObjectId('5d2a2faa2956627571be8f5f'),
     },
     payments: [
       {

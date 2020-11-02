@@ -31,6 +31,7 @@ export class SavePassengerInput {
 
   @Field({
     description: 'The spot of the excursion.',
+    nullable: true
   })
   public spot: Number;
 
