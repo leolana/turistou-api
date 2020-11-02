@@ -20,7 +20,8 @@ export const mongooseLoader: MicroframeworkLoader = async (settings: Microframew
   const database: mongoose.Mongoose = await mongoose.connect(config.db.uri, {
     keepAlive: true,
     useCreateIndex: true,
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
   });
 
   if (settings) {
