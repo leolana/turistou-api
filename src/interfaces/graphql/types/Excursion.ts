@@ -5,6 +5,18 @@ import { StopPoint } from './StopPoint';
 import { TicketPrice } from './TicketPrice';
 import { Transport } from './Transport';
 
+export class Spot {
+  @Field({
+    description: 'The number of spot.'
+  })
+  public number: Number;
+
+  @Field({
+    description: 'If the spot is available.'
+  })
+  public free: Boolean;
+}
+
 @ObjectType({
   description: 'Excursion object.'
 })
@@ -61,6 +73,11 @@ export class Excursion {
     description: 'The ticketPrices of the excursion.'
   })
   public ticketPrices: TicketPrice[];
+
+  // @Field(type => [Spot], {
+  //   description: 'List of vacancy.'
+  // })
+  // public spots: Spot[];
 
   @Field({
     description: 'The active of the excursion.'

@@ -9,6 +9,7 @@ export class SearchPassengersInput {
 
   @Field({
     description: 'The status of the passenger to search.',
+    nullable: true
   })
   public status: string;
 

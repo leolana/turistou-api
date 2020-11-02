@@ -1,6 +1,15 @@
-import PaymentTransaction, { IPaymentTransaction, OperationPayment } from '@domain/entities/PaymentTransaction';
-import { PaymentTransaction as PaymentTransactionResolver } from '@interfaces/graphql/types/PaymentTransaction';
-import { PaymentTransactionInsertInput } from '@interfaces/graphql/types/input/PaymentInput';
+import { DateTime } from 'luxon';
+
+import { PaymentTypes } from '@domain/entities/PaymentCondition';
+import PaymentTransaction, {
+    IPaymentTransaction, OperationPayment, StatusPayment
+} from '@domain/entities/PaymentTransaction';
+import {
+    PaymentConditionInput, PaymentTransactionInsertInput
+} from '@interfaces/graphql/types/input/PaymentInput';
+import {
+    PaymentTransaction as PaymentTransactionResolver
+} from '@interfaces/graphql/types/PaymentTransaction';
 
 export const entityToPaymentTransactionSerializer =
   (paymentTransaction: PaymentTransaction): PaymentTransactionResolver => <PaymentTransactionResolver>({
@@ -9,6 +18,7 @@ export const entityToPaymentTransactionSerializer =
     payDate: paymentTransaction.payDate,
     operation: paymentTransaction.operation,
     method: paymentTransaction.method,
+    status: paymentTransaction.status,
     value: Number(paymentTransaction.value.toString()),
     createdAt: paymentTransaction.createdAt,
     updatedAt: paymentTransaction.updatedAt,
@@ -21,6 +31,7 @@ export const modelToPaymentTransactionEntity =
     payDate: paymentTransaction.payDate,
     operation: paymentTransaction.operation,
     method: paymentTransaction.method,
+    status: paymentTransaction.status,
     value: paymentTransaction.value,
     createdAt: paymentTransaction.createdAt,
     updatedAt: paymentTransaction.updatedAt,
@@ -32,7 +43,35 @@ export const paymentInsertInputToEntity =
   payDate: new Date(),
   updatedAt: new Date(),
   method: paymentTransactionInsertInput.method,
+  operation: OperationPayment.Credit,
+  status: StatusPayment.Pending,
   value: paymentTransactionInsertInput.value,
-  createdAt: new Date(),
-  operation: OperationPayment.Credit
+  createdAt: new Date()
 });
+
+export const paymentConditionInputToPaymentTransactionModel =
+  (input: PaymentConditionInput): IPaymentTransaction[] => {
+    const installable = [PaymentTypes.CreditCard, PaymentTypes.PaymentBankSlip];
+    if (installable.some(x => x === input.paymentType)) {
+      return Array(input.installmentQuantity)
+        .fill({
+          value: input.value / input.installmentQuantity,
+          method: input.paymentType,
+          operation: OperationPayment.Credit,
+          createdAt: new Date(),
+        })
+        .map<IPaymentTransaction>((p, i) => <IPaymentTransaction>({
+          ...p,
+          dueDate: DateTime.local().plus({ months: i }).toJSDate(),
+        }));
+    }
+
+    return [<IPaymentTransaction>({
+      dueDate: input.paymentFirstDue || new Date(),
+      payDate: null,
+      method: input.paymentType,
+      operation: OperationPayment.Credit,
+      value: input.value,
+      createdAt: new Date(),
+    })];
+  };

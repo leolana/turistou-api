@@ -1,19 +1,17 @@
 import { Service } from 'typedi';
 
-import { LoggerDecorator as Logger, LoggerInterface } from '@infra/logger';
-
-import { BaseService } from '../BaseService';
-import { modelToPaymentStatusSerializer } from '@interfaces/mapper/PaymentStatusMapper';
 import ListPassenger from '@domain/usecases/passenger/ListPassenger';
+import { LoggerDecorator as Logger, LoggerInterface } from '@infra/logger';
+import { modelToPaymentStatusSerializer } from '@interfaces/mapper/PaymentStatusMapper';
 
 @Service()
-export default class PaymentStatusService implements BaseService<any, PaymentStatusModel> {
+export default class PaymentService {
   constructor(
     @Logger(__filename) private logger: LoggerInterface,
     private listPassengersUseCase: ListPassenger
   ) { }
 
-  public async execute(passengerId: string): Promise<PaymentStatusModel> {
+  public async changePaymentStatus(passengerId: string): Promise<PaymentStatusModel> {
     this.logger.info('Payment status service => ', passengerId);
 
     const passengers = await this.listPassengersUseCase.execute();
