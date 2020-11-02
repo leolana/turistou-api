@@ -7,6 +7,7 @@ import ListPayments from '@domain/usecases/passenger/ListPayments';
 import PaymentInsert from '@domain/usecases/passenger/PaymentInsert';
 import SetToPaid from '@domain/usecases/passenger/SetToPaid';
 import SetToUnpaid from '@domain/usecases/passenger/SetToUnpaid';
+import SetPassenger from '@domain/usecases/passenger/SetPassenger';
 import { entityToPassengerSerializer } from '@interfaces/mapper/PassengerMapper';
 import { entityToPaymentTransactionSerializer } from '@interfaces/mapper/PaymentTransactionMapper';
 
@@ -15,12 +16,14 @@ import { SearchPassengersInput } from '../types/input/SearchPassengersInput';
 import { Passenger } from '../types/Passenger';
 import { PaymentStatus } from '../types/PaymentStatus';
 import { PaymentTransaction } from '../types/PaymentTransaction';
+import { SavePassengerInput } from '../types/input/SavePassengersInput';
 
 @Service()
 @Resolver(of => Passenger)
 export class PassengerResolver {
   constructor(
     private listPassengersUseCase: ListPassenger,
+    private setPassengersUseCase: SetPassenger,
     private listPaymentsUseCase: ListPayments,
     private paymentInsertUseCase: PaymentInsert,
     private setToUnpaidUseCase: SetToUnpaid,
@@ -72,5 +75,11 @@ export class PassengerResolver {
     const payment = await this.setToPaidUseCase.execute(updatePayDateInput);
 
     return entityToPaymentTransactionSerializer(payment);
+  }
+
+  @Mutation(returns => Passenger)
+  public async savePassenger(@Arg('input') input: SavePassengerInput): Promise<Passenger> {
+    const passenger = await this.setPassengersUseCase.execute(input);
+    return entityToPassengerSerializer(passenger);
   }
 }

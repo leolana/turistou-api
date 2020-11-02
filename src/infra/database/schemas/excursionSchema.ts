@@ -3,8 +3,8 @@ import * as mongoose from 'mongoose';
 import { IExcursion } from '@domain/entities/Excursion';
 
 import {
-    DbSchema, EXCURSION_COLLECTION_NAME, ORGANIZATION_COLLECTION_NAME, PASSENGER_COLLECTION_NAME,
-    TRANSPORT_COLLECTION_NAME
+  DbSchema, EXCURSION_COLLECTION_NAME, ORGANIZATION_COLLECTION_NAME, PASSENGER_COLLECTION_NAME,
+  TRANSPORT_COLLECTION_NAME
 } from './DbSchema';
 import { stopPointSchema } from './stopPointSchema';
 import ticketPriceSchema from './ticketPriceSchema';
@@ -47,12 +47,12 @@ const excursionSchema: mongoose.Schema = new mongoose.Schema(
       ref: TRANSPORT_COLLECTION_NAME
     },
     ticketPriceDefault: {
-      type: dataTypes.Decimal128,
+      type: dataTypes.Number,
     },
     ticketPrices: {
       type: [ticketPriceSchema.schema],
     },
-    passengerIds:{
+    passengerIds: {
       type: [dataTypes.ObjectId],
       ref: PASSENGER_COLLECTION_NAME
     },

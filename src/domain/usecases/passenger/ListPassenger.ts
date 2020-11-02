@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { Service } from 'typedi';
 
-import Passenger from '@domain/entities/Passenger';
+import Passenger, { calculateAmountPaid } from '@domain/entities/Passenger';
 import { DbModel, ModelInterface } from '@infra/database/DbModel';
 import passengerSchema, { IPassengerModel } from '@infra/database/schemas/passengerSchema';
 import { LoggerDecorator as Logger, LoggerInterface } from '@infra/logger';
@@ -53,7 +53,7 @@ export default class ListPassenger implements UseCase<any, Passenger[]> {
 
     const passengersModel = queryResult.map((passengerModel) => {
       const ticketPrice = passengerModel.ticketPriceId
-        ? passengerModel.excursion.ticketPrices.find(x => x.id.toString() === passengerModel.ticketPriceId.toString())
+        ? passengerModel.excursion.ticketPrices.find(x => x.id?.toString() === passengerModel.ticketPriceId.toString())
         : {
           description: 'Padrão',
           price: passengerModel.excursion.ticketPriceDefault,
@@ -72,7 +72,9 @@ export default class ListPassenger implements UseCase<any, Passenger[]> {
       (passenger: IPassengerModel) => modelToPassengerEntity(passenger)
     );
 
-    passengersEntity.forEach(entity => entity.amountPaid = entity.calculateAmountPaid());
+    // FIXME: calculateAmountPaid()
+    passengersEntity.forEach(entity => entity.amountPaid = calculateAmountPaid(entity));
+    // passengersEntity.forEach(entity => entity.amountPaid = 0);
 
     return passengersEntity;
   }

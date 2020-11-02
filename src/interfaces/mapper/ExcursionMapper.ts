@@ -8,9 +8,11 @@ import { Excursion as ExcursionResolver } from '@interfaces/graphql/types/Excurs
 import { SaveExcursionInput } from '@interfaces/graphql/types/input/SaveExcursionInput';
 
 import { entityToPassengerSerializer, modelToPassengerEntity } from './PassengerMapper';
-import { inputToStopPointModel } from './StopPointMapper';
-import { inputToTicketPriceModel } from './TicketPriceMapper';
-import { inputToTransportModel, modelToTransportEntity } from './TransportMapper';
+import { inputToStopPointModel, entityToStopPointSerializer, modelToStopPointEntity } from './StopPointMapper';
+import { inputToTicketPriceModel, entityToTicketPriceSerialize, modelToTicketPriceEntity } from './TicketPriceMapper';
+import { inputToTransportModel, modelToTransportEntity, entityToTransportSerializer } from './TransportMapper';
+import { ITicketPriceModel } from '@infra/database/schemas/ticketPriceSchema';
+import { IStopPointModel } from '@infra/database/schemas/stopPointSchema';
 
 export const inputToExcursionEntity = (input: SaveExcursionInput): IExcursion => <Excursion>({
   destination: input.destination,
@@ -18,10 +20,10 @@ export const inputToExcursionEntity = (input: SaveExcursionInput): IExcursion =>
   departureDate: input.departureDatetime,
   arrivalPoint: input.arrivalPoint,
   regressDate: input.regressDatetime,
-  stopPoints: input.stoppingPoints.map(inputToStopPointModel),
+  stopPoints: input.stoppingPoints?.map(inputToStopPointModel) || [],
   ticketPriceDefault: input.ticketPriceDefault,
-  ticketPrices: input.prices.map(inputToTicketPriceModel),
-  transports: input.excursionTransports.map(inputToTransportModel),
+  ticketPrices: input.prices?.map(inputToTicketPriceModel) || [],
+  transports: input.excursionTransports?.map(inputToTransportModel) || [],
   organizationId: input.organizationId ? input.organizationId : new ObjectId('5d5821a9ffc3c7010f0c2f01') as any,
 });
 
@@ -32,11 +34,11 @@ export const entityToExcursionSerializer = (excursion: Excursion): ExcursionReso
   departureDate: excursion.departureDate,
   arrivalPoint: excursion.arrivalPoint,
   regressDate: excursion.regressDate,
-  stopPoints: excursion.stopPoints,
-  transports: excursion.transports,
-  passengers: excursion.passengers.map(entityToPassengerSerializer),
+  stopPoints: excursion.stopPoints?.map(entityToStopPointSerializer) || [],
+  transports: excursion.transports?.map(entityToTransportSerializer) || [],
+  passengers: excursion.passengers?.map(entityToPassengerSerializer) || [],
   ticketPriceDefault: excursion.ticketPriceDefault,
-  ticketPrices: excursion.ticketPrices,
+  ticketPrices: excursion.ticketPrices?.map(entityToTicketPriceSerialize) || [],
   active: excursion.active,
   createdAt: excursion.createdAt,
   updatedAt: excursion.updatedAt,
@@ -44,17 +46,17 @@ export const entityToExcursionSerializer = (excursion: Excursion): ExcursionReso
 
 export const modelToExcursionEntity =
   (excursion: IExcursionModel): Excursion => <Excursion>({
-    id: excursion.id,
+    id: excursion.id || excursion._id,
     destination: excursion.destination,
     departurePoint: excursion.departurePoint,
     departureDate: excursion.departureDate,
     arrivalPoint: excursion.arrivalPoint,
     regressDate: excursion.regressDate,
-    stopPoints: excursion.stopPoints,
-    transports: (excursion.transports as ITransportModel[]).map(modelToTransportEntity),
-    passengers: (excursion.passengers as IPassengerModel[]).map(modelToPassengerEntity),
+    stopPoints: ((excursion.stopPoints || []) as IStopPointModel[]).map(modelToStopPointEntity),
+    transports: ((excursion.transports || []) as ITransportModel[]).map(modelToTransportEntity),
+    passengers: ((excursion.passengers || []) as any as IPassengerModel[]).map(modelToPassengerEntity),
     ticketPriceDefault: excursion.ticketPriceDefault,
-    ticketPrices: excursion.ticketPrices,
+    ticketPrices: ((excursion.ticketPrices || []) as ITicketPriceModel[]).map(modelToTicketPriceEntity),
     active: excursion.active,
     createdAt: excursion.createdAt,
     updatedAt: excursion.updatedAt,

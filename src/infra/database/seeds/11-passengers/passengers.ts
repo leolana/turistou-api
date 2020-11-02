@@ -3,13 +3,13 @@ import { ObjectId } from 'bson';
 enum PassengerStatus {
   booked = 'BOOKED',
   waiting = 'WAITING',
-  canceled = 'CANCELED'
+  canceled = 'CANCELED',
 }
 
 enum OperationPayment {
   Credit = 'CREDIT',
   ChargeBack = 'CHARGE_BACK',
-  Canceled = 'CANCELED'
+  Canceled = 'CANCELED',
 }
 
 enum PaymentTypes {
@@ -27,8 +27,10 @@ export = [
     excursionId: new ObjectId('5dbde2686aac4e44e8b1c02d'),
     status: PassengerStatus.booked,
     ticketPriceId: null,
-    spot: 1,
-    // transportExcursionId: new ObjectId(''),
+    spot: {
+      number: 1,
+      transportId: new ObjectId('5d2a2faa2956627571be8f5f'),
+    },
     payments: [
       {
         _id: new ObjectId('5dc8587aae446b3b8d4de546'),
@@ -49,18 +51,20 @@ export = [
         method: PaymentTypes.BankTransfer,
         createdAt: new Date(),
         updatedAt: new Date(),
-      }
-    ]
+      },
+    ],
   },
   {
     id: new ObjectId('5dc858889a3e040aa67f29d6'),
     customerId: new ObjectId('5d5821a9ffc3c7010f0c2f23'),
     excursionId: new ObjectId('5dbde2686aac4e44e8b1c02d'),
     status: PassengerStatus.booked,
-    ticketPriceId: new ObjectId('5d2a2faa2956627571be8f5f'),
-    spot: 2,
-    // transportExcursionId: new ObjectId(''),
-    payments: []
+    ticketPriceId: new ObjectId('5dbde2686aac4e44e8b1c030'),
+    spot: {
+      number: 2,
+      transportId: new ObjectId('5d2a2faa2956627571be8f5f'),
+    },
+    payments: [],
   },
   {
     id: new ObjectId('5dc85890acae73753e6195be'),
@@ -68,8 +72,10 @@ export = [
     excursionId: new ObjectId('5dbde2686aac4e44e8b1c02e'),
     status: PassengerStatus.waiting,
     ticketPriceId: new ObjectId('5dc858889a3e040aa67f29d6'),
-    spot: 15,
-    // transportExcursionId: new ObjectId(''),
+    spot: {
+      number: 15,
+      transportId: new ObjectId('5d2a2faa2956627571be8f5f'),
+    },
     payments: [
       {
         _id: new ObjectId('5de8406c09e0b9247c3af9dc'),
@@ -80,17 +86,19 @@ export = [
         method: PaymentTypes.CreditCard,
         createdAt: new Date(),
         updatedAt: new Date(),
-      }
-    ]
+      },
+    ],
   },
   {
     id: new ObjectId('5dc8589706a2360145908053'),
     customerId: new ObjectId('5d5821a9ffc3c7010f0c2f25'),
     excursionId: new ObjectId('5dbde2686aac4e44e8b1c02e'),
     status: PassengerStatus.canceled,
-    ticketPriceId: new ObjectId('5dbde2686aac4e44e8b1c02e'),
-    spot: 18,
-    // transportExcursionId: new ObjectId(''),
+    ticketPriceId: new ObjectId('5dbde2686aac4e44e8b1c031'),
+    spot: {
+      number: 18,
+      transportId: new ObjectId('5d2a2faa2956627571be8f5f'),
+    },
     payments: [
       {
         _id: new ObjectId('5de8406c09e0b9247c3af9dd'),
@@ -122,6 +130,6 @@ export = [
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-    ]
+    ],
   },
 ];

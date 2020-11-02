@@ -10,7 +10,7 @@ import Transport from './Transport';
 export enum PassengerStatus {
   booked = 'BOOKED',
   waiting = 'WAITING',
-  canceled = 'CANCELED'
+  canceled = 'CANCELED',
 }
 
 export interface IPassenger extends TimestampEntity {
@@ -22,14 +22,15 @@ export interface IPassenger extends TimestampEntity {
   ticketPriceId?: string;
   ticketPrice?: TicketPrice;
   boardingPoint?: StopPoint;
-  spot: Number;
+  spot?: PassengerSpot;
   transportExcursionId?: string;
   transportExcursion?: Transport;
+  stopPointId?: String;
   paymentConditions: PaymentCondition[];
   payments: PaymentTransaction[];
-  amountPaid: number;
+  amountPaid?: number;
 
-  calculateAmountPaid(): number;
+  // calculateAmountPaid: () => number;
 }
 
 export default class Passenger implements IPassenger, Entity {
@@ -38,39 +39,48 @@ export default class Passenger implements IPassenger, Entity {
   customer: Customer;
   excursionId?: string;
   ticketPriceId?: string;
+  stopPointId?: string;
   transportExcursionId?: string;
   excursion: Excursion;
   ticketPrice?: TicketPrice;
   status: PassengerStatus;
   boardingPoint?: StopPoint;
-  spot: Number;
+  spot?: PassengerSpot;
   transportExcursion?: Transport;
   paymentConditions: PaymentCondition[];
   payments: PaymentTransaction[];
-  amountPaid: number;
+  amountPaid?: number;
   createdAt: Date;
   updatedAt: Date;
+}
 
-  calculateAmountPaid(): number {
-    const calculateAmount = (payments: PaymentTransaction[]): Number => {
+export const calculateAmountPaid = (passenger: Passenger) => {
+  const calculateAmount = (payments: PaymentTransaction[]): Number => {
+    if (payments.length === 0) {
+      return 0;
+    }
 
-      if (payments.length === 0) {
-        return 0;
-      }
+    return payments
+      .map(p => p.value)
+      .reduce((accumulator, currentValue) => {
+        const value = accumulator.valueOf() + currentValue.valueOf();
+        return value;
+      });
+  };
 
-      return payments
-        .map(p => p.value)
-        .reduce((accumulator, currentValue) => {
-          const value = accumulator.valueOf() + currentValue.valueOf();
-          return value;
-        });
-    };
+  const credits = calculateAmount(passenger.payments.filter(p => p.operation === OperationPayment.Credit));
+  const chargeBacks = calculateAmount(passenger.payments.filter(p => p.operation === OperationPayment.ChargeBack));
 
-    const credits = calculateAmount(this.payments.filter(p => p.operation === OperationPayment.Credit));
-    const chargeBacks = calculateAmount(this.payments.filter(p => p.operation === OperationPayment.ChargeBack));
+  const paidAmount = credits.valueOf() - chargeBacks.valueOf();
 
-    const paidAmount = credits.valueOf() - chargeBacks.valueOf();
+  return paidAmount;
+};
 
-    return paidAmount;
-  }
+export interface IPassengerSpot {
+  number: number;
+  transportId: string;
+}
+export class PassengerSpot {
+  number: number;
+  transportId: string;
 }

@@ -11,6 +11,7 @@ export interface IExcursion extends TimestampEntity {
   arrivalPoint: String;
   regressDate: Date;
   stopPoints: StopPoint[];
+  spots?: Spot[];
   transportIds?: String[];
   transports: Transport[];
   ticketPriceDefault: Number;
@@ -35,8 +36,18 @@ export default class Excursion implements IExcursion, Entity {
   ticketPrices: TicketPrice[];
   passengerIds?: String[];
   passengers?: Passenger[];
+  spots?: Spot[];
   active?: Boolean;
   organizationId?: String;
   createdAt?: Date;
   updatedAt?: Date;
+}
+
+export interface ISpot {
+  number: Number;
+  free: Boolean;
+}
+export class Spot implements ISpot {
+  number: Number;
+  free: Boolean;
 }

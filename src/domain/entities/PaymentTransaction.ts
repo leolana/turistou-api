@@ -3,6 +3,7 @@ import { PaymentTypes } from './PaymentCondition';
 
 export enum OperationPayment {
   Debit = 'DEBIT', // Não utilizado no momento, mas seria como um lançamento de algum tipo de despesa extra.
+  /** Pagamento realizado pelo cliente */
   Credit = 'CREDIT', // Pagamento
   ChargeBack = 'CHARGE_BACK', // Estorno do pagamento
   Canceled = 'CANCELED', // Cancelamento do pagamento
