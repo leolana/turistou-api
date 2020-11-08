@@ -15,8 +15,11 @@ export const graphqlLoader: MicroframeworkLoader = async (settings: Microframewo
     const expressApp: express.Application = settings.getData('express_app');
     const passport = settings.getData('passport');
 
+    console.log('------- config.app.dirs.resolvers-------');
+    console.log(config.app.dirs.resolvers);
+
     const schema = await buildSchema({
-      resolvers: config.app.dirs.resolvers,
+      resolvers: config.app.dirs.resolvers as any,
       // automatically create `schema.gql` file with schema definition in current folder
       emitSchemaFile: path.resolve(__dirname, '../api', 'schema.gql'),
       container: Container,
@@ -47,7 +50,7 @@ export const graphqlLoader: MicroframeworkLoader = async (settings: Microframewo
         const context = { requestId, container, request, response, next, passport } as Context; // create our context
         container.set('context', context); // place context or other data in container
         // Setup GraphQL Server
-        return GraphQLHTTP({
+        return GraphQLHTTP.graphqlHTTP({
           schema,
           context,
           graphiql: config.graphql.editor,

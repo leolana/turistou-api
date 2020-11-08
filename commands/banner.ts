@@ -1,9 +1,11 @@
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 import * as figlet from 'figlet';
 
 const index = 2;
+
 figlet.text(process.argv[index], (error: any, data: any) => {
   if (error) {
+    console.log(error);
     return process.exit(1);
   }
 

@@ -35,7 +35,7 @@ export function createDataLoader<T>(obj: ObjectType<T>, options: CreateDataLoade
   //   }
   // }
 
-  return new DataLoader(async (ids: number[]) => {
+  return new DataLoader(async (ids) => {
     const items = [];
     if (options.method) {
       // items = await repository[options.method](ids);

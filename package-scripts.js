@@ -267,7 +267,7 @@ function build(pathSource, pathTarget) {
 }
 
 function runFast(path) {
-    return `ts-node --transpile-only ${path}`;
+    return `ts-node-transpile-only ${path}`;
 }
 
 function tslint(path) {

@@ -28,7 +28,7 @@ export class LogRequestMiddleware implements ExpressMiddlewareInterface {
       format: format.combine(format.colorize(), format.json()),
       meta: true,
       msg: 'HTTP {{req.method}} {{req.url}} {{res.statusCode}} {{res.responseTime}}ms',
-      colorStatus: true,
+      colorize: true,
       expressFormat: true,
     })(req, res, next);
   }
