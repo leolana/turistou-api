@@ -57,9 +57,6 @@ export default class GetExcursion implements UseCase<any, Excursion> {
 
     const excursion = excursionModel[0];
 
-    console.log('---------- excursionModel -------------');
-    console.log(excursion);
-
     return modelToExcursionEntity(excursion);
   }
 }

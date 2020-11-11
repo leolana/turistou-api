@@ -63,9 +63,9 @@ export const calculateAmountPaid = (passenger: Passenger) => {
     return payments
       .map(p => p.value)
       .reduce((accumulator, currentValue) => {
-        const value = accumulator.valueOf() + currentValue.valueOf();
+        const value = accumulator + parseFloat(currentValue as any);
         return value;
-      });
+      },      0);
   };
 
   const credits = calculateAmount(passenger.payments.filter(p => p.operation === OperationPayment.Credit));
