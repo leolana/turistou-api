@@ -1,97 +1,92 @@
 import { Field, ID, ObjectType } from 'type-graphql';
 import { Address } from './Address';
 import { Gender } from '@domain/entities/Gender';
+import { PersonDocument } from './PersonDocument';
 
 @ObjectType({
-  description: 'Customer object.'
+  description: 'Customer object.',
 })
-
 export class Customer {
   @Field(type => ID)
   public id: String;
 
   @Field({
-    description: 'The name of the Customer.'
+    description: 'The name of the Customer.',
   })
   public name: String;
 
   @Field({
-    description: 'The e-mail of the Customer.'
+    description: 'The e-mail of the Customer.',
   })
   public email: String;
 
   @Field({
-    description: 'The gender of the Customer.'
+    description: 'The gender of the Customer.',
   })
   public gender: Gender;
 
   @Field({
-    description: 'The number CPF of the Customer.'
+    description: 'The number CPF of the Customer.',
   })
   public cpf: String;
 
   @Field({
-    description: 'The number of document of the Customer.'
+    description: 'The document of the Customer.',
   })
-  public document: String;
+  public document: PersonDocument;
 
   @Field({
-    description: 'The state of document of the Customer.'
-  })
-  public documentState: String;
-
-  @Field({
-    description: 'The date of birth of the Customer.'
+    description: 'The date of birth of the Customer.',
   })
   public birthDate: Date;
 
   @Field({
-    description: 'The address of the Customer.'
+    description: 'The address of the Customer.',
   })
   public address: Address;
 
   @Field({
-    description: 'The cellphone of the Customer.'
+    description: 'The cellphone of the Customer.',
   })
   public cellphone: String;
 
   @Field({
-    description: 'The telephone of the Customer.'
+    description: 'The telephone of the Customer.',
   })
   public telephone: String;
 
   @Field({
-    description: 'The health plan of the Customer.'
+    description: 'The health plan of the Customer.',
   })
   public healthPlan: String;
 
   @Field({
-    description: 'The allergy of the Customer.'
+    description: 'The allergy of the Customer.',
   })
   public allergy: String;
 
   @Field({
-    description: 'The contact name for emergency of the Customer.'
+    description: 'The contact name for emergency of the Customer.',
   })
   public contactName: String;
 
   @Field({
-    description: 'The contact phone for emergency of the Customer.'
+    description: 'The contact phone for emergency of the Customer.',
   })
   public contactPhone: String;
 
   @Field({
-    description: 'The food restriction of the Customer.'
+    description: 'The food restriction of the Customer.',
   })
   public foodRestriction: String;
 
   @Field({
-    description: 'The way how the Customer knows the user.'
+    description: 'The way how the Customer knows the user.',
   })
   public howHearAbout: String;
 
   @Field({
-    description: 'The notes for the Customer.'
+    description: 'The notes for the Customer.',
   })
   public notes: String;
 
@@ -106,17 +101,17 @@ export class Customer {
   // public passengers: Passenger[];
 
   @Field({
-    description: 'The active status of the Customer.'
+    description: 'The active status of the Customer.',
   })
   public active: Boolean;
 
   @Field({
-    description: 'The createdAt of the Customer.'
+    description: 'The createdAt of the Customer.',
   })
   public createdAt: Date;
 
   @Field({
-    description: 'The updatedAt of the Customer.'
+    description: 'The updatedAt of the Customer.',
   })
   public updatedAt: Date;
 }

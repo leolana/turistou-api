@@ -3,13 +3,13 @@ import Entity from './Entity';
 import { Gender } from './Gender';
 import Organization from './Organization';
 import Passenger from './Passenger';
+import PersonDocument, { IPersonDocument } from './PersonDocument';
 
 export interface ICustomer {
   name: String;
   email: String;
   cpf: String;
-  documentState: String;
-  document: String;
+  document: IPersonDocument;
   birthDate: Date;
   gender: Gender;
   address: IAddress;
@@ -34,8 +34,7 @@ export default class Customer implements ICustomer, Entity {
   name: String;
   email: String;
   cpf: String;
-  documentState: String;
-  document: String;
+  document: PersonDocument;
   birthDate: Date;
   gender: Gender;
   address: Address;
