@@ -35,7 +35,7 @@ export const entityToCustomerSerializer = (customer: Customer): CustomerResolver
     name: customer.name,
     email: customer.email,
     cpf: customer.cpf,
-    document: customer.document as unknown,
+    document: (customer.document as any) || {},
     gender: customer.gender,
     birthDate: customer.birthDate,
     address: customer.address || {},

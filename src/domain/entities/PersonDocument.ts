@@ -1,11 +1,11 @@
 export interface IPersonDocument {
-  documentNumber: string;
+  documentNumber?: string;
   documentDispatcher?: string;
   documentDispatcherState?: string;
 }
 
 export default class PersonDocument {
-  documentNumber: string;
+  documentNumber?: string;
   documentDispatcher?: string;
   documentDispatcherState?: string;
 }
