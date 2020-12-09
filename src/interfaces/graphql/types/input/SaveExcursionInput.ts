@@ -7,6 +7,9 @@ import { Transport } from '../Transport';
 
 @InputType()
 export class SaveStopPointInput implements Partial<StopPoint> {
+  @Field({ nullable: true })
+  public id?: string;
+
   @Field()
   public stopPoint: string;
 }
@@ -64,24 +67,24 @@ export class SaveExcursionInput implements Partial<Excursion> {
   @Field({ nullable: true })
   public regressDatetime?: Date;
 
-  @Field(type => [String], {
+  @Field(type => [SaveStopPointInput], {
     description: 'The stopPoints of the excursion.',
-    nullable: true
+    nullable: true,
   })
-  public stoppingPoints?: string[];
+  public stoppingPoints?: SaveStopPointInput[];
 
   @Field()
   public ticketPriceDefault: number;
 
   @Field(type => [SaveTicketPriceInput], {
     description: 'The ticketPrices of the excursion.',
-    nullable: true
+    nullable: true,
   })
   public prices?: SaveTicketPriceInput[];
 
   @Field(type => [SaveTransportInput], {
     description: 'The transports of the excursion.',
-    nullable: true
+    nullable: true,
   })
   public excursionTransports?: SaveTransportInput[];
 

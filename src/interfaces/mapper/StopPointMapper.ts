@@ -2,8 +2,9 @@ import StopPoint, { IStopPoint } from '@domain/entities/StopPoint';
 import { IStopPointModel } from '@infra/database/schemas/stopPointSchema';
 import { StopPoint as StopPointResolver } from '@interfaces/graphql/types/StopPoint';
 
-export const inputToStopPointModel = (input: string): IStopPoint => <StopPoint>({
-  stopPoint: input
+export const inputToStopPointModel = (input: any): IStopPoint => <StopPoint>({
+  id: input.id,
+  stopPoint: input.stopPoint,
 });
 
 export const entityToStopPointSerializer = (stopPoint: StopPoint): StopPointResolver => <StopPointResolver>({
