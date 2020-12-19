@@ -22,16 +22,16 @@ export class SaveTicketPriceInput implements Partial<TicketPrice> {
   @Field()
   public ticketPrice: number;
 
-  @Field()
+  @Field({ nullable: true })
   public isFrom: Boolean;
 
-  @Field()
+  @Field({ nullable: true })
   public ageInitial: number;
 
-  @Field()
+  @Field({ nullable: true })
   public untilAge: Boolean;
 
-  @Field()
+  @Field({ nullable: true })
   public ageFinal: number;
 }
 
