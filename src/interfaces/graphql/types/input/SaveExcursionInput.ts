@@ -1,8 +1,6 @@
 import { Field, InputType } from 'type-graphql';
 
-import { Excursion } from '../Excursion';
 import { StopPoint } from '../StopPoint';
-import { TicketPrice } from '../TicketPrice';
 import { Transport } from '../Transport';
 
 @InputType()
@@ -15,21 +13,18 @@ export class SaveStopPointInput implements Partial<StopPoint> {
 }
 
 @InputType()
-export class SaveTicketPriceInput implements Partial<TicketPrice> {
-  @Field()
-  public ticketDescription: string;
-
-  @Field()
-  public ticketPrice: number;
-
+export class SaveTicketPriceInput {
   @Field({ nullable: true })
-  public isFrom: Boolean;
+  public id: string;
+
+  @Field()
+  public description: string;
+
+  @Field()
+  public price: number;
 
   @Field({ nullable: true })
   public ageInitial: number;
-
-  @Field({ nullable: true })
-  public untilAge: Boolean;
 
   @Field({ nullable: true })
   public ageFinal: number;
@@ -37,6 +32,9 @@ export class SaveTicketPriceInput implements Partial<TicketPrice> {
 
 @InputType()
 export class SaveTransportInput implements Partial<Transport> {
+  @Field({ nullable: true })
+  public id: string;
+
   @Field()
   public type: string;
 
@@ -51,7 +49,10 @@ export class SaveTransportInput implements Partial<Transport> {
 }
 
 @InputType()
-export class SaveExcursionInput implements Partial<Excursion> {
+export class SaveExcursionInput {
+  @Field({ nullable: true })
+  public id?: String;
+
   @Field()
   public destination: string;
 
@@ -71,7 +72,7 @@ export class SaveExcursionInput implements Partial<Excursion> {
     description: 'The stopPoints of the excursion.',
     nullable: true,
   })
-  public stoppingPoints?: SaveStopPointInput[];
+  public stopPoints?: SaveStopPointInput[];
 
   @Field()
   public ticketPriceDefault: number;
@@ -80,13 +81,13 @@ export class SaveExcursionInput implements Partial<Excursion> {
     description: 'The ticketPrices of the excursion.',
     nullable: true,
   })
-  public prices?: SaveTicketPriceInput[];
+  public ticketPrices?: SaveTicketPriceInput[];
 
   @Field(type => [SaveTransportInput], {
     description: 'The transports of the excursion.',
     nullable: true,
   })
-  public excursionTransports?: SaveTransportInput[];
+  public transports?: SaveTransportInput[];
 
   public organizationId?: String;
 }

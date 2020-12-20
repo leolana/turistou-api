@@ -4,33 +4,38 @@ import { Transport as TransportResolver } from '@interfaces/graphql/types/Transp
 import { ITransportModel } from '@infra/database/schemas/transportSchema';
 import { SaveTransportInput } from '@interfaces/graphql/types/input/SaveExcursionInput';
 
-export const inputToDriverModel = (input: String): Driver => <Driver>({
-  name: input,
-});
+export const inputToDriverModel = (input: String): Driver =>
+  <Driver>{
+    name: input,
+  };
 
-export const inputToTransportModel = (input: SaveTransportInput): ITransport => <Transport>({
-  type: input.type,
-  plate: input.plate,
-  capacity: input.capacity,
-  drivers: [inputToDriverModel(input.driver)]
-});
+export const inputToTransportModel = (input: SaveTransportInput): ITransport =>
+  <Transport>{
+    id: input.id,
+    type: input.type,
+    plate: input.plate,
+    capacity: input.capacity,
+    drivers: [inputToDriverModel(input.driver)],
+  };
 
-export const modelToTransportEntity = (transport: ITransportModel): Transport => <Transport>({
-  id: transport.id || transport._id,
-  type: transport.type,
-  plate: transport.plate,
-  capacity: transport.capacity,
-  drivers: transport.drivers,
-  createdAt: transport.createdAt,
-  updatedAt: transport.updatedAt
-});
+export const modelToTransportEntity = (transport: ITransportModel): Transport =>
+  <Transport>{
+    id: transport.id || transport._id,
+    type: transport.type,
+    plate: transport.plate,
+    capacity: transport.capacity,
+    drivers: transport.drivers,
+    createdAt: transport.createdAt,
+    updatedAt: transport.updatedAt,
+  };
 
-export const entityToTransportSerializer = (transport: Transport): TransportResolver => <TransportResolver>({
-  id: transport.id,
-  type: transport.type,
-  plate: transport.plate,
-  capacity: transport.capacity,
-  drivers: transport.drivers,
-  createdAt: transport.createdAt,
-  updatedAt: transport.updatedAt
-});
+export const entityToTransportSerializer = (transport: Transport): TransportResolver =>
+  <TransportResolver>{
+    id: transport.id,
+    type: transport.type,
+    plate: transport.plate,
+    capacity: transport.capacity,
+    drivers: transport.drivers,
+    createdAt: transport.createdAt,
+    updatedAt: transport.updatedAt,
+  };

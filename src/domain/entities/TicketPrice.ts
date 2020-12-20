@@ -1,6 +1,7 @@
 import Entity from './Entity';
 
 export interface ITicketPrice {
+  // id?: String;
   description: String;
   price: number;
   ageInitial?: number;

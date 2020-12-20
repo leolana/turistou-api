@@ -4,9 +4,9 @@ import { SaveTicketPriceInput } from '@interfaces/graphql/types/input/SaveExcurs
 import { ITicketPriceModel } from '@infra/database/schemas/ticketPriceSchema';
 
 export const inputToTicketPriceModel = (input: SaveTicketPriceInput): ITicketPrice => <TicketPrice>({
-  // id: input.id,
-  description: input.ticketDescription,
-  price: input.ticketPrice,
+  id: input.id,
+  description: input.description,
+  price: input.price,
   ageInitial: input.ageInitial,
   ageFinal: input.ageFinal,
 });
