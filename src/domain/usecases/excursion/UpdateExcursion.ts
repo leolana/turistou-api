@@ -3,11 +3,13 @@ import { Service } from 'typedi';
 import Excursion from '@domain/entities/Excursion';
 import { DbModel, ModelInterface } from '@infra/database/DbModel';
 import excursionSchema, { IExcursionModel } from '@infra/database/schemas/excursionSchema';
+import transportSchema, { ITransportModel } from '@infra/database/schemas/transportSchema';
 import { LoggerDecorator as Logger, LoggerInterface } from '@infra/logger';
 import {
   SaveExcursionInput,
   SaveTicketPriceInput,
   SaveStopPointInput,
+  SaveTransportInput,
 } from '@interfaces/graphql/types/input/SaveExcursionInput';
 import { modelToExcursionEntity } from '@interfaces/mapper/ExcursionMapper';
 
@@ -16,6 +18,7 @@ import { UseCase } from '../UseCase';
 export default class UpdateExcursion implements UseCase<SaveExcursionInput, Excursion> {
   constructor(
     @DbModel<IExcursionModel>(excursionSchema) private excursionModel: ModelInterface<IExcursionModel>,
+    @DbModel<ITransportModel>(transportSchema) private transportModel: ModelInterface<ITransportModel>,
     @Logger(__filename) private logger: LoggerInterface,
   ) {}
 
@@ -32,13 +35,11 @@ export default class UpdateExcursion implements UseCase<SaveExcursionInput, Excu
         throw new Error('Excursion not found');
       }
 
-      console.log('berfore model', model);
-
       await this.updateTicketPricesList(ticketPrices, model);
       await this.updateStopPointsList(stopPoints, model);
-      // TODO: update transport list
+      await this.updateTransportsList(transports, model);
 
-      model.set(updateData);
+      await model.set(updateData);
 
       return model.save(err => {
         if (err) {
@@ -60,11 +61,7 @@ export default class UpdateExcursion implements UseCase<SaveExcursionInput, Excu
       }
     });
 
-    ticketPrices
-      .filter(x => !x.id)
-      .forEach(newTicket => {
-        excursionModel.ticketPrices.push(newTicket);
-      });
+    ticketPrices.filter(x => !x.id).forEach(newTicket => excursionModel.ticketPrices.push(newTicket));
   };
 
   private updateStopPointsList = async (stopPoints: SaveStopPointInput[], excursionModel: IExcursionModel) => {
@@ -77,10 +74,23 @@ export default class UpdateExcursion implements UseCase<SaveExcursionInput, Excu
       }
     });
 
-    stopPoints
-      .filter(x => !x.id)
-      .forEach(newStop => {
-        excursionModel.stopPoints.push(newStop);
-      });
+    stopPoints.filter(x => !x.id).forEach(newStop => excursionModel.stopPoints.push(newStop));
+  };
+
+  private updateTransportsList = async (transports: SaveTransportInput[], excursionModel: IExcursionModel) => {
+    const transportsPromises = transports.filter(x => !x.id).map(x => new this.transportModel(x).save());
+    const newTransports = await Promise.all(transportsPromises);
+
+    const idsModel = excursionModel.transportIds as any;
+
+    const idsAdds = newTransports.map(x => x.id);
+    idsModel.inspect();
+    const idsDels = idsModel.map(x => x.toString()).filter(oldId => !transports.some(x => x.id === oldId));
+
+    idsModel.remove(...idsDels);
+    idsModel.addToSet(...idsAdds);
+    excursionModel.transportIds = idsModel;
+
+    // FIXME: ainda falta edição dos transportes existentes
   };
 }
