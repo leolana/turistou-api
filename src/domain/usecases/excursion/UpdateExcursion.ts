@@ -25,7 +25,7 @@ export default class UpdateExcursion implements UseCase<SaveExcursionInput, Excu
   public async execute(input: SaveExcursionInput): Promise<Excursion> {
     this.logger.info('Update excursion => ', input);
 
-    const { id, ticketPrices, stopPoints, transports, organizationId, ...updateData } = input;
+    const { id, ticketPrices = [], stopPoints = [], transports = [], organizationId, ...updateData } = input;
 
     const excursionModel = await this.excursionModel.findById(id, async (error, model) => {
       if (error) {
@@ -38,10 +38,9 @@ export default class UpdateExcursion implements UseCase<SaveExcursionInput, Excu
       await this.updateTicketPricesList(ticketPrices, model);
       await this.updateStopPointsList(stopPoints, model);
       await this.updateTransportsList(transports, model);
-
       await model.set(updateData);
 
-      return model.save(err => {
+      return model.save((err) => {
         if (err) {
           throw new Error(err);
         }
@@ -62,7 +61,7 @@ export default class UpdateExcursion implements UseCase<SaveExcursionInput, Excu
     });
 
     ticketPrices.filter(x => !x.id).forEach(newTicket => excursionModel.ticketPrices.push(newTicket));
-  };
+  }
 
   private updateStopPointsList = async (stopPoints: SaveStopPointInput[], excursionModel: IExcursionModel) => {
     excursionModel.stopPoints = excursionModel.stopPoints.filter(x => stopPoints.some(y => y.id === x.id));
@@ -75,7 +74,7 @@ export default class UpdateExcursion implements UseCase<SaveExcursionInput, Excu
     });
 
     stopPoints.filter(x => !x.id).forEach(newStop => excursionModel.stopPoints.push(newStop));
-  };
+  }
 
   private updateTransportsList = async (transports: SaveTransportInput[], excursionModel: IExcursionModel) => {
     const transportsPromises = transports.filter(x => !x.id).map(x => new this.transportModel(x).save());
@@ -92,5 +91,5 @@ export default class UpdateExcursion implements UseCase<SaveExcursionInput, Excu
     excursionModel.transportIds = idsModel;
 
     // FIXME: ainda falta edição dos transportes existentes
-  };
+  }
 }
