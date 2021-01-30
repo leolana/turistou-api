@@ -1,8 +1,8 @@
 import Customer from './Customer';
 import Entity, { TimestampEntity } from './Entity';
 import Excursion from './Excursion';
-import PaymentCondition from './PaymentCondition';
-import PaymentTransaction, { OperationPayment } from './PaymentTransaction';
+import PaymentCondition, { PaymentTypes } from './PaymentCondition';
+import PaymentTransaction, { OperationPayment, StatusPayment } from './PaymentTransaction';
 import StopPoint from './StopPoint';
 import TicketPrice from './TicketPrice';
 import Transport from './Transport';
@@ -61,14 +61,19 @@ export const calculateAmountPaid = (passenger: Passenger) => {
     }
 
     return payments
-      .map(p => p.value)
-      .reduce((accumulator, currentValue) => {
-        const value = accumulator.valueOf() + currentValue.valueOf();
-        return value;
-      });
+    .map(p => p.value)
+    .reduce((accumulator, currentValue) => {
+      const value = accumulator + parseFloat(currentValue as any);
+      return value;
+    }, 0);
   };
 
-  const credits = calculateAmount(passenger.payments.filter(p => p.operation === OperationPayment.Credit));
+  const automaticMethods = [PaymentTypes.CreditCard, PaymentTypes.Debit];
+  const credits = calculateAmount(
+    passenger.payments
+      .filter(p => p.status === StatusPayment.Paid || automaticMethods.some(x => x === p.method))
+      .filter(p => p.operation === OperationPayment.Credit),
+  );
   const chargeBacks = calculateAmount(passenger.payments.filter(p => p.operation === OperationPayment.ChargeBack));
 
   const paidAmount = credits.valueOf() - chargeBacks.valueOf();

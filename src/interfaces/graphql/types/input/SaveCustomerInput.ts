@@ -3,6 +3,7 @@ import { Field, InputType } from 'type-graphql';
 import { Customer } from '../Customer';
 import { Gender } from '@domain/entities/Gender';
 import { Address } from '../Address';
+// import { PersonDocument } from '../PersonDocument';
 
 @InputType()
 export class SaveAddressInput implements Partial<Address> {
@@ -43,10 +44,11 @@ export class SaveCustomerInput implements Partial<Customer> {
   public cpf: String;
 
   @Field({ nullable: true })
-  public document: String;
-
+  public documentNumber: String;
   @Field({ nullable: true })
-  public documentState: String;
+  public documentDispatcherState: String;
+  @Field({ nullable: true })
+  public documentDispatcher: String;
 
   @Field({ nullable: true })
   public birthDate: Date;
@@ -80,6 +82,9 @@ export class SaveCustomerInput implements Partial<Customer> {
 
   @Field({ nullable: true })
   public notes: String;
+
+  @Field({ nullable: true })
+  public occupation: String;
 
   // @Field()
   // public organization: Organization;
