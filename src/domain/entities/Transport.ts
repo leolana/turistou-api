@@ -12,16 +12,17 @@ export enum TransportType {
 }
 
 export interface ITransport extends TimestampEntity {
+  id?: string;
   type: TransportType;
-  plate: String;
+  plate: string;
   capacity: Number;
   drivers: Driver[];
 }
 
 export default class Transport implements ITransport, Entity {
-  id?: String;
+  id?: string;
   type: TransportType;
-  plate: String;
+  plate: string;
   capacity: Number;
   drivers: Driver[];
   createdAt?: Date;

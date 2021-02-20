@@ -12,6 +12,9 @@ import {
   SaveTransportInput,
 } from '@interfaces/graphql/types/input/SaveExcursionInput';
 import { modelToExcursionEntity } from '@interfaces/mapper/ExcursionMapper';
+import { inputToTransportModel } from '@interfaces/mapper/TransportMapper';
+import { inputToStopPointModel } from '@interfaces/mapper/StopPointMapper';
+import { inputToTicketPriceModel } from '@interfaces/mapper/TicketPriceMapper';
 
 import { UseCase } from '../UseCase';
 @Service()
@@ -51,40 +54,44 @@ export default class UpdateExcursion implements UseCase<SaveExcursionInput, Excu
   }
 
   private updateTicketPricesList = async (ticketPrices: SaveTicketPriceInput[], excursionModel: IExcursionModel) => {
+    const ticketPricesModel = ticketPrices.map(inputToTicketPriceModel);
     excursionModel.ticketPrices = excursionModel.ticketPrices.filter(x => ticketPrices.some(y => y.id === x.id));
 
     excursionModel.ticketPrices.forEach((item: any) => {
-      const data = ticketPrices.find(x => x.id === item.id);
+      const data = ticketPricesModel.find(x => x.id === item.id);
       if (data) {
         item.set(data);
       }
     });
 
-    ticketPrices.filter(x => !x.id).forEach(newTicket => excursionModel.ticketPrices.push(newTicket));
+    ticketPricesModel.filter(x => !x.id).forEach(newTicket => excursionModel.ticketPrices.push(newTicket));
   }
 
   private updateStopPointsList = async (stopPoints: SaveStopPointInput[], excursionModel: IExcursionModel) => {
+    const stopPointsModel = stopPoints.map(inputToStopPointModel);
     excursionModel.stopPoints = excursionModel.stopPoints.filter(x => stopPoints.some(y => y.id === x.id));
 
     excursionModel.stopPoints.forEach((item: any) => {
-      const data = stopPoints.find(x => x.id === item.id);
+      const data = stopPointsModel.find(x => x.id === item.id);
       if (data) {
         item.set(data);
       }
     });
 
-    stopPoints.filter(x => !x.id).forEach(newStop => excursionModel.stopPoints.push(newStop));
+    stopPointsModel.filter(x => !x.id).forEach(newStop => excursionModel.stopPoints.push(newStop));
   }
 
   private updateTransportsList = async (transports: SaveTransportInput[], excursionModel: IExcursionModel) => {
-    const transportsPromises = transports.filter(x => !x.id).map(x => new this.transportModel(x).save());
+    const transportsModel = await transports.map(inputToTransportModel);
+
+    const transportsPromises = transportsModel.filter(x => !x.id).map(x => new this.transportModel(x).save());
     const newTransports = await Promise.all(transportsPromises);
 
     const idsModel = excursionModel.transportIds as any;
 
     const idsAdds = newTransports.map(x => x.id);
     idsModel.inspect();
-    const idsDels = idsModel.map(x => x.toString()).filter(oldId => !transports.some(x => x.id === oldId));
+    const idsDels = idsModel.map(x => x.toString()).filter(oldId => !transportsModel.some(x => x.id === oldId));
 
     idsModel.remove(...idsDels);
     idsModel.addToSet(...idsAdds);

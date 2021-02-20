@@ -44,8 +44,8 @@ export class SaveTransportInput implements Partial<Transport> {
   @Field()
   public capacity: number;
 
-  @Field()
-  public driver: string;
+  @Field({ nullable: true })
+  public driver?: string;
 }
 
 @InputType()
@@ -56,21 +56,22 @@ export class SaveExcursionInput {
   @Field()
   public destination: string;
 
-  @Field({ nullable: true })
+  @Field({ nullable: true, defaultValue: '--' })
   public departurePoint?: String;
 
-  @Field({ nullable: true })
+  @Field({ nullable: true, defaultValue: new Date() })
   public departureDatetime?: Date;
 
-  @Field({ nullable: true })
+  @Field({ nullable: true, defaultValue: '--' })
   public arrivalPoint?: String;
 
-  @Field({ nullable: true })
+  @Field({ nullable: true, defaultValue: new Date() })
   public regressDatetime?: Date;
 
   @Field(type => [SaveStopPointInput], {
     description: 'The stopPoints of the excursion.',
     nullable: true,
+    defaultValue: [],
   })
   public stopPoints?: SaveStopPointInput[];
 
@@ -80,12 +81,14 @@ export class SaveExcursionInput {
   @Field(type => [SaveTicketPriceInput], {
     description: 'The ticketPrices of the excursion.',
     nullable: true,
+    defaultValue: [],
   })
   public ticketPrices?: SaveTicketPriceInput[];
 
   @Field(type => [SaveTransportInput], {
     description: 'The transports of the excursion.',
     nullable: true,
+    defaultValue: [],
   })
   public transports?: SaveTransportInput[];
 

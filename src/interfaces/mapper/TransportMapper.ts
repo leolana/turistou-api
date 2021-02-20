@@ -4,10 +4,10 @@ import { Transport as TransportResolver } from '@interfaces/graphql/types/Transp
 import { ITransportModel } from '@infra/database/schemas/transportSchema';
 import { SaveTransportInput } from '@interfaces/graphql/types/input/SaveExcursionInput';
 
-export const inputToDriverModel = (input: String): Driver =>
-  <Driver>{
-    name: input,
-  };
+export const inputToDriverModel = (input?: string): Driver[] => {
+  if (input) return [<Driver>{ name: input }];
+  return [];
+};
 
 export const inputToTransportModel = (input: SaveTransportInput): ITransport =>
   <Transport>{
@@ -15,7 +15,7 @@ export const inputToTransportModel = (input: SaveTransportInput): ITransport =>
     type: input.type,
     plate: input.plate,
     capacity: input.capacity,
-    drivers: [inputToDriverModel(input.driver)],
+    drivers: inputToDriverModel(input.driver),
   };
 
 export const modelToTransportEntity = (transport: ITransportModel): Transport =>
