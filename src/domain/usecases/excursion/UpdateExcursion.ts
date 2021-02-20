@@ -5,18 +5,14 @@ import { DbModel, ModelInterface } from '@infra/database/DbModel';
 import excursionSchema, { IExcursionModel } from '@infra/database/schemas/excursionSchema';
 import transportSchema, { ITransportModel } from '@infra/database/schemas/transportSchema';
 import { LoggerDecorator as Logger, LoggerInterface } from '@infra/logger';
-import {
-  SaveExcursionInput,
-  SaveTicketPriceInput,
-  SaveStopPointInput,
-  SaveTransportInput,
-} from '@interfaces/graphql/types/input/SaveExcursionInput';
-import { modelToExcursionEntity } from '@interfaces/mapper/ExcursionMapper';
-import { inputToTransportModel } from '@interfaces/mapper/TransportMapper';
-import { inputToStopPointModel } from '@interfaces/mapper/StopPointMapper';
-import { inputToTicketPriceModel } from '@interfaces/mapper/TicketPriceMapper';
+import { SaveExcursionInput } from '@interfaces/graphql/types/input/SaveExcursionInput';
+import { inputToExcursionEntity, modelToExcursionEntity } from '@interfaces/mapper/ExcursionMapper';
 
+import TicketPrice from '@domain/entities/TicketPrice';
+import Transport from '@domain/entities/Transport';
+import StopPoint from '@domain/entities/StopPoint';
 import { UseCase } from '../UseCase';
+
 @Service()
 export default class UpdateExcursion implements UseCase<SaveExcursionInput, Excursion> {
   constructor(
@@ -28,7 +24,8 @@ export default class UpdateExcursion implements UseCase<SaveExcursionInput, Excu
   public async execute(input: SaveExcursionInput): Promise<Excursion> {
     this.logger.info('Update excursion => ', input);
 
-    const { id, ticketPrices = [], stopPoints = [], transports = [], organizationId, ...updateData } = input;
+    const entity = inputToExcursionEntity(input);
+    const { id, ticketPrices, stopPoints, transports, organizationId, ...updateData } = entity;
 
     const excursionModel = await this.excursionModel.findById(id, async (error, model) => {
       if (error) {
@@ -53,9 +50,8 @@ export default class UpdateExcursion implements UseCase<SaveExcursionInput, Excu
     return modelToExcursionEntity(excursionModel);
   }
 
-  private updateTicketPricesList = async (ticketPrices: SaveTicketPriceInput[], excursionModel: IExcursionModel) => {
-    const ticketPricesModel = ticketPrices.map(inputToTicketPriceModel);
-    excursionModel.ticketPrices = excursionModel.ticketPrices.filter(x => ticketPrices.some(y => y.id === x.id));
+  private updateTicketPricesList = async (ticketPricesModel: TicketPrice[], excursionModel: IExcursionModel) => {
+    excursionModel.ticketPrices = excursionModel.ticketPrices.filter(x => ticketPricesModel.some(y => y.id === x.id));
 
     excursionModel.ticketPrices.forEach((item: any) => {
       const data = ticketPricesModel.find(x => x.id === item.id);
@@ -67,9 +63,8 @@ export default class UpdateExcursion implements UseCase<SaveExcursionInput, Excu
     ticketPricesModel.filter(x => !x.id).forEach(newTicket => excursionModel.ticketPrices.push(newTicket));
   }
 
-  private updateStopPointsList = async (stopPoints: SaveStopPointInput[], excursionModel: IExcursionModel) => {
-    const stopPointsModel = stopPoints.map(inputToStopPointModel);
-    excursionModel.stopPoints = excursionModel.stopPoints.filter(x => stopPoints.some(y => y.id === x.id));
+  private updateStopPointsList = async (stopPointsModel: StopPoint[], excursionModel: IExcursionModel) => {
+    excursionModel.stopPoints = excursionModel.stopPoints.filter(x => stopPointsModel.some(y => y.id === x.id));
 
     excursionModel.stopPoints.forEach((item: any) => {
       const data = stopPointsModel.find(x => x.id === item.id);
@@ -81,9 +76,7 @@ export default class UpdateExcursion implements UseCase<SaveExcursionInput, Excu
     stopPointsModel.filter(x => !x.id).forEach(newStop => excursionModel.stopPoints.push(newStop));
   }
 
-  private updateTransportsList = async (transports: SaveTransportInput[], excursionModel: IExcursionModel) => {
-    const transportsModel = await transports.map(inputToTransportModel);
-
+  private updateTransportsList = async (transportsModel: Transport[], excursionModel: IExcursionModel) => {
     const transportsPromises = transportsModel.filter(x => !x.id).map(x => new this.transportModel(x).save());
     const newTransports = await Promise.all(transportsPromises);
 
