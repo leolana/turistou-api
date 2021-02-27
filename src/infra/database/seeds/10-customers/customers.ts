@@ -8,14 +8,17 @@ const randomDate = () => {
   return new Date(2000 - age, month, day);
 };
 
-export =[
+export = [
   {
     id: new ObjectId('5d5821a9ffc3c7010f0c2f22'),
     name: 'Maria Aparecida da Silva',
     email: 'maria.asilva@customer.com.br',
     cpf: '123.456.789-00',
-    document: '23.456.789-1',
-    documentState: 'SSP',
+    document: {
+      documentNumber: '23.456.789-1',
+      documentDispatcher: 'SSP',
+      documentDispatcherState: 'SP',
+    },
     birthDate: randomDate(),
     gender: 'FEM',
     cellphone: '(15) 91234-5678',
@@ -29,8 +32,11 @@ export =[
     name: 'Antônio Carlos Andrade',
     email: 'ac.andrade@customer.com.br',
     cpf: '123.456.789-00',
-    document: '23.456.789-1',
-    documentState: 'SSP',
+    document: {
+      documentNumber: '23.456.789-1',
+      documentDispatcher: 'SSP',
+      documentDispatcherState: 'SP',
+    },
     birthDate: randomDate(),
     gender: 'MASC',
     cellphone: '(15) 91234-5678',
@@ -44,8 +50,11 @@ export =[
     name: 'Getúlio Andrade',
     email: 'getulio_andrade@customer.com.br',
     cpf: '123.456.789-00',
-    document: '23.456.789-1',
-    documentState: 'SSP',
+    document: {
+      documentNumber: '23.456.789-1',
+      documentDispatcher: 'SSP',
+      documentDispatcherState: 'SP',
+    },
     birthDate: randomDate(),
     gender: 'MASC',
     cellphone: '(15) 91234-5678',
@@ -59,8 +68,11 @@ export =[
     name: 'Luíza Cavalcanti Costa',
     email: 'lucc-luiza@customer.com.br',
     cpf: '123.456.789-00',
-    document: '23.456.789-1',
-    documentState: 'SSP',
+    document: {
+      documentNumber: '23.456.789-1',
+      documentDispatcher: 'SSP',
+      documentDispatcherState: 'SP',
+    },
     birthDate: randomDate(),
     gender: 'FEM',
     cellphone: '(15) 91234-5678',

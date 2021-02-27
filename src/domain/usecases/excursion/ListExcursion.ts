@@ -14,40 +14,46 @@ export default class ListExcursion implements UseCase<any, Excursion[]> {
   constructor(
     @DbModel<IExcursionModel>(excursionSchema) private excursionModel: ModelInterface<IExcursionModel>,
     @Logger(__filename) private logger: LoggerInterface,
-  ) { }
+  ) {}
 
   public async execute(params: any): Promise<Excursion[]> {
     this.logger.info('List all excursions => ', params);
+    const { organizationId } = params;
 
-    const excursionsModel = await this.excursionModel.aggregate([
-      {
-        $lookup: {
-          from: 'passengers',
-          localField: 'passengerIds',
-          foreignField: '_id',
-          as: 'passengers',
-        }
-      },
-      {
-        $lookup: {
-          from: 'transports',
-          localField: 'transportIds',
-          foreignField: '_id',
-          as: 'transports',
-        }
-      },
-      {
-        $addFields: {
-          passengers: '$passengers',
-          transports: '$transports',
-          id: '$_id'
-        }
-      },
-    ])
+    const excursionsModel = await this.excursionModel
+      .aggregate([
+        {
+          $match: {
+            organizationId,
+            active: true,
+          },
+        },
+        {
+          $lookup: {
+            from: 'passengers',
+            localField: 'passengerIds',
+            foreignField: '_id',
+            as: 'passengers',
+          },
+        },
+        {
+          $lookup: {
+            from: 'transports',
+            localField: 'transportIds',
+            foreignField: '_id',
+            as: 'transports',
+          },
+        },
+        {
+          $addFields: {
+            passengers: '$passengers',
+            transports: '$transports',
+            id: '$_id',
+          },
+        },
+      ])
       .exec();
 
-    return excursionsModel.map(
-      (excursion: IExcursionModel) => modelToExcursionEntity(excursion)
-    );
+    return excursionsModel.map((excursion: IExcursionModel) => modelToExcursionEntity(excursion));
   }
 }

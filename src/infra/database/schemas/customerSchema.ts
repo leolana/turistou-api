@@ -4,83 +4,96 @@ import { ICustomer } from '@domain/entities/Customer';
 
 import { addressSchema } from './addressSchema';
 import {
-    CUSTOMER_COLLECTION_NAME, DbSchema, ORGANIZATION_COLLECTION_NAME, PASSENGER_COLLECTION_NAME
+  CUSTOMER_COLLECTION_NAME,
+  DbSchema,
+  ORGANIZATION_COLLECTION_NAME,
+  PASSENGER_COLLECTION_NAME,
 } from './DbSchema';
 
 const dataTypes = mongoose.Schema.Types;
 
 export interface ICustomerModel extends ICustomer, mongoose.Document {}
 
+const documentSchema: mongoose.Schema = new mongoose.Schema({
+  documentDispatcher: {
+    type: dataTypes.String,
+    maxlength: 6,
+  },
+  documentDispatcherState: {
+    type: dataTypes.String,
+    maxlength: 2,
+  },
+  documentNumber: {
+    type: dataTypes.String,
+    maxlength: 9,
+  },
+});
+
 const customerSchema: mongoose.Schema = new mongoose.Schema(
   {
     name: {
       type: dataTypes.String,
       required: true,
-      maxlength: 150
+      maxlength: 150,
     },
     email: {
       type: dataTypes.String,
-      required: true
+      required: true,
     },
     cpf: {
       type: dataTypes.String,
-      maxlength: 11
-    },
-    documentState: {
-      type: dataTypes.String,
-      maxlength: 2
+      maxlength: 11,
     },
     document: {
-      type: dataTypes.String,
-      maxlength: 12
+      type: documentSchema,
     },
     birthDate: {
-      type: dataTypes.Date
+      type: dataTypes.Date,
     },
     gender: {
       type: dataTypes.String,
-      maxlength: 4
+      maxlength: 4,
     },
     address: {
-      type: addressSchema
+      type: addressSchema,
     },
     cellphone: {
-      type: dataTypes.String
+      type: dataTypes.String,
     },
     telephone: {
-      type: dataTypes.String
+      type: dataTypes.String,
     },
     healthPlan: {
       type: dataTypes.String,
-      maxlength: 30
+      maxlength: 30,
     },
     allergy: {
       type: dataTypes.String,
-      maxlength: 100
+      maxlength: 100,
     },
     contactName: {
       type: dataTypes.String,
-      maxlength: 30
+      maxlength: 30,
     },
     contactPhone: {
       type: dataTypes.String,
-      maxlength: 30
+      maxlength: 30,
     },
     foodRestriction: {
       type: dataTypes.String,
-      maxlength: 100
+      maxlength: 100,
     },
     howHearAbout: {
       type: dataTypes.String,
-      maxlength: 100
+      maxlength: 100,
     },
     notes: {
       type: dataTypes.String,
-      maxlength: 300
+      maxlength: 300,
     },
     active: {
       type: dataTypes.Boolean,
-      default: true
+      default: true,
     },
     organizationId: {
       type: dataTypes.ObjectId,
@@ -89,10 +102,10 @@ const customerSchema: mongoose.Schema = new mongoose.Schema(
     },
     passengerIds: {
       type: [dataTypes.ObjectId],
-      ref: PASSENGER_COLLECTION_NAME
-    }
+      ref: PASSENGER_COLLECTION_NAME,
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const collectionName = CUSTOMER_COLLECTION_NAME;
@@ -101,5 +114,5 @@ export const customerModel = mongoose.model<ICustomerModel>(collectionName, cust
 
 export default {
   collectionName,
-  schema: customerSchema
+  schema: customerSchema,
 } as DbSchema;

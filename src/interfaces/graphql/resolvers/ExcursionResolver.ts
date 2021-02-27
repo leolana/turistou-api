@@ -6,6 +6,7 @@ import CreateExcursion from '@domain/usecases/excursion/CreateExcursion';
 import UpdateExcursion from '@domain/usecases/excursion/UpdateExcursion';
 import ListExcursion from '@domain/usecases/excursion/ListExcursion';
 import GetExcursion from '@domain/usecases/excursion/GetExcursion';
+import InactivateExcursion from '@domain/usecases/excursion/InactivateExcursion';
 import { entityToExcursionSerializer } from '@interfaces/mapper/ExcursionMapper';
 
 import { Excursion } from '../types/Excursion';
@@ -19,12 +20,17 @@ export class ExcursionResolver {
     private createExcursion: CreateExcursion,
     private updateExcursion: UpdateExcursion,
     private getExcursion: GetExcursion,
+    private inactivateExcursion: InactivateExcursion,
   ) {}
 
   @Authorized()
   @Query(returns => [Excursion])
-  public async excursions(): Promise<Excursion[]> {
-    const excursions = await this.listExcursionsUseCase.execute({});
+  public async excursions(@Ctx() context: Context): Promise<Excursion[]> {
+    const {
+      user: { organizationId },
+    } = context.request as any;
+
+    const excursions = await this.listExcursionsUseCase.execute({ organizationId });
     return excursions.map(entityToExcursionSerializer);
   }
 
@@ -47,5 +53,15 @@ export class ExcursionResolver {
     const excursion = await saveExcursion.execute(input);
 
     return entityToExcursionSerializer(excursion);
+  }
+
+  @Authorized()
+  @Mutation(returns => String)
+  public async deleteExcursion(@Arg('id') id: string, @Ctx() context: Context): Promise<string> {
+    const {
+      user: { organizationId },
+    } = context.request as any;
+
+    return await this.inactivateExcursion.execute({ id, organizationId });
   }
 }
