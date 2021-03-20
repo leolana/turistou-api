@@ -19,7 +19,7 @@ import { SearchPassengersInput } from '../types/input/SearchPassengersInput';
 import { Passenger } from '../types/Passenger';
 import { PaymentStatus } from '../types/PaymentStatus';
 import { PaymentTransaction } from '../types/PaymentTransaction';
-import { SetPassengersStatusInput } from '../types/input/SetPassengersStatusInput';
+import { SetPassengerStatusInput } from '../types/input/SetPassengerStatusInput';
 
 @Service()
 @Resolver(of => Passenger)
@@ -102,8 +102,8 @@ export class PassengerResolver {
   }
 
   @Mutation(returns => Passenger)
-  public async setPassengerStatus(@Arg('SetPassengersStatusInput')
-  setPassengerStatusInput: SetPassengersStatusInput) : Promise<Passenger> {
+  public async setPassengerStatus(@Arg('SetPassengerStatusInput')
+  setPassengerStatusInput: SetPassengerStatusInput) : Promise<Passenger> {
     const passenger = await this.setPassengersStatusUseCase.execute(setPassengerStatusInput);
 
     return entityToPassengerSerializer(passenger);
