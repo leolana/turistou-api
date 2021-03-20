@@ -29,6 +29,7 @@ export interface IPassenger extends TimestampEntity {
   paymentConditions: PaymentCondition[];
   payments: PaymentTransaction[];
   amountPaid?: number;
+  amountRefunded?: number;
 
   // calculateAmountPaid: () => number;
 }
@@ -50,23 +51,25 @@ export default class Passenger implements IPassenger, Entity {
   paymentConditions: PaymentCondition[];
   payments: PaymentTransaction[];
   amountPaid?: number;
+  amountRefunded?: number;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export const calculateAmountPaid = (passenger: Passenger) => {
-  const calculateAmount = (payments: PaymentTransaction[]): Number => {
-    if (payments.length === 0) {
-      return 0;
-    }
+const calculateAmount = (payments: PaymentTransaction[]): Number => {
+  if (payments.length === 0) {
+    return 0;
+  }
 
-    return payments
-    .map(p => p.value)
-    .reduce((accumulator, currentValue) => {
-      const value = accumulator + parseFloat(currentValue as any);
-      return value;
-    }, 0);
-  };
+  return payments
+  .map(p => p.value)
+  .reduce((accumulator, currentValue) => {
+    const value = accumulator + parseFloat(currentValue as any);
+    return value;
+  },      0);
+};
+
+export const calculateAmountPaid = (passenger: Passenger) => {
 
   const automaticMethods = [PaymentTypes.CreditCard, PaymentTypes.Debit];
   const credits = calculateAmount(
@@ -79,6 +82,14 @@ export const calculateAmountPaid = (passenger: Passenger) => {
   const paidAmount = credits.valueOf() - chargeBacks.valueOf();
 
   return paidAmount;
+};
+
+export const calculateAmountRefunded = (passenger: Passenger) => {
+  const chargeBacks = calculateAmount(passenger.payments.filter(p => p.operation === OperationPayment.ChargeBack));
+
+  const refundedAmount = chargeBacks.valueOf();
+
+  return refundedAmount;
 };
 
 export interface IPassengerSpot {

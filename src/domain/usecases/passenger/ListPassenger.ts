@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { Service } from 'typedi';
 
-import Passenger, { calculateAmountPaid } from '@domain/entities/Passenger';
+import Passenger, { calculateAmountPaid, calculateAmountRefunded } from '@domain/entities/Passenger';
 import { DbModel, ModelInterface } from '@infra/database/DbModel';
 import passengerSchema, { IPassengerModel } from '@infra/database/schemas/passengerSchema';
 import { LoggerDecorator as Logger, LoggerInterface } from '@infra/logger';
@@ -73,8 +73,10 @@ export default class ListPassenger implements UseCase<any, Passenger[]> {
     );
 
     // FIXME: calculateAmountPaid()
-    passengersEntity.forEach(entity => entity.amountPaid = calculateAmountPaid(entity));
-    // passengersEntity.forEach(entity => entity.amountPaid = 0);
+    passengersEntity.forEach((entity) => {
+      entity.amountPaid = calculateAmountPaid(entity);
+      entity.amountRefunded = calculateAmountRefunded(entity);
+    });
 
     return passengersEntity;
   }

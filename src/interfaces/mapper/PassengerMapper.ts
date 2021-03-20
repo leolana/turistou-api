@@ -43,6 +43,7 @@ export const entityToPassengerSerializer = (passenger: Passenger): PassengerReso
     updatedAt: passenger.updatedAt,
     payments: passenger.payments.map(entityToPaymentTransactionSerializer),
     amountPaid: passenger.amountPaid,
+    amountRefunded: passenger.amountRefunded,
   };
 
 export const modelToPassengerEntity = (passenger: IPassengerModel): Passenger =>
