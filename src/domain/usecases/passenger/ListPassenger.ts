@@ -19,13 +19,17 @@ export default class ListPassenger implements UseCase<any, Passenger[]> {
   public async execute(params?: any, options?: any): Promise<Passenger[]> {
     this.logger.info('List all passengers => ', params);
 
+    const match : any = {};
+
+    if (params) {
+      match.excursionId = new ObjectId(params.excursionId);
+      match.status = params.status;
+    }
+
     const queryResult = await this.passengerModel
       .aggregate([
         {
-          $match: {
-            excursionId: new ObjectId(params.excursionId),
-            status: params.status
-          }
+          $match: match
         },
         {
           $lookup: {
