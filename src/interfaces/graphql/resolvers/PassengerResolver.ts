@@ -6,6 +6,7 @@ import ListPassenger from '@domain/usecases/passenger/ListPassenger';
 import ListPayments from '@domain/usecases/passenger/ListPayments';
 import PaymentInsert from '@domain/usecases/passenger/PaymentInsert';
 import SetPassenger from '@domain/usecases/passenger/SetPassenger';
+import SwapPassengers from '@domain/usecases/passenger/SwapPassengers';
 import SetPassengerStatus from '@domain/usecases/passenger/SetPassengerStatus';
 import SetToCanceled from '@domain/usecases/passenger/SetToCanceled';
 import SetToPaid from '@domain/usecases/passenger/SetToPaid';
@@ -20,6 +21,7 @@ import { Passenger } from '../types/Passenger';
 import { PaymentStatus } from '../types/PaymentStatus';
 import { PaymentTransaction } from '../types/PaymentTransaction';
 import { SetPassengerStatusInput } from '../types/input/SetPassengerStatusInput';
+import { SwapPassengersInput } from '../types/input/SwapPassengersInput';
 
 @Service()
 @Resolver(of => Passenger)
@@ -28,6 +30,7 @@ export class PassengerResolver {
     private listPassengersUseCase: ListPassenger,
     private setPassengersUseCase: SetPassenger,
     private setPassengersStatusUseCase: SetPassengerStatus,
+    private swapPassengersUseCase: SwapPassengers,
     private listPaymentsUseCase: ListPayments,
     private paymentInsertUseCase: PaymentInsert,
     private setToUnpaidUseCase: SetToUnpaid,
@@ -106,6 +109,13 @@ export class PassengerResolver {
   setPassengerStatusInput: SetPassengerStatusInput) : Promise<Passenger> {
     const passenger = await this.setPassengersStatusUseCase.execute(setPassengerStatusInput);
 
+    return entityToPassengerSerializer(passenger);
+  }
+
+  @Mutation(returns => Passenger)
+  public async swapPassengers(@Arg('SwapPassengersInput')
+  swapPassengersInput: SwapPassengersInput) : Promise<Passenger> {
+    const passenger = await this.swapPassengersUseCase.execute(swapPassengersInput);
     return entityToPassengerSerializer(passenger);
   }
 }
