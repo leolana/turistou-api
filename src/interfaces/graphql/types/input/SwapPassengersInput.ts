@@ -3,12 +3,12 @@ import { Field, InputType } from 'type-graphql';
 @InputType()
 export class SwapPassengersInput {
   @Field({
-    description: 'The Passenger to be moved to Waiting.',
+    description: 'The Passenger to be replaced.',
   })
   public id: string;
 
   @Field({
-    description: 'The Passenger to be moved to Booked.',
+    description: 'The CustomerId to be set on passenger.',
   })
-  public idOfPassengerToBeSwappedWith: String;
+  public idOfCustomerToBeSwappedWith: string;
 }

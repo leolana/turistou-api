@@ -6,7 +6,7 @@ import { LoggerDecorator as Logger, LoggerInterface } from '@infra/logger';
 import { SwapPassengersInput } from '@interfaces/graphql/types/input/SwapPassengersInput';
 
 import { UseCase } from '../UseCase';
-import Passenger, { PassengerStatus } from '@domain/entities/Passenger';
+import Passenger from '@domain/entities/Passenger';
 import { modelToPassengerEntity } from '@interfaces/mapper/PassengerMapper';
 
 @Service()
@@ -20,11 +20,8 @@ export default class SwapPassengers implements UseCase<any, Passenger> {
     this.logger.info('Set Passenger Status => ', params);
 
     const passengerToSwap = await this.passengerModel.findById(params.id);
-    const passengerToBeSwappedWith = await this.passengerModel.findById(params.idOfPassengerToBeSwappedWith);
-    passengerToSwap.status = PassengerStatus.waiting;
-    passengerToBeSwappedWith.status = PassengerStatus.booked;
-
-    await Promise.all([passengerToSwap.save(), passengerToBeSwappedWith.save()]);
+    passengerToSwap.customerId = params.idOfCustomerToBeSwappedWith;
+    await passengerToSwap.save();
 
     return modelToPassengerEntity(passengerToSwap);
   }
