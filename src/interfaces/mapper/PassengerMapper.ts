@@ -22,7 +22,7 @@ export const inputToPassengerModel = (input: SavePassengerInput): IPassenger =>
       }
       : null,
     customerId: input.customerId,
-    ticketPriceId: input.ticketPriceId,
+    ticketPriceId: input.ticketPriceId !== '0' ? input.ticketPriceId : null,
     stopPointId: input.stopPointId,
     paymentConditions: input.paymentConditions?.map(inputToPaymentConditionModel) || [],
     // flat() não funcionou
