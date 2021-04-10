@@ -7,6 +7,7 @@ import { DbSchema, TICKET_PRICE_COLLECTION_NAME } from './DbSchema';
 const dataTypes = mongoose.Schema.Types;
 
 export interface ITicketPriceModel extends ITicketPrice, mongoose.Document {
+  id?: string;
 }
 
 const ticketPriceSchema: mongoose.Schema = new mongoose.Schema(

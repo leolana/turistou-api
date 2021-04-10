@@ -1,15 +1,16 @@
 import Entity from './Entity';
 
 export interface ITicketPrice {
-  description: String;
+  id?: string;
+  description: string;
   price: number;
   ageInitial?: number;
   ageFinal?: number;
 }
 
 export default class TicketPrice implements ITicketPrice, Entity {
-  id?: String;
-  description: String;
+  id?: string;
+  description: string;
   price: number;
   ageInitial?: number;
   ageFinal?: number;

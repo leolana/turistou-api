@@ -12,6 +12,7 @@ import ticketPriceSchema from './ticketPriceSchema';
 const dataTypes = mongoose.Schema.Types;
 
 export interface IExcursionModel extends IExcursion, mongoose.Document {
+  id?: string;
 }
 
 const excursionSchema: mongoose.Schema = new mongoose.Schema(
