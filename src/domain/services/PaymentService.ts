@@ -19,7 +19,7 @@ export default class PaymentService {
 
     const previousPayment = passenger.payments.length > 0 ?
       passenger.payments
-        .filter(payment => payment.payDate !== null)
+        .filter(payment => payment.payDate !== null && payment.payDate !== undefined)
         .sort((a, b) => b.payDate.getTime() - a.payDate.getTime())[0]
       : null;
 

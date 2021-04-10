@@ -64,4 +64,9 @@ export class Passenger {
     description: 'The Amount paid for the excursion',
   })
   amountPaid: number;
+
+  @Field(type => Number, {
+    description: 'The Amount refunded to the passenger when he cancelled the excursion',
+  })
+  amountRefunded: number;
 }
