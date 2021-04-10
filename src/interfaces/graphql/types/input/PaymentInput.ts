@@ -46,10 +46,10 @@ export class PaymentInsertInput {
   })
   public passengerId: String;
 
-  @Field(type => PaymentTransactionInsertInput, {
+  @Field(type => PaymentConditionInput, {
     description: 'The payment data.'
   })
-  public payment: PaymentTransactionInsertInput;
+  public payment: PaymentConditionInput;
 }
 
 @InputType()

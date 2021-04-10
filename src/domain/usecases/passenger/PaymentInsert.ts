@@ -7,7 +7,8 @@ import { LoggerDecorator as Logger, LoggerInterface } from '@infra/logger';
 import { PaymentInsertInput } from '@interfaces/graphql/types/input/PaymentInput';
 
 import { UseCase } from '../UseCase';
-import { modelToPaymentTransactionEntity, paymentInsertInputToEntity } from '@interfaces/mapper/PaymentTransactionMapper';
+import { modelToPaymentTransactionEntity,  paymentConditionInputToPaymentTransactionModel } from '@interfaces/mapper/PaymentTransactionMapper';
+import { inputToPaymentConditionModel } from '@interfaces/mapper/PaymentConditionMapper';
 
 @Service()
 export default class PaymentInsert implements UseCase<any, PaymentTransaction[]> {
@@ -19,13 +20,14 @@ export default class PaymentInsert implements UseCase<any, PaymentTransaction[]>
   public async execute(params: PaymentInsertInput): Promise<PaymentTransaction[]> {
     this.logger.info('Payment insert => ', params);
 
-    const payment = paymentInsertInputToEntity(params.payment);
+    const paymentCondition = inputToPaymentConditionModel(params.payment);
 
     const passenger = await this.passengerModel.findById(params.passengerId);
 
-    passenger.payments.push(payment);
+    passenger.payments.push(...paymentConditionInputToPaymentTransactionModel(params.payment));
+    passenger.paymentConditions.push(paymentCondition);
 
-    passenger.save();
+    await passenger.save();
 
     return passenger.payments.map(modelToPaymentTransactionEntity);
   }
