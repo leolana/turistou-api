@@ -5,49 +5,50 @@ import TicketPrice from './TicketPrice';
 import Transport from './Transport';
 
 export interface IExcursion extends TimestampEntity {
-  destination: String;
-  departurePoint: String;
+  id?: string;
+  destination: string;
+  departurePoint: string;
   departureDate: Date;
-  arrivalPoint: String;
+  arrivalPoint: string;
   regressDate: Date;
   stopPoints: StopPoint[];
   spots?: Spot[];
-  transportIds?: String[];
+  transportIds?: string[];
   transports: Transport[];
-  ticketPriceDefault: Number;
+  ticketPriceDefault: number;
   ticketPrices: TicketPrice[];
-  passengerIds?: String[];
+  passengerIds?: string[];
   passengers?: Passenger[];
   active?: Boolean;
-  organizationId?: String;
+  organizationId?: string;
 }
 
 export default class Excursion implements IExcursion, Entity {
-  id?: String;
-  destination: String;
-  departurePoint: String;
+  id?: string;
+  destination: string;
+  departurePoint: string;
   departureDate: Date;
-  arrivalPoint: String;
+  arrivalPoint: string;
   regressDate: Date;
   stopPoints: StopPoint[];
-  transportIds?: String[];
+  transportIds?: string[];
   transports: Transport[];
-  ticketPriceDefault: Number;
+  ticketPriceDefault: number;
   ticketPrices: TicketPrice[];
-  passengerIds?: String[];
+  passengerIds?: string[];
   passengers?: Passenger[];
   spots?: Spot[];
   active?: Boolean;
-  organizationId?: String;
+  organizationId?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 export interface ISpot {
-  number: Number;
+  number: number;
   free: Boolean;
 }
 export class Spot implements ISpot {
-  number: Number;
+  number: number;
   free: Boolean;
 }

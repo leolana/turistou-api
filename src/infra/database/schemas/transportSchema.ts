@@ -7,6 +7,7 @@ import { DbSchema, TRANSPORT_COLLECTION_NAME } from './DbSchema';
 const dataTypes = mongoose.Schema.Types;
 
 export interface ITransportModel extends ITransport, mongoose.Document {
+  id?: string;
 }
 
 const driverSchema: mongoose.Schema = new mongoose.Schema(

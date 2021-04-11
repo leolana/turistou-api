@@ -1,6 +1,7 @@
 import Entity from './Entity';
 
 export interface IStopPoint {
+  id?: string;
   stopPoint: string;
 }
 

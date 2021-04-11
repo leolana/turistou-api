@@ -3,6 +3,7 @@ import { Service } from 'typedi';
 
 import { Context } from '@Context';
 import CreateExcursion from '@domain/usecases/excursion/CreateExcursion';
+import UpdateExcursion from '@domain/usecases/excursion/UpdateExcursion';
 import ListExcursion from '@domain/usecases/excursion/ListExcursion';
 import GetExcursion from '@domain/usecases/excursion/GetExcursion';
 import InactivateExcursion from '@domain/usecases/excursion/InactivateExcursion';
@@ -17,6 +18,7 @@ export class ExcursionResolver {
   constructor(
     private listExcursionsUseCase: ListExcursion,
     private createExcursion: CreateExcursion,
+    private updateExcursion: UpdateExcursion,
     private getExcursion: GetExcursion,
     private inactivateExcursion: InactivateExcursion,
   ) {}
@@ -42,11 +44,13 @@ export class ExcursionResolver {
   @Authorized()
   @Mutation(returns => Excursion)
   public async saveExcursion(@Arg('input') input: SaveExcursionInput, @Ctx() context: Context): Promise<Excursion> {
-    const { user } = context.request as any;
+    // TODO: remove fake
+    const { user = { organizationId: '5d5821a9ffc3c7010f0c2f01' } } = context.request as any;
 
     input.organizationId = user.organizationId;
 
-    const excursion = await this.createExcursion.execute(input);
+    const saveExcursion = input.id ? this.updateExcursion : this.createExcursion;
+    const excursion = await saveExcursion.execute(input);
 
     return entityToExcursionSerializer(excursion);
   }
