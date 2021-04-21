@@ -63,10 +63,11 @@ export interface IPaymentCondition extends TimestampEntity {
   quantity?: number;
   /** Data de vencimento da primeira parcela (quando selecionado modo parcelado) */
   firstDueDate?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export default class PaymentCondition implements IPaymentCondition, Entity {
-  id: string;
   method: PaymentTypes;
   value: number;
   quantity?: number;

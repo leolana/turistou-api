@@ -1,4 +1,4 @@
-import { Field, Float, ID, ObjectType } from 'type-graphql';
+import { Field, Float, ObjectType } from 'type-graphql';
 
 import { PaymentTypes } from '@domain/entities/PaymentCondition';
 
@@ -7,8 +7,6 @@ import { PaymentTypes } from '@domain/entities/PaymentCondition';
 })
 
 export class PaymentCondition {
-  @Field(type => ID)
-  id: String;
 
   @Field(type => Float, {
     description: 'The value(money) paid.'
