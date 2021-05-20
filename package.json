@@ -47,6 +47,7 @@
     "jwks-rsa": "^1.6.0",
     "luxon": "^1.17.2",
     "microframework-w3tec": "^0.6.3",
+    "module-alias": "^2.2.2",
     "mongo-seeding": "^3.2.0",
     "mongoose": "^5.6.8",
     "mongoose-autopopulate": "^0.9.1",
@@ -134,5 +135,13 @@
       "npx tslint --project tsconfig.json --format stylish --fix",
       "git add"
     ]
+  },
+  "_moduleAliases": {
+    "@config": "dist/config.js",
+    "@App": "dist/App.js",
+    "@Context": "dist/Context.js",
+    "@infra": "dist/infra",
+    "@domain": "dist/domain",
+    "@interfaces": "dist/interfaces"
   }
 }
