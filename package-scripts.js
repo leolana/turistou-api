@@ -137,7 +137,7 @@ module.exports = {
                 script: series(
                   'nps banner.seed',
                   'nps config',
-                  `npx mongo-seeding-cli -u 'mongodb://turistouappuser:6xnol91v0s@geonosis.mongodb.umbler.com:50277/turistou' --drop-database --replace-id --db-name turistou ./src/infra/database/seeds`
+                  `npx mongo-seeding-cli -u 'mongodb+srv://root:Sxx5RuX1fV7Qn0CO@cluster0.iekiu.mongodb.net/turistou?authSource=turistou' --drop-database --replace-id --db-name turistou ./src/infra/database/seeds`
                 ),
                 description: 'Seeds generated records into the database'
             }

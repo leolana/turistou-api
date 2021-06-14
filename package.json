@@ -137,11 +137,11 @@
     ]
   },
   "_moduleAliases": {
-    "@config": "dist/config.js",
-    "@App": "dist/App.js",
-    "@Context": "dist/Context.js",
-    "@infra": "dist/infra",
-    "@domain": "dist/domain",
-    "@interfaces": "dist/interfaces"
+    "@config": "src/config.ts",
+    "@App": "src/App.ts",
+    "@Context": "src/Context.ts",
+    "@infra": "src/infra",
+    "@domain": "src/domain",
+    "@interfaces": "src/interfaces"
   }
 }
