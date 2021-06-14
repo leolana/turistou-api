@@ -77,7 +77,7 @@ module.exports = {
          * Transpile your app into javascript
          */
         transpile: {
-            script: `tsc --project ./tsconfig.build.json`,
+            script: `tsc --project ./tsconfig.build.json && tsc-alias --project ./tsconfig.build.json`,
             hiddenFromHelp: true
         },
         /**
