@@ -116,8 +116,9 @@ module.exports = {
             },
             public: {
                 script: copy(
-                    './src/public/*',
-                    './dist'
+                    './src/infra/public/*',
+                    './dist',
+                    './src/infra/public/*.ts'
                 ),
                 hiddenFromHelp: true
             },
@@ -254,8 +255,11 @@ function banner(name) {
     };
 }
 
-function copy(source, target) {
-    return `copyfiles --up 1 ${source} ${target}`;
+function copy(source, target, ignore) {
+    const command = `copyfiles --up 1 ${source} ${target}`
+    return ignore ?
+        command + ` -e "${ignore}"`
+        : command;
 }
 
 function copyDir(source, target) {
