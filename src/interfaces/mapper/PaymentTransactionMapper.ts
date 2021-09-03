@@ -51,7 +51,7 @@ export const paymentInsertInputToEntity =
 
 export const paymentConditionInputToPaymentTransactionModel =
   (input: PaymentConditionInput): IPaymentTransaction[] => {
-    const installable = [PaymentTypes.CreditCard, PaymentTypes.PaymentBankSlip];
+    const installable = [PaymentTypes.PaymentBankSlip, PaymentTypes.CreditCard];
     if (installable.some(x => x === input.paymentType)) {
       return Array(input.installmentQuantity)
         .fill({
@@ -60,15 +60,21 @@ export const paymentConditionInputToPaymentTransactionModel =
           operation: OperationPayment.Credit,
           createdAt: new Date(),
         })
-        .map<IPaymentTransaction>((p, i) => <IPaymentTransaction>({
-          ...p,
-          dueDate: DateTime.local().plus({ months: i }).toJSDate(),
-        }));
+        .map<IPaymentTransaction>((p, i) => {
+          const paymentTransaction = {
+            ...p,
+            dueDate: DateTime.local().plus({ months: i }).toJSDate(),
+          };
+          if (input.paymentType === PaymentTypes.CreditCard) {
+            paymentTransaction.payDate = paymentTransaction.dueDate;
+          }
+          return paymentTransaction;
+        });
     }
 
     return [<IPaymentTransaction>({
       dueDate: input.paymentFirstDue || new Date(),
-      payDate: null,
+      payDate: DateTime.local().toJSDate(),
       method: input.paymentType,
       operation: OperationPayment.Credit,
       value: input.value,

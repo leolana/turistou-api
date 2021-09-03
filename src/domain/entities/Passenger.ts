@@ -71,7 +71,7 @@ const calculateAmount = (payments: PaymentTransaction[]): Number => {
 
 export const calculateAmountPaid = (passenger: Passenger) => {
 
-  const automaticMethods = [PaymentTypes.CreditCard, PaymentTypes.Debit];
+  const automaticMethods = [PaymentTypes.CreditCard, PaymentTypes.Debit, PaymentTypes.BankTransfer, PaymentTypes.Money];
   const credits = calculateAmount(
     passenger.payments
       .filter(p => p.status === StatusPayment.Paid || automaticMethods.some(x => x === p.method))
