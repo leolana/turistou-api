@@ -13,7 +13,7 @@ class PassengerSpot {
   @Field({ description: 'The TransportId' })
   public transportId: string;
 
-  @Field({ description: 'The Number of Spot of the Transport' })
+  @Field({ description: 'The Number of Spot of the Transport', nullable: true })
   public number: number;
 }
 
@@ -42,6 +42,7 @@ export class Passenger {
 
   @Field({
     description: 'The spot of the Passenger.',
+    nullable: true,
   })
   public spot?: PassengerSpot;
 
