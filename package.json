@@ -47,6 +47,7 @@
     "jwks-rsa": "^1.6.0",
     "luxon": "^1.17.2",
     "microframework-w3tec": "^0.6.3",
+    "module-alias": "^2.2.2",
     "mongo-seeding": "^3.2.0",
     "mongoose": "^5.6.8",
     "mongoose-autopopulate": "^0.9.1",
@@ -111,6 +112,7 @@
     "rimraf": "^2.6.3",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
+    "tsc-alias": "^1.3.2",
     "tsconfig-paths": "^3.8.0",
     "tslint": "^5.18.0",
     "tslint-config-airbnb": "^5.11.1",
@@ -134,5 +136,13 @@
       "npx tslint --project tsconfig.json --format stylish --fix",
       "git add"
     ]
+  },
+  "_moduleAliases": {
+    "@config": "src/config.ts",
+    "@App": "src/App.ts",
+    "@Context": "src/Context.ts",
+    "@infra": "src/infra",
+    "@domain": "src/domain",
+    "@interfaces": "src/interfaces"
   }
 }

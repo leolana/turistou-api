@@ -11,7 +11,7 @@ module.exports = {
          * Starts the builded app from the dist directory.
          */
         start: {
-            script: 'cross-env NODE_ENV=production node dist/App.js',
+            script: 'cross-env NODE_ENV=test node dist/App.js',
             description: 'Starts the builded app',
         },
         /**
@@ -77,7 +77,7 @@ module.exports = {
          * Transpile your app into javascript
          */
         transpile: {
-            script: `tsc --project ./tsconfig.build.json`,
+            script: `tsc --project ./tsconfig.build.json && tsc-alias --project ./tsconfig.build.json`,
             hiddenFromHelp: true
         },
         /**
@@ -137,7 +137,7 @@ module.exports = {
                 script: series(
                   'nps banner.seed',
                   'nps config',
-                  `npx mongo-seeding-cli --drop-database --replace-id --db-name turistou ./src/infra/database/seeds`
+                  `npx mongo-seeding-cli -u 'mongodb+srv://root:Sxx5RuX1fV7Qn0CO@cluster0.iekiu.mongodb.net/turistou?authSource=turistou' --drop-database --replace-id --db-name turistou ./src/infra/database/seeds`
                 ),
                 description: 'Seeds generated records into the database'
             }

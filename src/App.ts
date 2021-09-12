@@ -1,6 +1,10 @@
 // tslint:disable-next-line
 import 'reflect-metadata';
+// tslint:disable-next-line:no-import-side-effect
+import 'module-alias/register';
+
 import { bootstrapMicroframework } from 'microframework-w3tec';
+
 import { expressLoader, homeLoader, monitorLoader } from '@infra/api';
 import { authLoader } from '@infra/auth';
 import { banner } from '@infra/console/banner';
