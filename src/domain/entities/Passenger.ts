@@ -62,11 +62,11 @@ const calculateAmount = (payments: PaymentTransaction[]): Number => {
   }
 
   return payments
-  .map(p => p.value)
-  .reduce((accumulator, currentValue) => {
-    const value = accumulator + parseFloat(currentValue as any);
-    return value;
-  },      0);
+    .map(p => p.value)
+    .reduce((accumulator, currentValue) => {
+      const value = accumulator + parseFloat(currentValue as any);
+      return value;
+    },      0);
 };
 
 export const calculateAmountPaid = (passenger: Passenger) => {
@@ -93,10 +93,10 @@ export const calculateAmountRefunded = (passenger: Passenger) => {
 };
 
 export interface IPassengerSpot {
-  number: number;
+  number?: number;
   transportId: string;
 }
 export class PassengerSpot {
-  number: number;
+  number?: number;
   transportId: string;
 }

@@ -15,9 +15,9 @@ export const inputToPassengerModel = (input: SavePassengerInput): IPassenger =>
   <Passenger>{
     excursionId: input.excursionId,
     status: input.status,
-    spot: input.spot
+    spot: input.transportId
       ? {
-        number: input.spot,
+        number: input.spot || null,
         transportId: input.transportId,
       }
       : null,
@@ -28,6 +28,7 @@ export const inputToPassengerModel = (input: SavePassengerInput): IPassenger =>
     // flat() não funcionou
     payments:
       input.paymentConditions
+        // ?.flatMap(paymentConditionInputToPaymentTransactionModel) // ???
         ?.map(paymentConditionInputToPaymentTransactionModel)
         .reduce((acc, it) => [...acc, ...it]) || [],
   };
