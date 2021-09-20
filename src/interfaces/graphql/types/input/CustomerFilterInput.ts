@@ -9,5 +9,5 @@ export class CustomerFilterInput {
   public organizationId: string;
 
   @Field({ nullable: true })
-  public query: string;
+  public query?: string;
 }

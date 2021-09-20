@@ -12,19 +12,24 @@ import {
 
 const dataTypes = mongoose.Schema.Types;
 
-export interface ICustomerModel extends ICustomer, mongoose.Document {}
+export interface ICustomerModel extends ICustomer, mongoose.Document {
+  id?: string;
+}
 
 const documentSchema: mongoose.Schema = new mongoose.Schema({
-  documentDispatcher: {
+  dispatcher: {
     type: dataTypes.String,
+    required: false,
     maxlength: 6,
   },
-  documentDispatcherState: {
+  dispatcherState: {
     type: dataTypes.String,
+    required: false,
     maxlength: 2,
   },
-  documentNumber: {
+  number: {
     type: dataTypes.String,
+    required: false,
     maxlength: 9,
   },
 });

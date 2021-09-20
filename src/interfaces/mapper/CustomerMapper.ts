@@ -3,18 +3,16 @@ import { ICustomerModel } from '@infra/database/schemas/customerSchema';
 import { Customer as CustomerResolver } from '@interfaces/graphql/types/Customer';
 import { SaveCustomerInput } from '@interfaces/graphql/types/input/SaveCustomerInput';
 import { inputToAddressModel } from './AddressMapper';
+import { inputToPersonDocumentModel } from './PersonDocumentMapper';
 
 export const inputToCustomerEntity = (input: SaveCustomerInput): ICustomer =>
   <Customer>{
+    id: input.id,
     name: input.name,
     email: input.email,
     gender: input.gender,
     cpf: input.cpf,
-    document: {
-      documentNumber: input.documentNumber,
-      documentDispatcher: input.documentDispatcher,
-      documentDispatcherState: input.documentDispatcherState,
-    },
+    document: inputToPersonDocumentModel(input.document),
     birthDate: input.birthDate,
     address: inputToAddressModel(input.address),
     cellphone: input.cellphone,
@@ -38,7 +36,7 @@ export const entityToCustomerSerializer = (customer: Customer): CustomerResolver
     document: (customer.document as any) || {},
     gender: customer.gender,
     birthDate: customer.birthDate,
-    address: customer.address || {},
+    address: (customer.address as any) || {},
     cellphone: customer.cellphone,
     telephone: customer.telephone,
     healthPlan: customer.healthPlan,
@@ -49,8 +47,8 @@ export const entityToCustomerSerializer = (customer: Customer): CustomerResolver
     howHearAbout: customer.howHearAbout,
     notes: customer.notes,
     active: customer.active,
-    // organization: customer.organization,
-    // passengers: customer.passengers,
+    createdAt: customer.createdAt,
+    updatedAt: customer.updatedAt,
   };
 
 export const modelToCustomerEntity = (customer: ICustomerModel): Customer =>
