@@ -68,6 +68,10 @@ const customerSchema: mongoose.Schema = new mongoose.Schema(
     telephone: {
       type: dataTypes.String,
     },
+    occupation: {
+      type: dataTypes.String,
+      maxlength: 30,
+    },
     healthPlan: {
       type: dataTypes.String,
       maxlength: 30,

@@ -17,6 +17,7 @@ export interface ICustomer {
   address?: IAddress;
   cellphone?: string;
   telephone?: string;
+  occupation?: string;
   healthPlan?: string;
   allergy?: string;
   contactName?: string;
@@ -42,6 +43,7 @@ export default class Customer implements ICustomer, Entity {
   address?: Address;
   cellphone?: string;
   telephone?: string;
+  occupation?: string;
   healthPlan?: string;
   allergy?: string;
   contactName?: string;

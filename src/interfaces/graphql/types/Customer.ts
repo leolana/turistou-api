@@ -66,6 +66,12 @@ export class Customer {
     description: 'The health plan of the Customer.',
     nullable: true,
   })
+  public occupation: String;
+
+  @Field({
+    description: 'The health plan of the Customer.',
+    nullable: true,
+  })
   public healthPlan: String;
 
   @Field({
