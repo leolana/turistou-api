@@ -8,6 +8,7 @@ import { inputToPersonDocumentModel } from './PersonDocumentMapper';
 export const inputToCustomerEntity = (input: SaveCustomerInput): ICustomer =>
   <Customer>{
     id: input.id,
+    organizationId: input.organizationId,
     name: input.name,
     email: input.email,
     gender: input.gender,
@@ -31,6 +32,7 @@ export const inputToCustomerEntity = (input: SaveCustomerInput): ICustomer =>
 export const entityToCustomerSerializer = (customer: Customer): CustomerResolver =>
   <CustomerResolver>{
     id: customer.id,
+    organizationId: customer.organizationId,
     name: customer.name,
     email: customer.email,
     cpf: customer.cpf,
@@ -53,9 +55,10 @@ export const entityToCustomerSerializer = (customer: Customer): CustomerResolver
     updatedAt: customer.updatedAt,
   };
 
-export const modelToCustomerEntity = (customer: ICustomerModel): Customer =>
-  <Customer>{
+export const modelToCustomerEntity = (customer?: ICustomerModel): Customer | null =>
+  customer && <Customer>{
     id: customer.id,
+    organizationId: customer.organizationId,
     name: customer.name,
     email: customer.email,
     cpf: customer.cpf,
@@ -74,7 +77,6 @@ export const modelToCustomerEntity = (customer: ICustomerModel): Customer =>
     howHearAbout: customer.howHearAbout,
     notes: customer.notes,
     active: customer.active,
-    organizationId: customer.organizationId,
     organization: customer.organization,
     passengerIds: customer.passengerIds,
     passengers: customer.passengers,

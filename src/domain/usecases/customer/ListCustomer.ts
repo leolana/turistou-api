@@ -13,12 +13,13 @@ export default class ListCustomer implements UseCase<any, Customer[]> {
   constructor(
     @DbModel<ICustomerModel>(customerSchema) private customerModel: ModelInterface<ICustomerModel>,
     @Logger(__filename) private logger: LoggerInterface
-  ) {}
+  ) { }
 
   public async execute(params: any): Promise<Customer[]> {
     this.logger.info('List all customers => ', params);
 
-    const customersModel = await this.customerModel.find();
+    const { organizationId } = params;
+    const customersModel = await this.customerModel.find({ organizationId });
 
     return customersModel.map(
       (customer: ICustomerModel) => modelToCustomerEntity(customer)

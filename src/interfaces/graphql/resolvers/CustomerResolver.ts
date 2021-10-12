@@ -36,8 +36,12 @@ export class CustomerResolver {
 
   @Authorized()
   @Query(returns => [Customer])
-  public async customers(): Promise<Customer[]> {
-    const customers = await this.listCustomersUseCase.execute({});
+  public async customers(@Ctx() context: Context): Promise<Customer[]> {
+    const {
+      user: { organizationId },
+    } = context.request as any;
+
+    const customers = await this.listCustomersUseCase.execute({ organizationId });
     return customers.map(entityToCustomerSerializer);
   }
 

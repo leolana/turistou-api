@@ -110,6 +110,11 @@ export class Customer {
   })
   public notes: String;
 
+  @Field({
+    description: 'The organization of the Customer.'
+  })
+  public organizationId: string;
+
   // @Field(type => [Organization], {
   //   description: 'The organization of the Customer.'
   // })

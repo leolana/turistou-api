@@ -22,7 +22,9 @@ export default class GetCustomer implements UseCase<any, Customer> {
     const { id, organizationId } = params;
 
     const customerModel = await this.customerModel.findOne({ organizationId, _id: id });
-
+    if (customerModel === null) {
+      throw new Error(`Cliente ${params.id} não encontrado para esta empresa`);
+    }
     return modelToCustomerEntity(customerModel);
   }
 }
