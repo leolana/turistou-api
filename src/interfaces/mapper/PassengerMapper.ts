@@ -30,7 +30,7 @@ export const inputToPassengerModel = (input: SavePassengerInput): IPassenger =>
       input.paymentConditions
         // ?.flatMap(paymentConditionInputToPaymentTransactionModel) // ???
         ?.map(paymentConditionInputToPaymentTransactionModel)
-        .reduce((acc, it) => [...acc, ...it]) || [],
+        .reduce((acc, it) => [...acc, ...it], []) || [],
   };
 
 export const entityToPassengerSerializer = (passenger: Passenger): PassengerResolver =>
