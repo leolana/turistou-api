@@ -3,7 +3,7 @@ import { Field, InputType } from 'type-graphql';
 import { Customer } from '../Customer';
 import { Gender } from '@domain/entities/Gender';
 import { Address } from '../Address';
-// import { PersonDocument } from '../PersonDocument';
+import { PersonDocument } from '../PersonDocument';
 
 @InputType()
 export class SaveAddressInput implements Partial<Address> {
@@ -30,61 +30,72 @@ export class SaveAddressInput implements Partial<Address> {
 }
 
 @InputType()
+export class SaveDocumentInput implements Partial<PersonDocument> {
+  @Field({ nullable: true })
+  public number: string;
+
+  @Field({ nullable: true })
+  public dispatcherState: string;
+
+  @Field({ nullable: true })
+  public dispatcher: string;
+}
+
+@InputType()
 export class SaveCustomerInput implements Partial<Customer> {
-  @Field()
-  public name: String;
+  @Field({ nullable: true })
+  public id: string;
 
   @Field()
-  public email: String;
+  public name: string;
+
+  @Field()
+  public email: string;
 
   @Field({ nullable: true })
   public gender: Gender;
 
   @Field({ nullable: true })
-  public cpf: String;
-
-  @Field({ nullable: true })
-  public documentNumber: String;
-  @Field({ nullable: true })
-  public documentDispatcherState: String;
-  @Field({ nullable: true })
-  public documentDispatcher: String;
+  public cpf: string;
 
   @Field({ nullable: true })
   public birthDate: Date;
 
   @Field()
+  public document: SaveDocumentInput;
+
+  @Field()
   public address: SaveAddressInput;
 
   @Field({ nullable: true })
-  public cellphone: String;
+  public cellphone: string;
 
   @Field({ nullable: true })
-  public telephone: String;
+  public telephone: string;
 
   @Field({ nullable: true })
-  public healthPlan: String;
+  public healthPlan: string;
 
   @Field({ nullable: true })
-  public allergy: String;
+  public allergy: string;
 
   @Field({ nullable: true })
-  public contactName: String;
+  public contactName: string;
 
   @Field({ nullable: true })
-  public contactPhone: String;
+  public contactPhone: string;
 
   @Field({ nullable: true })
-  public foodRestriction: String;
+  public foodRestriction: string;
 
   @Field({ nullable: true })
-  public howHearAbout: String;
+  public howHearAbout: string;
 
   @Field({ nullable: true })
-  public notes: String;
+  public notes: string;
 
   @Field({ nullable: true })
-  public occupation: String;
+  public occupation: string;
 
   // @Field()
   // public organization: Organization;
@@ -93,7 +104,7 @@ export class SaveCustomerInput implements Partial<Customer> {
   // public passengers: Passenger[];
 
   @Field({ nullable: true })
-  public organizationId?: String;
+  public organizationId?: string;
 
   @Field({ nullable: true })
   public active: Boolean;

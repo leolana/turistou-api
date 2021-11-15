@@ -6,16 +6,19 @@ import { Field, ObjectType } from 'type-graphql';
 export class PersonDocument {
   @Field({
     description: 'The number of document of the Customer.',
+    nullable: true,
   })
-  public documentNumber: String;
+  public number: String;
 
   @Field({
     description: 'The state of document of the Customer.',
+    nullable: true,
   })
-  public documentDispatcherState: String;
+  public dispatcherState: String;
 
   @Field({
     description: 'The dispatcher of document of the Customer.',
+    nullable: true,
   })
-  public documentDispatcher: String;
+  public dispatcher: String;
 }
