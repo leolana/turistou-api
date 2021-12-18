@@ -61,7 +61,7 @@ const passengerSchema: mongoose.Schema = new mongoose.Schema(
     },
     excursionId: {
       type: dataTypes.ObjectId,
-      required: true,
+      required: false,
       ref: EXCURSION_COLLECTION_NAME,
     },
     status: {
