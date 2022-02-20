@@ -26,6 +26,7 @@ export class SavePassengerInput {
 
   @Field({
     description: 'The transportId of the passenger to search.',
+    nullable: true
   })
   public transportId: String;
 
@@ -43,6 +44,7 @@ export class SavePassengerInput {
 
   @Field({
     description: 'The stopPointId of the passenger to search.',
+    nullable: true
   })
   public stopPointId: String;
 }
